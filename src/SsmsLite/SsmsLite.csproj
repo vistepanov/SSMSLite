@@ -78,6 +78,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="LICENSE-2.0.txt" />
+    <Content Include="Resources\folder.png" />
     <Content Include="Resources\Icon.png" />
     <Content Include="Resources\PasteCommand.png" />
     <Content Include="Resources\PasteCommandPackage.ico" />

@@ -58,6 +58,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Numerics" />
@@ -75,7 +76,7 @@
     <Compile Include="Database\Entities\AppVersion.cs" />
     <Compile Include="Di\ConfigurationExtensions.cs" />
     <Compile Include="Di\ServiceLocator.cs" />
-    <Compile Include="Integration\Clipboard\ClipboardText.cs" />
+    <Compile Include="Integration\Clipboard\SqlDocument.cs" />
     <Compile Include="Integration\Connection\DbConnectionProvider.cs" />
     <Compile Include="Integration\Connection\DbConnectionString.cs" />
     <Compile Include="Integration\IServiceCacheIntegration.cs" />

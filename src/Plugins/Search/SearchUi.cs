@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SsmsLite.Core.Integration;
@@ -12,11 +11,11 @@ namespace SSMSPlusSearch
     {
         public const int MenuCommandId = 1101;
 
-        private PackageProvider _packageProvider;
-        DbConnectionProvider _dbConnectionProvider;
+        private readonly PackageProvider _packageProvider;
+        private readonly DbConnectionProvider _dbConnectionProvider;
 
-        private bool isRegistred = false;
-
+        private bool _isRegistered;
+        private int _id;
 
         public SearchUi(PackageProvider packageProvider, DbConnectionProvider dbConnectionProvider)
         {
@@ -26,18 +25,16 @@ namespace SSMSPlusSearch
 
         public void Register()
         {
-            if (isRegistred)
+            if (_isRegistered)
             {
-                throw new Exception("SearchUi is already registred");
+                throw new Exception("SearchUi is already registered");
             }
 
-            isRegistred = true;
+            _isRegistered = true;
 
-            var menuItem = new MenuCommand(this.ExecuteFromMenu, new CommandID(MenuHelper.CommandSet, MenuCommandId));
-            _packageProvider.CommandService.AddCommand(menuItem);
+            MenuHelper.AddMenuCommand(_packageProvider, ExecuteFromMenu, MenuCommandId);
         }
 
-        private int id;
 
         private void ExecuteFromMenu(object sender, EventArgs e)
         {
@@ -62,7 +59,8 @@ Connect to a user database", "SSMS plus");
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var toolWindow = _packageProvider.AsyncPackage.FindToolWindow(typeof(SearchToolWindow), id++, true) as SearchToolWindow;
+            var toolWindow =
+                _packageProvider.AsyncPackage.FindToolWindow(typeof(SearchToolWindow), _id++, true) as SearchToolWindow;
             toolWindow?.Intialize(dbConnectionString);
 
             var frame = (IVsWindowFrame)toolWindow?.Frame;

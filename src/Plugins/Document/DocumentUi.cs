@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.Shell.Interop;
 using SSMSPlusDocument.UI;
 using System;
-using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
 using SsmsLite.Core.Integration;
 using SsmsLite.Core.Integration.Connection;
@@ -12,11 +11,11 @@ namespace SSMSPlusDocument
     {
         public const int MenuCommandId = 1201;
 
-        private bool isRegistred = false;
-        private int id;
+        private bool _isRegistered;
+        private int _id;
 
-        private PackageProvider _packageProvider;
-        DbConnectionProvider _dbConnectionProvider;
+        private readonly PackageProvider _packageProvider;
+        private readonly DbConnectionProvider _dbConnectionProvider;
 
         public DocumentUi(PackageProvider packageProvider, DbConnectionProvider dbConnectionProvider)
         {
@@ -26,15 +25,14 @@ namespace SSMSPlusDocument
 
         public void Register()
         {
-            if (isRegistred)
+            if (_isRegistered)
             {
-                throw new Exception("DocumentUi is already registred");
+                throw new Exception("DocumentUi is already registered");
             }
 
-            isRegistred = true;
+            _isRegistered = true;
 
-            var menuItem = new MenuCommand(this.ExecuteFromMenu, new CommandID(MenuHelper.CommandSet, MenuCommandId));
-            _packageProvider.CommandService.AddCommand(menuItem);
+            MenuHelper.AddMenuCommand(_packageProvider, ExecuteFromMenu, MenuCommandId);
         }
 
         private void ExecuteFromMenu(object sender, EventArgs e)
@@ -60,7 +58,7 @@ Connect to a user database", "SSMS plus");
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var toolWindow = _packageProvider.AsyncPackage.FindToolWindow(typeof(ExportDocumentsWindow), id++, true) as ExportDocumentsWindow;
+            var toolWindow = _packageProvider.AsyncPackage.FindToolWindow(typeof(ExportDocumentsWindow), _id++, true) as ExportDocumentsWindow;
             toolWindow?.Intialize(dbConnectionString);
             var frame = (IVsWindowFrame)toolWindow?.Frame;
             frame?.SetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, VSFRAMEMODE.VSFM_MdiChild);

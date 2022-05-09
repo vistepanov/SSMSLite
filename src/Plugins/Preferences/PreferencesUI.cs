@@ -1,6 +1,5 @@
 ﻿using SSMSPlusPreferences.UI;
 using System;
-using System.ComponentModel.Design;
 using SsmsLite.Core.Integration;
 using SsmsLite.Core.Ui.Extensions;
 
@@ -10,10 +9,10 @@ namespace SSMSPlusPreferences
     {
         public const int MenuCommandId = 2001;
 
-        private bool isRegistred = false;
+        private bool _isRegistered;
         private PreferencesWindow _window;
 
-        private PackageProvider _packageProvider;
+        private readonly PackageProvider _packageProvider;
 
         public PreferencesUI(PackageProvider packageProvider)
         {
@@ -22,15 +21,13 @@ namespace SSMSPlusPreferences
 
         public void Register()
         {
-            if (isRegistred)
+            if (_isRegistered)
             {
-                throw new Exception("PreferencesUI is already registred");
+                throw new Exception("PreferencesUI is already registered");
             }
 
-            isRegistred = true;
-
-            var menuItem = new MenuCommand(this.ExecuteFromMenu, new CommandID(MenuHelper.CommandSet, MenuCommandId));
-            _packageProvider.CommandService.AddCommand(menuItem);
+            _isRegistered = true;
+            MenuHelper.AddMenuCommand(_packageProvider, ExecuteFromMenu, MenuCommandId);
         }
 
         private void ExecuteFromMenu(object sender, EventArgs e)

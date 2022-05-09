@@ -1,6 +1,4 @@
-﻿#define INTERNAL_LOGGER
-
-using System;
+﻿using System;
 using System.ComponentModel.Design;
 using System.IO;
 using System.Reflection;
@@ -28,14 +26,6 @@ using SSMSPlusSearch;
 using ServiceProvider = Microsoft.Extensions.DependencyInjection.ServiceProvider;
 using Task = System.Threading.Tasks.Task;
 
-#if (INTERNAL_LOGGER)
-
-#else
-using Serilog;
-using Serilog.Events;
-using Serilog.Extensions.Logging;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
-#endif
 
 namespace SSMSPlus
 {
@@ -101,7 +91,7 @@ namespace SSMSPlus
             try
             {
                 var logPath = Path.Combine(new SsmsWorkingDirProvider().GetWorkingDir(), "log");
-#if (INTERNAL_LOGGER)
+
 
                 // configure logging
                 services.AddLogging(builder =>
@@ -110,31 +100,11 @@ namespace SSMSPlus
                     builder.AddFileLogger(() => new FileLoggerOptions
                     {
                         Folder = logPath,
-                        LogLevel = LogLevel.Information,
+                        LogLevel = LogLevel.Warning,
                         RetainPolicyFileCount = 30
                     });
                 });
 
-#else
-                Log.Logger = new LoggerConfiguration()
-                    //.ReadFrom.AppSettings()
-                    .MinimumLevel.Warning()
-                    //.MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                    .WriteTo.File(path: logPath, rollingInterval: RollingInterval.Day, retainedFileCountLimit: 10)
-                    .WriteTo.Debug(LogEventLevel.Warning)
-                    .CreateLogger();
-                Log.Logger.Information("SSMSP Starting");
-
-                //// create service collection
-                //service.AddSingleton<ILogger>(new SerilogLoggerProvider().CreateLogger);
-                //service.AddSingleton<ILoggerProvider, SerilogLoggerProvider>(services => new SerilogLoggerProvider(null, true));
-                //            service.AddFilter<SerilogLoggerProvider>(null, LogLevel.Trace);
-                services.AddLogging(loggingBuilder =>
-                {
-                    loggingBuilder.AddSerilog();
-                    // loggingBuilder.AddProvider(new SerilogLoggerProvider(null, false));
-                });
-#endif
             }
             catch (Exception ex)
             {

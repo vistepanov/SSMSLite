@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.Shell.Interop;
 using SSMSPlusHistory.UI;
 using System;
-using System.ComponentModel.Design;
 using SsmsLite.Core.Integration;
 
 namespace SSMSPlusHistory
@@ -11,10 +10,10 @@ namespace SSMSPlusHistory
     {
         public const int CommandId = 1001;
 
-        private PackageProvider _packageProvider;
+        private readonly PackageProvider _packageProvider;
 
         private IVsWindowFrame _window;
-        private bool isRegistred = false;
+        private bool _isRegistered;
 
         public HistoryUi(PackageProvider packageProvider)
         {
@@ -23,17 +22,14 @@ namespace SSMSPlusHistory
 
         public void Register()
         {
-            if (isRegistred)
+            if (_isRegistered)
             {
-                throw new Exception("HistoryUi is already registred");
+                throw new Exception("HistoryUi is already registered");
             }
 
-            isRegistred = true;
+            _isRegistered = true;
 
-            var menuCommandID = new CommandID(MenuHelper.CommandSet, CommandId);
-            var menuItem = new MenuCommand(this.Execute, menuCommandID);
-
-            _packageProvider.CommandService.AddCommand(menuItem);
+            MenuHelper.AddMenuCommand(_packageProvider, Execute, CommandId);
         }
 
         private void Execute(object sender, EventArgs e)

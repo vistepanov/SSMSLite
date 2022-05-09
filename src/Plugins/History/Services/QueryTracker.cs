@@ -9,6 +9,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SsmsLite.Core.Integration;
+using SsmsLite.Core.Integration.Clipboard;
 using Task = System.Threading.Tasks.Task;
 
 namespace SSMSPlusHistory.Services
@@ -65,7 +66,7 @@ namespace SSMSPlusHistory.Services
             try
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
-                var queryText = GetQueryText();
+                var queryText = SqlDocument.GetQueryText(_packageProvider);
 
                 if (string.IsNullOrWhiteSpace(queryText))
                     return;
@@ -94,35 +95,6 @@ namespace SSMSPlusHistory.Services
             {
                 _logger.LogError(ex, "Error on BeforeExecute tracking");
             }
-        }
-
-        /// <summary>
-        /// Get script text from active window
-        /// </summary>
-        /// <returns></returns>
-        private string GetQueryText()
-        {
-            try
-            {
-                ThreadHelper.ThrowIfNotOnUIThread();
-            }
-            catch
-            {
-                return null;
-            }
-
-            var document = _packageProvider.Dte2.ActiveDocument;
-            if (document == null)
-                return null;
-
-
-            var textDocument = (TextDocument)document.Object("TextDocument");
-            var queryText = textDocument.Selection.Text;
-
-            if (!string.IsNullOrEmpty(queryText)) return queryText;
-
-            var startPoint = textDocument.StartPoint.CreateEditPoint();
-            return startPoint.GetText(textDocument.EndPoint);
         }
 
         /// <summary>

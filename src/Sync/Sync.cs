@@ -2,18 +2,17 @@
 using Microsoft.Extensions.Logging;
 using SsmsLite.Core.Integration;
 using SsmsLite.Core.Integration.Clipboard;
-using SsmsLite.CsvPaste.Helpers;
 
-namespace SsmsLite.CsvPaste
+namespace SsmsLite.Sync
 {
-    public class CsvPaste
+    public class Sync
     {
-        public const int MenuCommandId = 0x0202;
+        public const int MenuCommandId = 0x0203;
         private bool _isRegistered;
         private readonly PackageProvider _packageProvider;
-        private readonly ILogger<CsvPaste> _logger;
+        private readonly ILogger<Sync> _logger;
 
-        public CsvPaste(PackageProvider packageProvider, ILogger<CsvPaste> logger)
+        public Sync(PackageProvider packageProvider, ILogger<Sync> logger)
         {
             _packageProvider = packageProvider;
             _logger = logger;
@@ -23,7 +22,7 @@ namespace SsmsLite.CsvPaste
         {
             if (_isRegistered)
             {
-                throw new Exception("CsvPaste is already registered");
+                throw new Exception("Sync is already registered");
             }
 
             _isRegistered = true;
@@ -40,18 +39,9 @@ namespace SsmsLite.CsvPaste
         /// <param name="e">Event args.</param>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            var textDocument = SqlDocument.GetTextDocument(_packageProvider);
-            textDocument.Selection.Delete();
-            var clipboardText = Clipboard.GetText();
+            var document = SqlDocument.GetTextDocument(_packageProvider);
 
-            if (string.IsNullOrWhiteSpace(clipboardText))
-                return;
-
-            var formattedText = Text.GetFormattedText(clipboardText);
-            if (string.IsNullOrWhiteSpace(formattedText))
-                return;
-
-            textDocument.Selection.Insert(formattedText);
         }
+
     }
 }

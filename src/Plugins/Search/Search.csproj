@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{306A761C-AD8F-4274-84B0-69C7B357F665}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SSMSPlusSearch</RootNamespace>
+    <AssemblyName>SSMSPlusSearch</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\assemblies\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.RegSvrEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\assemblies\Microsoft.SqlServer.RegSvrEnum.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SqlWorkbench.Interfaces">
+      <HintPath>..\assemblies\SqlWorkbench.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\IDbId.cs" />
+    <Compile Include="Entities\Persisted\DbColumn.cs" />
+    <Compile Include="Entities\Persisted\DbDefinition.cs" />
+    <Compile Include="Entities\Persisted\DbIndexColumn.cs" />
+    <Compile Include="Entities\Persisted\DbIndex.cs" />
+    <Compile Include="Entities\Persisted\DbObject.cs" />
+    <Compile Include="Entities\Search\OtherSearchTarget.cs" />
+    <Compile Include="Entities\Search\TableSearchTarget.cs" />
+    <Compile Include="Entities\Search\IndexSearchTarget.cs" />
+    <Compile Include="Entities\Search\ColumnSearchTarget.cs" />
+    <Compile Include="Entities\DbSimplifiedType.cs" />
+    <Compile Include="Entities\Search\ConstraintSearchTarget.cs" />
+    <Compile Include="Entities\Search\ObjectSearchTarget.cs" />
+    <Compile Include="Entities\DbObjectType.cs" />
+    <Compile Include="Entities\Search\ISearchTarget.cs" />
+    <Compile Include="Entities\OriginType.cs" />
+    <Compile Include="Entities\Search\SearchTargetBase.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\Formatting.cs" />
+    <Compile Include="Menu\DbContextMenu.cs" />
+    <Compile Include="Repositories\SchemaSearchRepository.cs" />
+    <Compile Include="SearchPlugin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceCollectionExtension.cs" />
+    <Compile Include="Services\DbIndexer.cs" />
+    <Compile Include="Services\Filtering\FilterResultService.cs" />
+    <Compile Include="Services\Filtering\MatchOn.cs" />
+    <Compile Include="Services\IDbIndexer.cs" />
+    <Compile Include="SearchUi.cs" />
+    <Compile Include="Services\Filtering\FilterContext.cs" />
+    <Compile Include="UI\SchemaSearchControl.xaml.cs">
+      <DependentUpon>SchemaSearchControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SearchToolWindow.cs" />
+    <Compile Include="UI\SchemaSearchControlVM.cs" />
+    <Compile Include="UI\SearchFilterResultVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Key.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SsmsLiteCore\Core.csproj">
+      <Project>{8A9A6A80-C860-4905-AEF9-167AD429B343}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="UI\SchemaSearchControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dapper.StrongName">
+      <Version>2.0.123</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+      <Version>2.2.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

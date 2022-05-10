@@ -1,11 +1,10 @@
-﻿using SsmsLite.Core.Integration.Connection;
+﻿using System;
+using System.Runtime.InteropServices;
+using Microsoft.VisualStudio.Shell;
+using SsmsLite.Core.Integration.Connection;
 
-namespace SSMSPlusDocument.UI
+namespace SsmsLite.Document.UI
 {
-    using Microsoft.VisualStudio.Shell;
-    using System;
-    using System.Runtime.InteropServices;
-
     [Guid("ebbe0b2f-22b6-4bef-b9fe-f5b695f42be1")]
     public class ExportDocumentsWindow : ToolWindowPane
     {

@@ -1,15 +1,15 @@
-﻿using SSMSPlusSearch.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using SsmsLite.Core.Database;
 using SsmsLite.Core.Integration.Connection;
 using SsmsLite.Core.Utils;
-using SSMSPlusSearch.Entities.Persisted;
-using SSMSPlusSearch.Entities.Search;
+using SsmsLite.Search.Entities;
+using SsmsLite.Search.Entities.Persisted;
+using SsmsLite.Search.Entities.Search;
 
-namespace SSMSPlusSearch.Repositories
+namespace SsmsLite.Search.Repositories
 {
     public class SchemaSearchRepository
     {

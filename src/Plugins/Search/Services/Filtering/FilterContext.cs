@@ -1,7 +1,7 @@
-﻿using SSMSPlusSearch.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using SsmsLite.Search.Entities;
 
-namespace SSMSPlusSearch.Services.Filtering
+namespace SsmsLite.Search.Services.Filtering
 {
     public class FilterContext
     {

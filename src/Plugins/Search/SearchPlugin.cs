@@ -1,8 +1,7 @@
-﻿namespace SSMSPlusSearch
-{
-    using SSMSPlusSearch.Services;
-    using System;
+﻿using System;
 
+namespace SsmsLite.Search
+{
     public class SearchPlugin
     {
 

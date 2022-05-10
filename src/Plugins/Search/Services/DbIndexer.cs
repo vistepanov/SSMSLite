@@ -1,16 +1,15 @@
-﻿using Dapper;
-using SSMSPlusSearch.Entities;
-using SSMSPlusSearch.Repositories;
-using System;
+﻿using System;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 using SsmsLite.Core.Integration.Connection;
 using SsmsLite.Core.SqlServer;
 using SsmsLite.Core.Utils;
-using SSMSPlusSearch.Entities.Persisted;
+using SsmsLite.Search.Entities.Persisted;
+using SsmsLite.Search.Repositories;
 
-namespace SSMSPlusSearch.Services
+namespace SsmsLite.Search.Services
 {
 
     public class DbIndexer : IDbIndexer

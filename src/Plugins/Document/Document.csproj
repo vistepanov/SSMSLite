@@ -7,8 +7,8 @@
     <ProjectGuid>{6258A92F-0E37-4AA7-802D-27FB1A535C63}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SSMSPlusDocument</RootNamespace>
-    <AssemblyName>SSMSPlusDocument</AssemblyName>
+    <RootNamespace>SsmsLite.Document</RootNamespace>
+    <AssemblyName>Document</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

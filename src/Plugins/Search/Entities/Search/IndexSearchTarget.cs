@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using SsmsLite.Core.Ui.Search;
-using SSMSPlusSearch.Entities.Persisted;
+using SsmsLite.Search.Entities.Persisted;
 
-namespace SSMSPlusSearch.Entities.Search
+namespace SsmsLite.Search.Entities.Search
 {
     public class IndexSearchTarget : SearchTargetBase
     {

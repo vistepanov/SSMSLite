@@ -1,7 +1,7 @@
-﻿namespace SSMSPlusHistory.Services.Filtering
-{
-    using System;
+﻿using System;
 
+namespace SsmsLite.History.Services.Filtering
+{
     public class FilterContext
     {
         public string QuerySearch { get; set; }

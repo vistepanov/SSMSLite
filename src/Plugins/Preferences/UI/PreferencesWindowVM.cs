@@ -5,7 +5,7 @@ using SsmsLite.Core.Settings;
 using SsmsLite.Core.Ui;
 using SsmsLite.Core.Ui.Commands;
 
-namespace SSMSPlusPreferences.UI
+namespace SsmsLite.Preferences.UI
 {
     public class PreferencesWindowVM : ViewModelBase
     {

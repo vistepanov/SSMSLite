@@ -1,0 +1,2 @@
+﻿https://docs.microsoft.com/ru-ru/dotnet/api/envdte?view=visualstudiosdk-2017
+https://docs.microsoft.com/ru-ru/dotnet/api/envdte80?view=visualstudiosdk-2017

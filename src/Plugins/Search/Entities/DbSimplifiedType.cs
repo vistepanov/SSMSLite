@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace SSMSPlusSearch.Entities
+namespace SsmsLite.Search.Entities
 {
     public class DbSimplifiedType
     {

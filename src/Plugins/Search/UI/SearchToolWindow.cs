@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.Shell;
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
+using Microsoft.VisualStudio.Shell;
 using SsmsLite.Core.Integration.Connection;
 
-namespace SSMSPlusSearch.UI
+namespace SsmsLite.Search.UI
 {
     [Guid("ebbe0b2f-22b6-4bef-b9fe-f5b695f42be0")]
     public class SearchToolWindow : ToolWindowPane

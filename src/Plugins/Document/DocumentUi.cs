@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.Shell.Interop;
-using SSMSPlusDocument.UI;
-using System;
+﻿using System;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using SsmsLite.Core.Integration;
 using SsmsLite.Core.Integration.Connection;
+using SsmsLite.Document.UI;
 
-namespace SSMSPlusDocument
+namespace SsmsLite.Document
 {
     public class DocumentUi
     {
@@ -46,7 +46,7 @@ namespace SSMSPlusDocument
                     System.Windows.MessageBox.Show(
 @"Please select a user database in object explorer
 Or 
-Connect to a user database", "SSMS plus");
+Connect to a user database", "SsmsLite");
                     return;
                 }
             }

@@ -1,17 +1,19 @@
-﻿<Window x:Class="SSMSPlusPreferences.UI.PreferencesWindow"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:extensions="clr-namespace:SsmsLite.Core.Ui.Extensions;assembly=SsmsLiteCore"
-             Background="{DynamicResource {x:Static SystemColors.MenuBarBrushKey}}"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="800" MaxHeight="450">
+﻿<Window x:Class="SsmsLite.Preferences.UI.PreferencesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:extensions="clr-namespace:SsmsLite.Core.Ui.Extensions;assembly=SsmsLiteCore"
+        Background="{DynamicResource {x:Static SystemColors.MenuBarBrushKey}}"
+        mc:Ignorable="d"
+        d:DesignHeight="450" d:DesignWidth="800" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="800"
+        MaxHeight="450">
     <Grid Margin="12" extensions:GridExtensions.Structure="*,*|*">
-        <Grid  extensions:GridExtensions.Structure="auto,auto,auto|*">
-            <Grid Grid.Row="0" Background="Transparent" Margin="0,0,0,12" extensions:GridExtensions.Structure="auto,auto|auto,auto,*">
-                <Label FontSize="22" Padding="0" Margin="0,0,5,0" VerticalAlignment="Center">SSMS Plus</Label>
-                <TextBlock Grid.Column="1" FontSize="12" VerticalAlignment="Center">About <LineBreak/> Preferences</TextBlock>
+        <Grid extensions:GridExtensions.Structure="auto,auto,auto|*">
+            <Grid Grid.Row="0" Background="Transparent" Margin="0,0,0,12"
+                  extensions:GridExtensions.Structure="auto,auto|auto,auto,*">
+                <Label FontSize="22" Padding="0" Margin="0,0,5,0" VerticalAlignment="Center">SsmsLite</Label>
+                <TextBlock Grid.Column="1" FontSize="12" VerticalAlignment="Center">About <LineBreak /> Preferences</TextBlock>
                 <Separator Grid.Row="1" Grid.ColumnSpan="10"></Separator>
             </Grid>
 
@@ -20,20 +22,20 @@
                     <Label>About</Label>
                 </GroupBox.Header>
                 <Grid extensions:GridExtensions.Structure="auto,auto,auto|auto,auto" Margin="8">
-                    <TextBlock  Text="Version:"  />
-                    <TextBlock  Grid.Column="1" Margin="40,0,0,10" Text="{Binding Version}"  />
+                    <TextBlock Text="Version:" />
+                    <TextBlock Grid.Column="1" Margin="40,0,0,10" Text="{Binding Version}" />
 
-                    <TextBlock Grid.Row="1" Text="Working Directory:"  />
+                    <TextBlock Grid.Row="1" Text="Working Directory:" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Margin="40,0,0,10">
-                        <Hyperlink Command="{Binding OpenWorkingDirCmd}"  >
-                           <TextBlock Text="{Binding WorkingDirPath}"></TextBlock> 
+                        <Hyperlink Command="{Binding OpenWorkingDirCmd}">
+                            <TextBlock Text="{Binding WorkingDirPath}"></TextBlock>
                         </Hyperlink>
                     </TextBlock>
 
-                    <TextBlock Grid.Row="2" Text="{Binding DistributionSettings.ContributeText}"  />
+                    <TextBlock Grid.Row="2" Text="{Binding DistributionSettings.ContributeText}" />
                     <TextBlock Grid.Row="2" Grid.Column="1" Margin="40,0,0,10">
-                        <Hyperlink Command="{Binding OpenContributeCmd}"  >
-                           <TextBlock Text="{Binding DistributionSettings.ContributeUrl}"></TextBlock> 
+                        <Hyperlink Command="{Binding OpenContributeCmd}">
+                            <TextBlock Text="{Binding DistributionSettings.ContributeUrl}"></TextBlock>
                         </Hyperlink>
                     </TextBlock>
                 </Grid>

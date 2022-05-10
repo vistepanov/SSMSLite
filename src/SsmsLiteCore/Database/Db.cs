@@ -15,7 +15,7 @@ namespace SsmsLite.Core.Database
         public Db(ILogger<Db> logger, IWorkingDirProvider workingDirProvider)
         {
             _logger = logger;
-            var fileName = Path.Combine(workingDirProvider.GetWorkingDir(), "SSMS-Plus.lite");
+            var fileName = Path.Combine(workingDirProvider.GetWorkingDir(), "SSMS.lite");
             _connectionString = $"Filename={fileName};Upgrade=true;";
             _database = GetDatabase();
         }

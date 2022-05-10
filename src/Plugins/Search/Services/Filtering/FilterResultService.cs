@@ -1,10 +1,9 @@
-﻿using SSMSPlusSearch.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SSMSPlusSearch.Entities.Search;
+using SsmsLite.Search.Entities.Search;
 
-namespace SSMSPlusSearch.Services.Filtering
+namespace SsmsLite.Search.Services.Filtering
 {
     public class FilterResultService
     {

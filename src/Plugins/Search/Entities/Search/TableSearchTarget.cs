@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using SsmsLite.Core.Ui.Search;
 using SsmsLite.Core.Utils;
-using SSMSPlusSearch.Entities.Persisted;
-using SSMSPlusSearch.Helpers;
+using SsmsLite.Search.Entities.Persisted;
+using SsmsLite.Search.Helpers;
 
-namespace SSMSPlusSearch.Entities.Search
+namespace SsmsLite.Search.Entities.Search
 {
     public class TableSearchTarget : SearchTargetBase
     {

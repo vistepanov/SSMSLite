@@ -7,7 +7,7 @@
     <ProjectGuid>{617D42C9-1407-4528-BEF8-C4E8440A3DDB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SSMSPlusHistory</RootNamespace>
+    <RootNamespace>SsmsLite.History</RootNamespace>
     <AssemblyName>SSMSPlusHistory</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -68,7 +68,6 @@
   <ItemGroup>
     <Compile Include="Entities\QueryItem.cs" />
     <Compile Include="Entities\Search\ScriptSearchTarget.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HistoryPlugin.cs" />
     <Compile Include="ServiceCollectionExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using SsmsLite.Core.Di;
 
-namespace SSMSPlusHistory.UI
+namespace SsmsLite.History.UI
 {
     /// <summary>
     /// Interaction logic for Simple.xaml

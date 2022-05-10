@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SSMSPlusSearch.Entities.Persisted
+namespace SsmsLite.Search.Entities.Persisted
 {
     public class DbObject : IDbId
     {

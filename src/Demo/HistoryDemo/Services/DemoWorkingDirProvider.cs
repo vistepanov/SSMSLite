@@ -12,7 +12,7 @@ namespace Demo.Services
         {
             if (string.IsNullOrEmpty(_cachedWorkingDir))
             {
-                _cachedWorkingDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "SSMS Plus");
+                _cachedWorkingDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "SsmsLite");
                 Directory.CreateDirectory(_cachedWorkingDir);
             }
 

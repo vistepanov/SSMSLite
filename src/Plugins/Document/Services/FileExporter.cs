@@ -7,7 +7,7 @@ using SsmsLite.Core.Integration.Connection;
 using SsmsLite.Core.Messaging;
 using SsmsLite.Core.Utils.IO;
 
-namespace SSMSPlusDocument.Services
+namespace SsmsLite.Document.Services
 {
     public static class FileExporter
     {

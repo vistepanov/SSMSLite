@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="SSMSPlus.4018b534-92e2-4cc5-abf6-f526817da0d9" Version="1.0" Language="en-US" Publisher="Adel KARZAZI" />
-        <DisplayName>SSMSPlus</DisplayName>
+        <Identity Id="SsmsLite.03ad0b68-2ea0-4d16-aa28-816208d10e0f" Version="1.0" Language="en-US" Publisher="VIST" />
+        <DisplayName>SsmsLite</DisplayName>
         <Description xml:space="preserve">Useful extensions for SSMS</Description>
     </Metadata>
     <Installation>

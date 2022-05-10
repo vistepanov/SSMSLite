@@ -4,7 +4,7 @@ namespace SsmsLite.CsvPaste
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddSsmsPlusCsvServices(this IServiceCollection services)
+        public static IServiceCollection AddCsvServices(this IServiceCollection services)
         {
             services.AddSingleton<CsvPaste>();
 

@@ -8,7 +8,7 @@ namespace SsmsLite.Core
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddSSMSPlusCoreServices(this IServiceCollection services)
+        public static IServiceCollection AddCoreServices(this IServiceCollection services)
         {
             //services.AddSingleton<DbConnectionFactory>();
             services.AddSingleton<Db>();

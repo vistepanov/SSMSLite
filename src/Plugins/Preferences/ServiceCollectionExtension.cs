@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using SSMSPlusPreferences.UI;
+using SsmsLite.Preferences.UI;
 
-namespace SSMSPlusPreferences
+namespace SsmsLite.Preferences
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddSSMSPlusPreferencesServices(this IServiceCollection services)
+        public static IServiceCollection AddPreferencesServices(this IServiceCollection services)
         {
             services.AddSingleton<PreferencesUI>();
             services.AddSingleton<PreferencesWindowVM>();

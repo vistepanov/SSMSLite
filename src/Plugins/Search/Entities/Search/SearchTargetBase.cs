@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SsmsLite.Core.Ui.Search;
 
-namespace SSMSPlusSearch.Entities.Search
+namespace SsmsLite.Search.Entities.Search
 {
     public abstract class SearchTargetBase : ISearchTarget
     {

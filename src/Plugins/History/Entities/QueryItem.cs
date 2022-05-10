@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SSMSPlusHistory.Entities
+namespace SsmsLite.History.Entities
 {
     public class QueryItem
     {

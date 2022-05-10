@@ -76,7 +76,6 @@
     <Compile Include="Database\Entities\AppVersion.cs" />
     <Compile Include="Di\ConfigurationExtensions.cs" />
     <Compile Include="Di\ServiceLocator.cs" />
-    <Compile Include="Integration\Clipboard\SqlDocument.cs" />
     <Compile Include="Integration\Connection\DbConnectionProvider.cs" />
     <Compile Include="Integration\Connection\DbConnectionString.cs" />
     <Compile Include="Integration\IServiceCacheIntegration.cs" />
@@ -208,6 +207,9 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
       <Version>1.1.39</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Integration\ref.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

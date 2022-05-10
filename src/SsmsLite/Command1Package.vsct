@@ -51,7 +51,7 @@
             <Menu guid="guidCommand1PackageCmdSet" id="MyTopMenu" priority="0x0100" type="Menu">
                 <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS" />
                 <Strings>
-                    <ButtonText>SSMS Plus</ButtonText>
+                    <ButtonText>SsmsLite</ButtonText>
                 </Strings>
             </Menu>
         </Menus>
@@ -90,7 +90,7 @@
             <Button guid="guidCommand1PackageCmdSet" id="PreferencesCmd" priority="0x0100" type="Button">
                 <Parent guid="guidCommand1PackageCmdSet" id="MyMenuGroup" />
                 <Strings>
-                    <ButtonText>About SSMSPlus</ButtonText>
+                    <ButtonText>About SsmsLite</ButtonText>
                 </Strings>
             </Button>
             <Button guid="guidCommand1PackageCmdSet" id="PasteCommandCmd" priority="0x0100" type="Button">

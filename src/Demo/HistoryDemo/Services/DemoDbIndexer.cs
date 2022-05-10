@@ -1,6 +1,6 @@
-﻿using SSMSPlusSearch.Services;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using SsmsLite.Core.Integration.Connection;
+using SsmsLite.Search.Services;
 
 namespace Demo.Services
 {

@@ -1,4 +1,4 @@
-﻿//using SSMSPlusCore.Ui.Search;
+﻿//using Ssms.Lite.Core.Ui.Search;
 //using System;
 //using System.Collections.Generic;
 //using System.Globalization;
@@ -12,7 +12,7 @@
 //using System.Windows.Media;
 //using System.Windows.Threading;
 
-//namespace SSMSPlusCore.Ui.Converters
+//namespace Ssms.Lite.Core.Ui.Converters
 //{
 //    public class HighlightToFlowDocumentConverter : IValueConverter
 //    {

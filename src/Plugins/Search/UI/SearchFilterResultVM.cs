@@ -1,9 +1,8 @@
 ﻿using SsmsLite.Core.Ui.Search;
-using SSMSPlusSearch.Entities;
-using SSMSPlusSearch.Entities.Search;
-using SSMSPlusSearch.Services.Filtering;
+using SsmsLite.Search.Entities.Search;
+using SsmsLite.Search.Services.Filtering;
 
-namespace SSMSPlusSearch.UI
+namespace SsmsLite.Search.UI
 {
     public class SearchFilterResultVM
     {

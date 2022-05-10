@@ -1,9 +1,12 @@
 ﻿using Demo.Settings;
-using SSMSPlusPreferences.UI;
 using System.Windows;
 using SsmsLite.Core.Di;
 using SsmsLite.Core.Integration.Connection;
 using SsmsLite.Core.Ui.Extensions;
+using SsmsLite.Document.UI;
+using SsmsLite.History.UI;
+using SsmsLite.Preferences.UI;
+using SsmsLite.Search.UI;
 
 namespace Demo
 {
@@ -22,18 +25,18 @@ namespace Demo
             var tested = 0;
             if (tested == 0)
             {
-                var histo = new SSMSPlusHistory.UI.HistoryControl();
+                var histo = new HistoryControl();
                 Panel.Children.Add(histo);
             }
             else if (tested == 1)
             {
-                var search = new SSMSPlusSearch.UI.SchemaSearchControl();
+                var search = new SchemaSearchControl();
                 search.Initialize(dbConnectionStr);
                 Panel.Children.Add(search);
             }
             else if (tested == 2)
             {
-                var docs = new SSMSPlusDocument.UI.ExportDocumentsControl();
+                var docs = new ExportDocumentsControl();
                 docs.Initialize(dbConnectionStr);
                 Panel.Children.Add(docs);
             }

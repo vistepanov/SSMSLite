@@ -6,11 +6,11 @@ using SsmsLite.Core.Integration;
 using SsmsLite.Core.Integration.ObjectExplorer;
 using SsmsLite.Core.Settings;
 using SsmsLite.Db;
-using SSMSPlusDocument;
-using SSMSPlusHistory;
-using SSMSPlusPreferences;
-using SSMSPlusSearch;
-using SSMSPlusSearch.Services;
+using SsmsLite.Document;
+using SsmsLite.History;
+using SsmsLite.Preferences;
+using SsmsLite.Search;
+using SsmsLite.Search.Services;
 
 namespace Demo
 {
@@ -18,12 +18,12 @@ namespace Demo
     {
         public static IServiceCollection AddInternalServices(this IServiceCollection services)
         {
-            services.AddSSMSPlusDbServices();
-            services.AddSSMSPlusCoreServices();
-            services.AddSsmsPlusHistoryServices();
-            services.AddSsmsPlusSearchServices();
-            services.AddSsmsPlusDocumentServices();
-            services.AddSSMSPlusPreferencesServices();
+            services.AddDbServices();
+            services.AddCoreServices();
+            services.AddHistoryServices();
+            services.AddSearchServices();
+            services.AddDocumentServices();
+            services.AddPreferencesServices();
 
             services.AddSingleton<IVersionProvider, DemoVersionProvider>();
             services.AddSingleton<IWorkingDirProvider, DemoWorkingDirProvider>();

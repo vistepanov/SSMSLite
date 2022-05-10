@@ -1,4 +1,4 @@
-﻿namespace SSMSPlusSearch.Helpers
+﻿namespace SsmsLite.Search.Helpers
 {
     public static class Formatting
     {

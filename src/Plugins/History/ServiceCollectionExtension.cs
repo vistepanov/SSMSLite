@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using SSMSPlusHistory.Repositories;
-using SSMSPlusHistory.Services;
-using SSMSPlusHistory.UI;
+using SsmsLite.History.Repositories;
+using SsmsLite.History.Services;
+using SsmsLite.History.UI;
 
-namespace SSMSPlusHistory
+namespace SsmsLite.History
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddSsmsPlusHistoryServices(this IServiceCollection services)
+        public static IServiceCollection AddHistoryServices(this IServiceCollection services)
         {
             services.AddSingleton<QueryTracker>();
             services.AddSingleton<QueryItemRepository>();

@@ -3,9 +3,9 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using SsmsLite.Core.Integration;
 using SsmsLite.Core.Integration.Connection;
-using SSMSPlusSearch.UI;
+using SsmsLite.Search.UI;
 
-namespace SSMSPlusSearch
+namespace SsmsLite.Search
 {
     public class SearchUi
     {
@@ -47,7 +47,7 @@ namespace SSMSPlusSearch
                     System.Windows.MessageBox.Show(
                         @"Please select a user database in object explorer
 Or 
-Connect to a user database", "SSMS plus");
+Connect to a user database", "SsmsLite");
                     return;
                 }
             }

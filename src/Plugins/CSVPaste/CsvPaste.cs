@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
 using SsmsLite.Core.Integration;
-using SsmsLite.Core.Integration.Clipboard;
 using SsmsLite.CsvPaste.Helpers;
 
 namespace SsmsLite.CsvPaste
@@ -40,8 +39,6 @@ namespace SsmsLite.CsvPaste
         /// <param name="e">Event args.</param>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            var textDocument = SqlDocument.GetTextDocument(_packageProvider);
-            textDocument.Selection.Delete();
             var clipboardText = Clipboard.GetText();
 
             if (string.IsNullOrWhiteSpace(clipboardText))
@@ -51,7 +48,12 @@ namespace SsmsLite.CsvPaste
             if (string.IsNullOrWhiteSpace(formattedText))
                 return;
 
-            textDocument.Selection.Insert(formattedText);
+            var textDocument = _packageProvider.GetTextDocument(true);
+            if (textDocument == null )
+                return;
+            textDocument.Selection.Delete();
+            // textDocument.Selection.Insert(formattedText);
+            textDocument.CreateEditPoint().Insert(formattedText);
         }
     }
 }

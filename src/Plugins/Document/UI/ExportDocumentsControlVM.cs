@@ -1,17 +1,17 @@
-﻿using Microsoft.Win32;
-using SSMSPlusDocument.Services;
-using System;
+﻿using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Win32;
 using SsmsLite.Core.Integration.Connection;
 using SsmsLite.Core.Messaging;
 using SsmsLite.Core.Ui;
 using SsmsLite.Core.Ui.Commands;
 using SsmsLite.Core.Ui.Text;
 using SsmsLite.Core.Utils;
+using SsmsLite.Document.Services;
 
-namespace SSMSPlusDocument.UI
+namespace SsmsLite.Document.UI
 {
     public class ExportDocumentsControlVm : ViewModelBase
     {

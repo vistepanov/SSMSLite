@@ -7,7 +7,7 @@ using SsmsLite.Core.Di;
 using SsmsLite.Core.Integration.Connection;
 using SsmsLite.Core.Ui;
 
-namespace SSMSPlusDocument.UI
+namespace SsmsLite.Document.UI
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml

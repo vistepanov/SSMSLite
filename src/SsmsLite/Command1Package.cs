@@ -1,16 +1,16 @@
-﻿using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using SSMSPlusDocument.UI;
-using SSMSPlusHistory.UI;
-using SSMSPlusSearch.UI;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
+using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using SsmsLite.Document.UI;
+using SsmsLite.History.UI;
+using SsmsLite.Search.UI;
 using Task = System.Threading.Tasks.Task;
 
-namespace SSMSPlus
+namespace SsmsLite
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.

@@ -1,8 +1,8 @@
-﻿using Microsoft.SqlServer.Management.UI.VSIntegration.ObjectExplorer;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using Microsoft.SqlServer.Management.UI.VSIntegration.ObjectExplorer;
 
-namespace SSMSPlusSearch.Menu
+namespace SsmsLite.Search.Menu
 {
     public class DbContextMenu : ToolsMenuItemBase, IWinformsMenuHandler
     {

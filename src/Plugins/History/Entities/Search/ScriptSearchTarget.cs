@@ -2,7 +2,7 @@
 using SsmsLite.Core.Ui.Search;
 using SsmsLite.Core.Utils;
 
-namespace SSMSPlusHistory.Entities.Search
+namespace SsmsLite.History.Entities.Search
 {
     public class ScriptSearchTarget
     {

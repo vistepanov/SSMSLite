@@ -1,8 +1,7 @@
-﻿using Microsoft.VisualStudio.Shell;
-using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+using Microsoft.VisualStudio.Shell;
 
-namespace SSMSPlusHistory.UI
+namespace SsmsLite.History.UI
 {
     [Guid("ebbe0b2f-22b6-4bef-b9fe-f5b695f42be5")]
     public class HistoryToolWindow : ToolWindowPane

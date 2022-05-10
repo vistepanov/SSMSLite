@@ -1,6 +1,6 @@
 ﻿using SsmsLite.Core.App;
 
-namespace SSMSPlus.Services
+namespace SsmsLite.Services
 {
     public class VersionProvider : IVersionProvider
     {

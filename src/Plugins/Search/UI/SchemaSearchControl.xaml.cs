@@ -7,7 +7,7 @@ using SsmsLite.Core.Di;
 using SsmsLite.Core.Integration.Connection;
 using SsmsLite.Core.Ui;
 
-namespace SSMSPlusSearch.UI
+namespace SsmsLite.Search.UI
 {
     /// <summary>
     /// Interaction logic for Simple.xaml

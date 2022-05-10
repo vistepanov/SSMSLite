@@ -1,18 +1,17 @@
-﻿using EnvDTE;
-using Microsoft.Extensions.Logging;
-using Microsoft.SqlServer.Management.UI.VSIntegration;
-using Microsoft.VisualStudio.Shell;
-using SSMSPlusHistory.Entities;
-using SSMSPlusHistory.Repositories;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EnvDTE;
+using Microsoft.Extensions.Logging;
+using Microsoft.SqlServer.Management.UI.VSIntegration;
+using Microsoft.VisualStudio.Shell;
 using SsmsLite.Core.Integration;
-using SsmsLite.Core.Integration.Clipboard;
+using SsmsLite.History.Entities;
+using SsmsLite.History.Repositories;
 using Task = System.Threading.Tasks.Task;
 
-namespace SSMSPlusHistory.Services
+namespace SsmsLite.History.Services
 {
     public class QueryTracker : IDisposable
     {
@@ -66,7 +65,7 @@ namespace SSMSPlusHistory.Services
             try
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
-                var queryText = SqlDocument.GetQueryText(_packageProvider);
+                var queryText = _packageProvider.GetQueryText();
 
                 if (string.IsNullOrWhiteSpace(queryText))
                     return;

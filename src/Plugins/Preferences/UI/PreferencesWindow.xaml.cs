@@ -4,7 +4,7 @@ using System.Windows.Automation.Peers;
 using SsmsLite.Core.Di;
 using SsmsLite.Core.Ui;
 
-namespace SSMSPlusPreferences.UI
+namespace SsmsLite.Preferences.UI
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml

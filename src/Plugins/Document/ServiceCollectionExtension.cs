@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using SSMSPlusDocument.UI;
+using SsmsLite.Document.UI;
 
-namespace SSMSPlusDocument
+namespace SsmsLite.Document
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddSsmsPlusDocumentServices(this IServiceCollection services)
+        public static IServiceCollection AddDocumentServices(this IServiceCollection services)
         {
             services.AddSingleton<DocumentUi>();
             services.AddSingleton<DocumentPlugin>();

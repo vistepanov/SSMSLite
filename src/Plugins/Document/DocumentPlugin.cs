@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace SSMSPlusDocument
+namespace SsmsLite.Document
 {
     public class DocumentPlugin
     {
-        DocumentUi _documentUi;
-        private bool isRegistred = false;
+        private readonly DocumentUi _documentUi;
+        private bool _isRegistered;
 
         public DocumentPlugin(DocumentUi documentUi)
         {
@@ -15,12 +15,12 @@ namespace SSMSPlusDocument
 
         public void Register()
         {
-            if (isRegistred)
+            if (_isRegistered)
             {
-                throw new Exception("DocumentPlugin is already registred");
+                throw new Exception("DocumentPlugin is already registered");
             }
 
-            isRegistred = true;
+            _isRegistered = true;
             _documentUi.Register();
         }
     }

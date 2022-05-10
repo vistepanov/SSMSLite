@@ -7,7 +7,7 @@
     <ProjectGuid>{306A761C-AD8F-4274-84B0-69C7B357F665}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SSMSPlusSearch</RootNamespace>
+    <RootNamespace>SsmsLite.Search</RootNamespace>
     <AssemblyName>SSMSPlusSearch</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -37,14 +37,6 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\assemblies\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.RegSvrEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\assemblies\Microsoft.SqlServer.RegSvrEnum.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="SqlWorkbench.Interfaces">
@@ -80,7 +72,6 @@
     <Compile Include="Entities\Search\ISearchTarget.cs" />
     <Compile Include="Entities\OriginType.cs" />
     <Compile Include="Entities\Search\SearchTargetBase.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\Formatting.cs" />
     <Compile Include="Menu\DbContextMenu.cs" />
     <Compile Include="Repositories\SchemaSearchRepository.cs" />

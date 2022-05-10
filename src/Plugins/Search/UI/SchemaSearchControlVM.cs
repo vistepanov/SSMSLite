@@ -1,8 +1,4 @@
-﻿using SSMSPlusSearch.Entities;
-using SSMSPlusSearch.Repositories;
-using SSMSPlusSearch.Services;
-using SSMSPlusSearch.Services.Filtering;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,9 +9,13 @@ using SsmsLite.Core.Ui;
 using SsmsLite.Core.Ui.Commands;
 using SsmsLite.Core.Ui.Controls.ComboCheckBox;
 using SsmsLite.Core.Utils;
-using SSMSPlusSearch.Entities.Search;
+using SsmsLite.Search.Entities;
+using SsmsLite.Search.Entities.Search;
+using SsmsLite.Search.Repositories;
+using SsmsLite.Search.Services;
+using SsmsLite.Search.Services.Filtering;
 
-namespace SSMSPlusSearch.UI
+namespace SsmsLite.Search.UI
 {
     public class SchemaSearchControlVm : ViewModelBase
     {

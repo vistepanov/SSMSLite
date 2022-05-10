@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using SSMSPlusSearch.Repositories;
-using SSMSPlusSearch.Services;
-using SSMSPlusSearch.UI;
+using SsmsLite.Search.Repositories;
+using SsmsLite.Search.Services;
+using SsmsLite.Search.UI;
 
-namespace SSMSPlusSearch
+namespace SsmsLite.Search
 {
     public static class ServiceCollectionExtension
     {
 
-        public static IServiceCollection AddSsmsPlusSearchServices(this IServiceCollection services)
+        public static IServiceCollection AddSearchServices(this IServiceCollection services)
         {
             services.AddSingleton<SearchPlugin>();
             services.AddSingleton<SearchUi>();

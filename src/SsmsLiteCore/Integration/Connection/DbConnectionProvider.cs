@@ -58,7 +58,7 @@ namespace SsmsLite.Core.Integration.Connection
                 Password = connection.Password,
                 UserID = connection.UserName,
                 InitialCatalog = connection.AdvancedOptions["DATABASE"],
-                ApplicationName = "SSMS Plus"
+                ApplicationName = "SsmsLite"
             };
 
             return builder.ToString();

@@ -2,7 +2,7 @@
 using System.IO;
 using SsmsLite.Core.App;
 
-namespace SSMSPlus.Services
+namespace SsmsLite.Services
 {
     public class SsmsWorkingDirProvider : IWorkingDirProvider
     {
@@ -12,7 +12,7 @@ namespace SSMSPlus.Services
         {
             if (string.IsNullOrEmpty(_cachedWorkingDir))
             {
-                _cachedWorkingDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SSMS Plus");
+                _cachedWorkingDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SsmsLite");
                 Directory.CreateDirectory(_cachedWorkingDir);
             }
 

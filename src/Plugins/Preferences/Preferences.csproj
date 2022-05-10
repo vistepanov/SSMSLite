@@ -7,7 +7,7 @@
     <ProjectGuid>{EB38BBD1-F621-4AE1-9B82-15D52DACF042}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SSMSPlusPreferences</RootNamespace>
+    <RootNamespace>SsmsLite.Preferences</RootNamespace>
     <AssemblyName>SSMSPlusPreferences</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

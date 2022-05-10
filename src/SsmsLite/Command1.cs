@@ -18,16 +18,17 @@ using SsmsLite.Core.Utils.Logging;
 using SsmsLite.CsvPaste;
 using SsmsLite.Db;
 using SsmsLite.Db.DbUpdate;
-using SSMSPlus.Services;
-using SSMSPlusDocument;
-using SSMSPlusHistory;
-using SSMSPlusPreferences;
-using SSMSPlusSearch;
+using SsmsLite.Document;
+using SsmsLite.History;
+using SsmsLite.Preferences;
+using SsmsLite.Search;
+using SsmsLite.Services;
+using SsmsLite.Sync;
 using ServiceProvider = Microsoft.Extensions.DependencyInjection.ServiceProvider;
 using Task = System.Threading.Tasks.Task;
 
 
-namespace SSMSPlus
+namespace SsmsLite
 {
     /// <summary>
     ///     Command handler
@@ -73,12 +74,13 @@ namespace SSMSPlus
                 _serviceProvider.GetRequiredService<SearchPlugin>().Register();
                 _serviceProvider.GetRequiredService<DocumentPlugin>().Register();
                 _serviceProvider.GetRequiredService<PreferencesUI>().Register();
-                _serviceProvider.GetRequiredService<CsvPaste>().Register();
+                _serviceProvider.GetRequiredService<CsvPaste.CsvPaste>().Register();
+                _serviceProvider.GetRequiredService<Sync.Sync>().Register();
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.GetFullStackTraceWithMessage(), "Could not Load SSMSPlus");
+                MessageBox.Show(ex.GetFullStackTraceWithMessage(), "Could not Load SsmsLite");
                 _serviceProvider?.GetRequiredService<ILogger<Command1>>()
                     .LogCritical(ex, "Critical Error when starting plugin");
 
@@ -130,13 +132,14 @@ namespace SSMSPlus
             services.AddSingleton<IWorkingDirProvider, SsmsWorkingDirProvider>();
             services.AddSingleton<IVersionProvider, VersionProvider>();
 
-            services.AddSsmsPlusCsvServices();
-            services.AddSSMSPlusDbServices(); // Db initialize & update
-            services.AddSSMSPlusCoreServices(); // CORE services
-            services.AddSsmsPlusHistoryServices(); // History
-            services.AddSsmsPlusSearchServices(); // Search
-            services.AddSsmsPlusDocumentServices(); // Document
-            services.AddSSMSPlusPreferencesServices(); //
+            services.AddCsvServices();
+            services.AddDbServices(); // Db initialize & update
+            services.AddCoreServices(); // CORE services
+            services.AddHistoryServices(); // History
+            services.AddSearchServices(); // Search
+            services.AddDocumentServices(); // Document
+            services.AddPreferencesServices(); //
+            services.AddSyncServices();
 
         }
 

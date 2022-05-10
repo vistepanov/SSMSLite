@@ -1,10 +1,9 @@
 ﻿using SsmsLite.Core.Ui.Search;
+using SsmsLite.History.Entities.Search;
+using SsmsLite.History.Services.Filtering;
 
-namespace SSMSPlusHistory.UI
+namespace SsmsLite.History.UI
 {
-    using SSMSPlusHistory.Entities.Search;
-    using SSMSPlusHistory.Services.Filtering;
-
     public class SearchFilterResultVM
     {
         public SearchFilterResultVM(ScriptSearchTarget searchResult, FilterContext filterContext)

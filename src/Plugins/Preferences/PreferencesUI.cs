@@ -1,9 +1,9 @@
-﻿using SSMSPlusPreferences.UI;
-using System;
+﻿using System;
 using SsmsLite.Core.Integration;
 using SsmsLite.Core.Ui.Extensions;
+using SsmsLite.Preferences.UI;
 
-namespace SSMSPlusPreferences
+namespace SsmsLite.Preferences
 {
     public class PreferencesUI
     {

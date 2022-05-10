@@ -4,7 +4,7 @@ namespace SsmsLite.Sync
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddSsmsPlusCsvServices(this IServiceCollection services)
+        public static IServiceCollection AddSyncServices(this IServiceCollection services)
         {
             services.AddSingleton<Sync>();
 

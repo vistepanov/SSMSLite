@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using SsmsLite.Core.Ui.Search;
 using SsmsLite.Core.Utils;
-using SSMSPlusSearch.Entities.Persisted;
+using SsmsLite.Search.Entities.Persisted;
 
-namespace SSMSPlusSearch.Entities.Search
+namespace SsmsLite.Search.Entities.Search
 {
     public class ConstraintSearchTarget : SearchTargetBase
     {

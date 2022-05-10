@@ -1,4 +1,4 @@
-﻿namespace SSMSPlusSearch.Services.Filtering
+﻿namespace SsmsLite.Search.Services.Filtering
 {
     public enum MatchOn
     {

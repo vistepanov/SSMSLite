@@ -1,7 +1,7 @@
 ﻿using System;
+using EnvDTE;
 using Microsoft.Extensions.Logging;
 using SsmsLite.Core.Integration;
-using SsmsLite.Core.Integration.Clipboard;
 
 namespace SsmsLite.Sync
 {
@@ -39,7 +39,21 @@ namespace SsmsLite.Sync
         /// <param name="e">Event args.</param>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            var document = SqlDocument.GetTextDocument(_packageProvider);
+            var document = _packageProvider.GetTextDocument();
+            if (document == null) return;
+            var world= LookupObject(document.Selection);
+            document.Selection.Cancel();
+        }
+
+        private string LookupObject(TextSelection point)
+        {
+            if (point.IsEmpty)
+            {
+                point.WordLeft();
+                point.WordRight(true);
+            }
+
+            return point.Text;
 
         }
 

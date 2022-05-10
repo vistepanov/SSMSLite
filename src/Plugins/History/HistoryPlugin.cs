@@ -1,7 +1,7 @@
-﻿using SSMSPlusHistory.Services;
-using System;
+﻿using System;
+using SsmsLite.History.Services;
 
-namespace SSMSPlusHistory
+namespace SsmsLite.History
 {
     public class HistoryPlugin
     {

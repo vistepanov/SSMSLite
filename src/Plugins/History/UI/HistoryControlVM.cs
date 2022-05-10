@@ -7,11 +7,11 @@ using SsmsLite.Core.Integration;
 using SsmsLite.Core.Ui;
 using SsmsLite.Core.Ui.Commands;
 using SsmsLite.Core.Utils;
-using SSMSPlusHistory.Entities.Search;
-using SSMSPlusHistory.Repositories;
-using SSMSPlusHistory.Services.Filtering;
+using SsmsLite.History.Entities.Search;
+using SsmsLite.History.Repositories;
+using SsmsLite.History.Services.Filtering;
 
-namespace SSMSPlusHistory.UI
+namespace SsmsLite.History.UI
 {
     public class HistoryControlVm : ViewModelBase
     {

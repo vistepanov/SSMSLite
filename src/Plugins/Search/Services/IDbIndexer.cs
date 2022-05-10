@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using SsmsLite.Core.Integration.Connection;
 
-namespace SSMSPlusSearch.Services
+namespace SsmsLite.Search.Services
 {
     public interface IDbIndexer
     {

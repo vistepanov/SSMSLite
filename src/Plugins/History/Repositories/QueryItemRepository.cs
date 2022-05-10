@@ -1,10 +1,10 @@
-﻿using SSMSPlusHistory.Entities;
-using SSMSPlusHistory.Services.Filtering;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using SsmsLite.Core.Database;
+using SsmsLite.History.Entities;
+using SsmsLite.History.Services.Filtering;
 
-namespace SSMSPlusHistory.Repositories
+namespace SsmsLite.History.Repositories
 {
     public class QueryItemRepository
     {

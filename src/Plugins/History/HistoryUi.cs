@@ -1,10 +1,10 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using System;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using SSMSPlusHistory.UI;
-using System;
 using SsmsLite.Core.Integration;
+using SsmsLite.History.UI;
 
-namespace SSMSPlusHistory
+namespace SsmsLite.History
 {
     public class HistoryUi
     {

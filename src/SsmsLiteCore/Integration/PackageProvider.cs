@@ -1,6 +1,9 @@
-﻿using EnvDTE;
+﻿using System;
+using System.IO;
+using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
+using SsmsLite.Core.Utils.TextProcessor;
 
 namespace SsmsLite.Core.Integration
 {
@@ -17,6 +20,8 @@ namespace SsmsLite.Core.Integration
             CommandService = commandService;
         }
 
+        public string DocumentFullName => Dte2.ActiveDocument?.FullName ?? "";
+        public TextDocument TextDocument => (TextDocument)Dte2.ActiveDocument.Object("TextDocument");
 
         private Document GetActiveDocument()
         {
@@ -28,7 +33,7 @@ namespace SsmsLite.Core.Integration
         {
             var document = GetActiveDocument();
             if (document == null || (document.ReadOnly && writeMode)) return null;
-            return (TextDocument)document?.Object("TextDocument");
+            return (TextDocument)document.Object("TextDocument");
         }
 
         /// <summary>
@@ -51,5 +56,71 @@ namespace SsmsLite.Core.Integration
         {
             return GetTextDocument().CreateEditPoint();
         }
+
+        public void SetStatus(string message, params object[] args)
+        {
+            Dte2.StatusBar.Text = string.Format(message, args);
+        }
+
+        public bool IsCurrentDocumentExtension(string extension)
+        {
+            return Path.GetExtension(DocumentFullName).Equals(
+                $".{extension}", StringComparison.CurrentCultureIgnoreCase
+            );
+        }
+
+        public string AllText
+        {
+            get
+            {
+                var point = TextDocument.StartPoint.CreateEditPoint();
+                point.StartOfDocument();
+                return point.GetText(TextDocument.EndPoint);
+            }
+        }
+
+        public Cursor Cursor
+        {
+            get
+            {
+                var point = TextDocument.Selection.TopPoint;
+                return new Cursor(point.DisplayColumn, point.Line);
+            }
+            set
+            {
+                var point = TextDocument.Selection.TopPoint.CreateEditPoint();
+                point.LineDown(value.Row);
+                point.CharRight(value.Column);
+                TextDocument.Selection.MoveToPoint(point, false);
+            }
+        }
+
+        public string CurrentLine
+        {
+            get
+            {
+                var cursor = TextDocument.Selection.ActivePoint;
+                var startPoint = cursor.CreateEditPoint();
+                var endPoint = cursor.CreateEditPoint();
+                startPoint.StartOfLine();
+                endPoint.EndOfLine();
+                return startPoint.GetText(endPoint);
+            }
+        }
+
+        public string CurrentWord
+        {
+            get
+            {
+                var cursor = TextDocument.Selection.ActivePoint;
+                var point = cursor.CreateEditPoint();
+                var rPoint = cursor.CreateEditPoint();
+                rPoint.WordRight(1);
+                point.WordLeft(1);
+                var txt = point.GetText(rPoint).Trim();
+                return txt.Contains(" ") ? point.GetText(cursor).Trim() : txt;
+            }
+        }
+
     }
 }

@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Windows;
 using EnvDTE;
 using Microsoft.Extensions.Logging;
+using SsmsLite.Core.Database;
 using SsmsLite.Core.Integration;
+using SsmsLite.Core.Integration.Connection;
+using SsmsLite.Core.Integration.ObjectExplorer;
+using SsmsLite.MsSqlDb;
 
 namespace SsmsLite.Sync
 {
@@ -11,11 +16,24 @@ namespace SsmsLite.Sync
         private bool _isRegistered;
         private readonly PackageProvider _packageProvider;
         private readonly ILogger<Sync> _logger;
+        private readonly IObjectExplorerInteraction _objectExploreInteraction;
+        // private readonly Db _db;
+        private readonly SqlDbInfo _dbInfo;
+        private readonly DbConnectionProvider _dbConnectionProvider;
 
-        public Sync(PackageProvider packageProvider, ILogger<Sync> logger)
+        public Sync(PackageProvider packageProvider
+            , ILogger<Sync> logger
+            , DbConnectionProvider dbConnectionProvider
+            , IObjectExplorerInteraction objectExploreInteraction
+            // , Db db
+            , SqlDbInfo dbInfo)
         {
             _packageProvider = packageProvider;
             _logger = logger;
+            _objectExploreInteraction = objectExploreInteraction;
+            // _db = db ?? throw new ArgumentException(nameof(db));
+            _dbInfo = dbInfo;
+            _dbConnectionProvider = dbConnectionProvider;
         }
 
         public void Register()
@@ -37,11 +55,20 @@ namespace SsmsLite.Sync
         /// </summary>
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event args.</param>
-        private void MenuItemCallback(object sender, EventArgs e)
+        private async void MenuItemCallback(object sender, EventArgs e)
         {
             var document = _packageProvider.GetTextDocument();
             if (document == null) return;
-            var world= LookupObject(document.Selection);
+            var world = _packageProvider.CurrentWord;
+            //var world= LookupObject(document.Selection);
+            var dbConnectionString = _dbConnectionProvider.GetFromActiveConnection();
+            var dbObject = await _dbInfo.GetObjectByName(dbConnectionString, world);
+
+// так, тут разобраться с с itemPath или сделать свой селектНод
+            await _objectExploreInteraction.SelectNodeAsync(dbConnectionString.Server, dbConnectionString.Database, new []{ dbObject?.SchemaName, dbObject?.Name});
+
+            MessageBox.Show(world);
+
             document.Selection.Cancel();
         }
 
@@ -53,9 +80,8 @@ namespace SsmsLite.Sync
                 point.WordRight(true);
             }
 
+
             return point.Text;
-
         }
-
     }
 }

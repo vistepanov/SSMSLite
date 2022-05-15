@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using SsmsLite.Core.Database.Entities;
+using SsmsLite.Core.Database.Entities.Persisted;
 using SsmsLite.Core.Ui.Search;
 using SsmsLite.Core.Utils;
-using SsmsLite.Search.Entities.Persisted;
 
 namespace SsmsLite.Search.Entities.Search
 {

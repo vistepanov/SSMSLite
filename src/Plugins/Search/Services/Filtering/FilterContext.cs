@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SsmsLite.Search.Entities;
+using SsmsLite.Core.Database.Entities;
 
 namespace SsmsLite.Search.Services.Filtering
 {

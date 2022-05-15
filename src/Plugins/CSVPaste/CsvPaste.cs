@@ -51,9 +51,9 @@ namespace SsmsLite.CsvPaste
             var textDocument = _packageProvider.GetTextDocument(true);
             if (textDocument == null )
                 return;
-            textDocument.Selection.Delete();
-            // textDocument.Selection.Insert(formattedText);
-            textDocument.CreateEditPoint().Insert(formattedText);
+            // textDocument.Selection.Delete();
+            // пробовал через CreateEditPoint - вставка идёт в начало документа.
+            textDocument.Selection.Insert(formattedText);
         }
     }
 }

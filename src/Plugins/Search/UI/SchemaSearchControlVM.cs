@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using SsmsLite.Core.Database.Entities;
 using SsmsLite.Core.Integration.Connection;
 using SsmsLite.Core.Integration.ObjectExplorer;
 using SsmsLite.Core.Ui;
 using SsmsLite.Core.Ui.Commands;
 using SsmsLite.Core.Ui.Controls.ComboCheckBox;
 using SsmsLite.Core.Utils;
-using SsmsLite.Search.Entities;
 using SsmsLite.Search.Entities.Search;
 using SsmsLite.Search.Repositories;
 using SsmsLite.Search.Services;
@@ -67,8 +67,7 @@ namespace SsmsLite.Search.UI
                 return;
             }
 
-            await _objectExploreInteraction.SelectNodeAsync(_dbConnectionString.Server, _dbConnectionString.Database,
-                itemPath);
+            await _objectExploreInteraction.SelectNodeAsync(_dbConnectionString.Server, _dbConnectionString.Database, itemPath);
         }
 
         private void OnCopyItemName(SearchFilterResultVM item)
@@ -179,10 +178,17 @@ namespace SsmsLite.Search.UI
 
                 await Task.Run(() =>
                 {
-                    var filter = new FilterContext(Filter, ComboMatchVM.GetSelectedValues(),
-                        ComboObjectsVM.GetSelectedValues(), SchemaObjectsVM.GetSelectedValues());
-                    SearchResultsVM = FilterResultService.Filter(_allDdResults, filter)
-                        .Select(p => new SearchFilterResultVM(p, filter)).ToList();
+                    var filter = new FilterContext(
+                        Filter
+                        , ComboMatchVM.GetSelectedValues()
+                        , ComboObjectsVM.GetSelectedValues()
+                        , SchemaObjectsVM.GetSelectedValues()
+                    );
+                    SearchResultsVM = FilterResultService
+                        .Filter(_allDdResults, filter)
+                        .Select(p => new SearchFilterResultVM(p, filter))
+                        .Take(100)
+                        .ToList();
                 }).ConfigureAwait(false);
 
                 Message = $"{SearchResultsVM.Count} Result(s) in {sw.ElapsedMilliseconds} ms";

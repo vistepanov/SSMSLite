@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using SsmsLite.Core.App;
 using SsmsLite.Core.Database.Entities;
 using SsmsLite.History.Entities;
-using SsmsLite.Search.Entities.Persisted;
+using SsmsLite.Core.Database.Entities.Persisted;
 
 namespace SsmsLite.Db.DbUpdate
 {

@@ -74,6 +74,23 @@
     <Compile Include="App\IWorkingDirProvider.cs" />
     <Compile Include="Database\Db.cs" />
     <Compile Include="Database\Entities\AppVersion.cs" />
+    <Compile Include="Database\Entities\DbObjectType.cs" />
+    <Compile Include="Database\Entities\DbSimplifiedType.cs" />
+    <Compile Include="Database\Entities\OriginType.cs" />
+    <Compile Include="Database\Entities\Persisted\DbColumn.cs" />
+    <Compile Include="Database\Entities\Persisted\DbDefinition.cs" />
+    <Compile Include="Database\Entities\Persisted\DbIndex.cs" />
+    <Compile Include="Database\Entities\Persisted\DbIndexColumn.cs" />
+    <Compile Include="Database\Entities\Persisted\DbObject.cs" />
+    <Compile Include="Database\Entities\Search\ColumnSearchTarget.cs" />
+    <Compile Include="Database\Entities\Search\ConstraintSearchTarget.cs" />
+    <Compile Include="Database\Entities\Search\IndexSearchTarget.cs" />
+    <Compile Include="Database\Entities\Search\ISearchTarget.cs" />
+    <Compile Include="Database\Entities\Search\ObjectSearchTarget.cs" />
+    <Compile Include="Database\Entities\Search\OtherSearchTarget.cs" />
+    <Compile Include="Database\Entities\Search\SearchTargetBase.cs" />
+    <Compile Include="Database\Entities\Search\TableSearchTarget.cs" />
+    <Compile Include="Database\IDbId.cs" />
     <Compile Include="Di\ConfigurationExtensions.cs" />
     <Compile Include="Di\ServiceLocator.cs" />
     <Compile Include="Integration\Connection\DbConnectionProvider.cs" />
@@ -129,6 +146,7 @@
     <Compile Include="Ui\Utils\XamlHelper.cs" />
     <Compile Include="Ui\ViewModelBase.cs" />
     <Compile Include="Utils\ArrayExtensions.cs" />
+    <Compile Include="Utils\Formatting.cs" />
     <Compile Include="Utils\FuncHelper.cs" />
     <Compile Include="Utils\AsyncLock.cs" />
     <Compile Include="Utils\ExceptionExtensions.cs" />
@@ -142,6 +160,10 @@
     <Compile Include="Utils\Logging\LoggerProvider.cs" />
     <Compile Include="Utils\SafeTask.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
+    <Compile Include="Utils\TextProcessor\Actions\BaseCursorAction.cs" />
+    <Compile Include="Utils\TextProcessor\Actions\BaseLeftCusorAction.cs" />
+    <Compile Include="Utils\TextProcessor\Cursor.cs" />
+    <Compile Include="Utils\TextProcessor\TextDocumentHelper.cs" />
     <Compile Include="Utils\Validation\IValidatable.cs" />
   </ItemGroup>
   <ItemGroup>

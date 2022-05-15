@@ -1,4 +1,4 @@
-﻿namespace SsmsLite.Search.Entities
+﻿namespace SsmsLite.Core.Database.Entities
 {
     public enum OriginType
     {

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace SsmsLite.Search.Entities
+namespace SsmsLite.Core.Database.Entities
 {
     public class DbObjectType
     {

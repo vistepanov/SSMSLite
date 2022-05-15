@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using SsmsLite.Core.Database.Entities;
 using SsmsLite.Core.Ui.Search;
 
-namespace SsmsLite.Search.Entities.Search
+namespace SsmsLite.Core.Database.Entities.Search
 {
     public abstract class SearchTargetBase : ISearchTarget
     {

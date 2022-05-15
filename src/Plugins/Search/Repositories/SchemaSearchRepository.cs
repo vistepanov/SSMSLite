@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using SsmsLite.Core.Database;
+using SsmsLite.Core.Database.Entities;
+using SsmsLite.Core.Database.Entities.Persisted;
 using SsmsLite.Core.Integration.Connection;
 using SsmsLite.Core.Utils;
-using SsmsLite.Search.Entities;
-using SsmsLite.Search.Entities.Persisted;
+
 using SsmsLite.Search.Entities.Search;
 
 namespace SsmsLite.Search.Repositories

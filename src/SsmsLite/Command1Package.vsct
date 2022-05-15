@@ -134,6 +134,7 @@
         https://docs.microsoft.com/en-us/visualstudio/extensibility/keybinding-element
         https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
         -->
+        <!--VK_OEM_COMMA	0xBC	For any country/region, the ',' key-->
         <KeyBinding guid="guidCommand1PackageCmdSet" id="SchemaSearchCmd" editor="guidVSStd97" key1="0xBC"
                     mod1="Control Alt" />
         <KeyBinding guid="guidCommand1PackageCmdSet" id="ExecutionHistoryCmd" editor="guidVSStd97" key1="h"
@@ -142,10 +143,11 @@
                     mod1="Control Alt" />
 
         <KeyBinding guid="guidCommand1PackageCmdSet" id="PasteCommandCmd" editor="guidVSStd97" key1="v"
-                    mod1="Control Shift" />
+                    mod1="Alt" />
 
-        <KeyBinding guid="guidCommand1PackageCmdSet" id="FindCommandCmd" editor="guidVSStd97" key1="VK_F12"
-                    mod1="" /><!--VK_F12=""	0x7B=""	F12="" key="" -->
+        <!--VK_F12	0x7B	F12 key-->
+        <KeyBinding guid="guidCommand1PackageCmdSet" id="FindCommandCmd" editor="guidVSStd97" key1="0x7B"
+                    mod1="Shift" />
 
     </KeyBindings>
 

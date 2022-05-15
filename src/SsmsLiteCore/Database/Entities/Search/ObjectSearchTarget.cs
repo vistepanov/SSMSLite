@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using SsmsLite.Core.Database.Entities;
-using SsmsLite.Core.Database.Entities.Persisted;
 using SsmsLite.Core.Ui.Search;
 using SsmsLite.Core.Utils;
 
-
-namespace SsmsLite.Search.Entities.Search
+namespace SsmsLite.Core.Database.Entities.Search
 {
     public class ObjectSearchTarget : SearchTargetBase
     {
-        public ObjectSearchTarget(DbObject dbObject)
+        public ObjectSearchTarget(Persisted.DbObject dbObject)
         {
             DbObject = dbObject;
         }
 
-        public DbObject DbObject { get; }
+        public Persisted.DbObject DbObject { get; }
 
         public override string UniqueIdentifier => Guid.NewGuid().ToString();
 

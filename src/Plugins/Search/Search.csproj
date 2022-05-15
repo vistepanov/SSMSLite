@@ -55,22 +55,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\IDbId.cs" />
-    <Compile Include="Entities\Persisted\DbColumn.cs" />
-    <Compile Include="Entities\Persisted\DbDefinition.cs" />
-    <Compile Include="Entities\Persisted\DbIndexColumn.cs" />
-    <Compile Include="Entities\Persisted\DbIndex.cs" />
-    <Compile Include="Entities\Persisted\DbObject.cs" />
     <Compile Include="Entities\Search\OtherSearchTarget.cs" />
     <Compile Include="Entities\Search\TableSearchTarget.cs" />
     <Compile Include="Entities\Search\IndexSearchTarget.cs" />
     <Compile Include="Entities\Search\ColumnSearchTarget.cs" />
-    <Compile Include="Entities\DbSimplifiedType.cs" />
     <Compile Include="Entities\Search\ConstraintSearchTarget.cs" />
     <Compile Include="Entities\Search\ObjectSearchTarget.cs" />
-    <Compile Include="Entities\DbObjectType.cs" />
     <Compile Include="Entities\Search\ISearchTarget.cs" />
-    <Compile Include="Entities\OriginType.cs" />
     <Compile Include="Entities\Search\SearchTargetBase.cs" />
     <Compile Include="Helpers\Formatting.cs" />
     <Compile Include="Menu\DbContextMenu.cs" />
@@ -96,6 +87,10 @@
     <None Include="Key.snk" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\MsSqlDb\MsSqlDb.csproj">
+      <Project>{1a30814b-5f08-4094-a398-5fb4a455bd59}</Project>
+      <Name>MsSqlDb</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SsmsLiteCore\Core.csproj">
       <Project>{8A9A6A80-C860-4905-AEF9-167AD429B343}</Project>
       <Name>Core</Name>
@@ -115,5 +110,6 @@
       <Version>2.2.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

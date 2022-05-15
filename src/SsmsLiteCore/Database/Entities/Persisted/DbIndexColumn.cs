@@ -1,4 +1,4 @@
-﻿namespace SsmsLite.Search.Entities.Persisted
+﻿namespace SsmsLite.Core.Database.Entities.Persisted
 {
     public class DbIndexColumn : IDbId
     {

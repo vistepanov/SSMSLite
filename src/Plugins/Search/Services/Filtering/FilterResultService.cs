@@ -7,7 +7,8 @@ namespace SsmsLite.Search.Services.Filtering
 {
     public class FilterResultService
     {
-        private static Dictionary<MatchOn, Func<ISearchTarget, string, bool>> matchPredicates = new Dictionary<MatchOn, Func<ISearchTarget, string, bool>>();
+        private static Dictionary<MatchOn, Func<ISearchTarget, string, bool>> matchPredicates 
+            = new Dictionary<MatchOn, Func<ISearchTarget, string, bool>>();
 
         static FilterResultService()
         {

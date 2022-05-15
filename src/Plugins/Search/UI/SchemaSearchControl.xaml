@@ -154,8 +154,7 @@
                                       extensions:FlowDocumentScrollViewerDocumentHighlightBehavior.HighlightContext="{Binding SelectedItem.FullPreviewHighlight}">
 
                 <FlowDocumentScrollViewer.Resources>
-                    <ResourceDictionary
-                        Source="pack://application:,,,/SsmsLiteCore;component/Ui/Design/SqlFlowDocument.xaml" />
+                    <ResourceDictionary Source="pack://application:,,,/SsmsLiteCore;component/Ui/Design/SqlFlowDocument.xaml" />
                 </FlowDocumentScrollViewer.Resources>
             </FlowDocumentScrollViewer>
 

@@ -2,8 +2,8 @@
 using System.Reflection;
 using Microsoft.Extensions.Logging;
 using SsmsLite.Core.App;
+using SsmsLite.Core.Database;
 using SsmsLite.Core.Database.Entities;
-using SsmsLite.History.Entities;
 using SsmsLite.Core.Database.Entities.Persisted;
 
 namespace SsmsLite.Db.DbUpdate
@@ -13,13 +13,13 @@ namespace SsmsLite.Db.DbUpdate
         private readonly IVersionProvider _versionProvider;
         private readonly Assembly _resourcesAssembly;
         private readonly ILogger<DbUpdater> _logger;
-        private readonly Core.Database.Db _db;
+        private readonly ILocalDatabase _db;
 
 
         public DbUpdater(
             ILogger<DbUpdater> logger
             , IVersionProvider versionProvider
-            , Core.Database.Db db
+            , ILocalDatabase db
         )
         {
             _logger = logger;
@@ -30,20 +30,20 @@ namespace SsmsLite.Db.DbUpdate
 
         public void UpdateDb()
         {
-            _db.GetCollection<QueryItem>().EnsureIndex(o => o.ExecutionDateUtc);
-            _db.GetCollection<QueryItem>().EnsureIndex(o => o.Database);
-            _db.GetCollection<QueryItem>().EnsureIndex(o => o.Server);
+            _db.CreateIndex<QueryItem, DateTime>(o => o.ExecutionDateUtc);
+            _db.CreateIndex<QueryItem, string>(o => o.Database);
+            _db.CreateIndex<QueryItem, string>(o => o.Server);
 
-            _db.GetCollection<AppVersion>().EnsureIndex(o => o.BuildNumber);
+            _db.CreateIndex<AppVersion, int>(o => o.BuildNumber);
 
-            _db.GetCollection<DbDefinition>().EnsureIndex(o => o.DbName);
-            _db.GetCollection<DbDefinition>().EnsureIndex(o => o.Server);
-            _db.GetCollection<DbDefinition>().EnsureIndex(o => o.DbId);
+            _db.CreateIndex<DbDefinition, string>(o => o.DbName);
+            _db.CreateIndex<DbDefinition, string>(o => o.Server);
+            _db.CreateIndex<DbDefinition, int>(o => o.DbId);
 
-            _db.GetCollection<DbObject>().EnsureIndex(o => o.DbId);
-            _db.GetCollection<DbColumn>().EnsureIndex(o => o.DbId);
-            _db.GetCollection<DbIndex>().EnsureIndex(o => o.DbId);
-            _db.GetCollection<DbIndexColumn>().EnsureIndex(o => o.DbId);
+            _db.CreateIndex<DbObject, int>(o => o.DbId);
+            _db.CreateIndex<DbColumn, int>(o => o.DbId);
+            _db.CreateIndex<DbIndex, int>(o => o.DbId);
+            _db.CreateIndex<DbIndexColumn, int>(o => o.DbId);
         }
 
     }

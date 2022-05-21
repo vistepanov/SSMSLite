@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\Db.cs" />
     <Compile Include="DbUpdate\DbUpdater.cs" />
     <Compile Include="DbUpdate\Entities\BuildVersionScript.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

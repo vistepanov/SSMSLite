@@ -73,7 +73,6 @@
     <Compile Include="App\Filtering\FilterContext.cs" />
     <Compile Include="App\IVersionProvider.cs" />
     <Compile Include="App\IWorkingDirProvider.cs" />
-    <Compile Include="Database\Db.cs" />
     <Compile Include="Database\dbObjectExt.cs" />
     <Compile Include="Database\Entities\AppVersion.cs" />
     <Compile Include="Database\Entities\DbObjectType.cs" />
@@ -86,6 +85,7 @@
     <Compile Include="Database\Entities\Persisted\DbObject.cs" />
     <Compile Include="Database\Entities\QueryItem.cs" />
     <Compile Include="Database\IDbId.cs" />
+    <Compile Include="Database\ILocalDatabase.cs" />
     <Compile Include="Di\ConfigurationExtensions.cs" />
     <Compile Include="Di\ServiceLocator.cs" />
     <Compile Include="Integration\Connection\DbConnectionProvider.cs" />
@@ -206,9 +206,6 @@
     </PackageReference>
     <PackageReference Include="envdte80">
       <Version>16.10.31320.204</Version>
-    </PackageReference>
-    <PackageReference Include="LiteDB">
-      <Version>5.0.11</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
       <Version>2.2.0</Version>

@@ -8,9 +8,9 @@ namespace SsmsLite.History.Repositories
 {
     public class QueryItemRepository
     {
-        private readonly Db _db;
+        private readonly ILocalDatabase _db;
 
-        public QueryItemRepository(Db db)
+        public QueryItemRepository(ILocalDatabase db)
         {
             _db = db ?? throw new ArgumentException(nameof(db));
         }

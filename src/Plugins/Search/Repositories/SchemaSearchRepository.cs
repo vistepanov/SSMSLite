@@ -14,10 +14,10 @@ namespace SsmsLite.Search.Repositories
 {
     public class SchemaSearchRepository
     {
-        private readonly Db _db;
+        private readonly ILocalDatabase _db;
         private readonly ILogger<SchemaSearchRepository> _logger;
 
-        public SchemaSearchRepository(ILogger<SchemaSearchRepository> logger, Db db)
+        public SchemaSearchRepository(ILogger<SchemaSearchRepository> logger, ILocalDatabase db)
         {
             _logger = logger;
             _db = db ?? throw new ArgumentException(nameof(db));
@@ -25,25 +25,14 @@ namespace SsmsLite.Search.Repositories
 
         public void DropDb(int dbid) => _db.DropDb(dbid);
 
-        public int DbExists(DbConnectionString dbConnectionString)
-        {
-            return _db.GetCollection<DbDefinition>()
-                .Query()
-                .Where(p => p.DbName.Equals(dbConnectionString.Database)
-                            && p.Server.Equals(dbConnectionString.Server))
-                .FirstOrDefault()?
-                .DbId ?? 0;
-        }
+        public int DbExists(DbConnectionString dbConnectionString) => _db.DbExists(dbConnectionString);
 
         public int InsertDb(DbDefinition dbDefinition, DbObject[] dbObjects, DbColumn[] columns,
             DbIndex[] indices, DbIndexColumn[] indicesColumns)
         {
             return _db.Command((db) =>
             {
-                var dbDef = db.GetCollection<DbDefinition>();
-                var dbId = 1;
-                if (dbDef.Count() > 0)
-                    dbId = dbDef.Max(t => t.DbId) + 1;
+                var dbId = db.GetNextDbId();
 
                 dbDefinition.DbId = dbId;
                 dbObjects.ForEach(p => p.DbId = dbId);
@@ -51,11 +40,11 @@ namespace SsmsLite.Search.Repositories
                 indices.ForEach(p => p.DbId = dbId);
                 indicesColumns.ForEach(p => p.DbId = dbId);
 
-                dbDef.Insert(dbDefinition);
-                db.GetCollection<DbObject>().InsertBulk(dbObjects);
-                db.GetCollection<DbColumn>().InsertBulk(columns);
-                db.GetCollection<DbIndex>().InsertBulk(indices);
-                db.GetCollection<DbIndexColumn>().InsertBulk(indicesColumns);
+                db.Insert( dbDefinition );
+                db.InsertBulk(dbObjects);
+                db.InsertBulk(columns);
+                db.InsertBulk(indices);
+                db.InsertBulk(indicesColumns);
 
                 return dbId;
             });
@@ -63,10 +52,10 @@ namespace SsmsLite.Search.Repositories
 
         public ISearchTarget[] GetObjectsByDb(int dbid)
         {
-            var dbObjects = FindByDbId<DbObject>(dbid);
-            var dbColumns = FindByDbId<DbColumn>(dbid);
-            var dbIndices = FindByDbId<DbIndex>(dbid);
-            var dbIndicesColumns = FindByDbId<DbIndexColumn>(dbid);
+            var dbObjects = _db.FindByDbId<DbObject>(dbid);
+            var dbColumns = _db.FindByDbId<DbColumn>(dbid);
+            var dbIndices = _db.FindByDbId<DbIndex>(dbid);
+            var dbIndicesColumns = _db.FindByDbId<DbIndexColumn>(dbid);
 
             var dbObjectById = dbObjects.ToDictionary(p => p.ObjectId);
             MapDbObjectParents(dbObjectById);
@@ -144,13 +133,6 @@ namespace SsmsLite.Search.Repositories
             {
                 index.Parent = dbObjectById[index.OwnerId];
             }
-        }
-
-        private T[] FindByDbId<T>(int dbId) where T : IDbId
-        {
-            var collection = _db.GetCollection<T>();
-            collection.EnsureIndex(t => t.DbId);
-            return collection.Query().Where(t => t.DbId == dbId).ToArray();
         }
     }
 }

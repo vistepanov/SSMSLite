@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq.Expressions;
 using LiteDB;
 using Microsoft.Extensions.Logging;
 using SsmsLite.Core.App;
 using SsmsLite.Core.App.Filtering;
+using SsmsLite.Core.Database;
 using SsmsLite.Core.Database.Entities;
+using SsmsLite.Core.Database.Entities.Persisted;
+using SsmsLite.Core.Integration.Connection;
 
-namespace SsmsLite.Core.Database
+namespace SsmsLite.Db.App
 {
-    public class Db : IDisposable
+    public class Db : ILocalDatabase, IDisposable
     {
         private readonly string _connectionString;
         private readonly LiteDatabase _database;
@@ -23,14 +27,15 @@ namespace SsmsLite.Core.Database
             _database = GetDatabase();
         }
 
-        public LiteDatabase GetDatabase()
+        private LiteDatabase GetDatabase()
         {
             return new LiteDatabase(_connectionString);
         }
 
-        public T Command<T>(Func<Db, T> command, int timeout = 120) => Command(command, null, null, timeout);
+        public T Command<T>(Func<ILocalDatabase, T> command, int timeout = 120) =>
+            Command(command, null, null, timeout);
 
-        public T Command<T>(Func<Db, T> command, Func<T> onOk, Func<Exception, T> onErr, int timeout = 120)
+        public T Command<T>(Func<ILocalDatabase, T> command, Func<T> onOk, Func<Exception, T> onErr, int timeout = 120)
         {
             _database.Timeout = TimeSpan.FromSeconds(timeout);
             _database.BeginTrans();
@@ -89,7 +94,8 @@ namespace SsmsLite.Core.Database
         public QueryItem[] FindItems(FilterContext filterContext)
         {
             var query = _database.GetCollection<QueryItem>()
-                .Query().Where(t => t.ExecutionDateUtc >= filterContext.FromUtc && t.ExecutionDateUtc <= filterContext.ToUtc);
+                .Query().Where(t =>
+                    t.ExecutionDateUtc >= filterContext.FromUtc && t.ExecutionDateUtc <= filterContext.ToUtc);
 
             if (!string.IsNullOrEmpty(filterContext.QuerySearch))
                 query = query.Where(t => t.Query.Contains(filterContext.QuerySearch));
@@ -105,5 +111,38 @@ namespace SsmsLite.Core.Database
                 .ToArray();
         }
 
+        public int DbExists(DbConnectionString dbConnectionString)
+        {
+            return _database.GetCollection<DbDefinition>()
+                .Query()
+                .Where(p => p.DbName.Equals(dbConnectionString.Database)
+                            && p.Server.Equals(dbConnectionString.Server))
+                .FirstOrDefault()?
+                .DbId ?? 0;
+        }
+
+        public int GetNextDbId()
+        {
+            var dbDef = _database.GetCollection<DbDefinition>();
+            if (dbDef.Count() == 0) return 1;
+            return dbDef.Max(t => t.DbId) + 1;
+        }
+
+        public void Insert<T>(T val)
+        {
+            _database.GetCollection<T>().Insert(val);
+        }
+
+        public T[] FindByDbId<T>(int dbId) where T : IDbId
+        {
+            var collection = _database.GetCollection<T>();
+            collection.EnsureIndex(t => t.DbId);
+            return collection.Query().Where(t => t.DbId == dbId).ToArray();
+        }
+
+        public void CreateIndex<T, TK>(Expression<Func<T, TK>> keySelector)
+        {
+            _database.GetCollection<T>().EnsureIndex( keySelector );
+        }
     }
 }

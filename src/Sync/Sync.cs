@@ -16,7 +16,9 @@ namespace SsmsLite.Sync
         private bool _isRegistered;
         private readonly PackageProvider _packageProvider;
         private readonly ILogger<Sync> _logger;
+
         private readonly IObjectExplorerInteraction _objectExploreInteraction;
+
         // private readonly Db _db;
         private readonly SqlDbInfo _dbInfo;
         private readonly DbConnectionProvider _dbConnectionProvider;
@@ -60,14 +62,22 @@ namespace SsmsLite.Sync
             var document = _packageProvider.GetTextDocument();
             if (document == null) return;
             var world = _packageProvider.CurrentWord;
-            //var world= LookupObject(document.Selection);
-            var dbConnectionString = _dbConnectionProvider.GetFromActiveConnection();
-            var dbObject = await _dbInfo.GetObjectByName(dbConnectionString, world);
 
+            try
+            {
+                var dbConnectionString = _dbConnectionProvider.GetFromActiveConnection();
+                if (dbConnectionString == null) return;
+                var dbObject = await _dbInfo.GetObjectByName(dbConnectionString, world);
+                var path = dbObject?.DbRelativePath();
+                if (path == null) return;
 // так, тут разобраться с с itemPath или сделать свой селектНод
-            await _objectExploreInteraction.SelectNodeAsync(dbConnectionString.Server, dbConnectionString.Database, new []{ dbObject?.SchemaName, dbObject?.Name});
-
-            MessageBox.Show(world);
+                await _objectExploreInteraction.SelectNodeAsync(dbConnectionString.Server, dbConnectionString.Database,
+                    path);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Cannot find {world}, {ex.Message}");
+            }
 
             document.Selection.Cancel();
         }

@@ -7,8 +7,8 @@ using SsmsLite.Core.Database.Entities;
 using SsmsLite.Core.Database.Entities.Persisted;
 using SsmsLite.Core.Integration.Connection;
 using SsmsLite.Core.Utils;
+using SsmsLite.Search.Repositories.Search;
 
-using SsmsLite.Search.Entities.Search;
 
 namespace SsmsLite.Search.Repositories
 {
@@ -23,31 +23,16 @@ namespace SsmsLite.Search.Repositories
             _db = db ?? throw new ArgumentException(nameof(db));
         }
 
-        public void DropDb(int dbid)
-        {
-            _db.Command((db) =>
-            {
-                db.GetCollection<DbIndexColumn>()
-                    .DeleteMany(p => p.DbId == dbid);
-                db.GetCollection<DbIndex>()
-                    .DeleteMany(p => p.DbId == dbid);
-                db.GetCollection<DbColumn>()
-                    .DeleteMany(p => p.DbId == dbid);
-                db.GetCollection<DbObject>()
-                    .DeleteMany(p => p.DbId == dbid);
-                db.GetCollection<DbDefinition>()
-                    .Delete(dbid);
-                return 0;
-            });
-        }
+        public void DropDb(int dbid) => _db.DropDb(dbid);
 
         public int DbExists(DbConnectionString dbConnectionString)
         {
-            return _db.GetCollection<DbDefinition>().Query()
+            return _db.GetCollection<DbDefinition>()
+                .Query()
                 .Where(p => p.DbName.Equals(dbConnectionString.Database)
-                                    && p.Server.Equals(dbConnectionString.Server))
+                            && p.Server.Equals(dbConnectionString.Server))
                 .FirstOrDefault()?
-                .DbId??0;
+                .DbId ?? 0;
         }
 
         public int InsertDb(DbDefinition dbDefinition, DbObject[] dbObjects, DbColumn[] columns,
@@ -57,8 +42,8 @@ namespace SsmsLite.Search.Repositories
             {
                 var dbDef = db.GetCollection<DbDefinition>();
                 var dbId = 1;
-                if (dbDef.Count()>0) 
-                    dbId = dbDef.Max(t=> t.DbId) + 1;
+                if (dbDef.Count() > 0)
+                    dbId = dbDef.Max(t => t.DbId) + 1;
 
                 dbDefinition.DbId = dbId;
                 dbObjects.ForEach(p => p.DbId = dbId);

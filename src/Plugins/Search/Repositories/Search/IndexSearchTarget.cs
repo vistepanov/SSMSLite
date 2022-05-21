@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SsmsLite.Core.Database.Entities;
 using SsmsLite.Core.Ui.Search;
 
-namespace SsmsLite.Core.Database.Entities.Search
+namespace SsmsLite.Search.Repositories.Search
 {
     public class IndexSearchTarget : SearchTargetBase
     {
-        public IndexSearchTarget(Persisted.DbIndex dbIndex)
+        public IndexSearchTarget(Core.Database.Entities.Persisted.DbIndex dbIndex)
         {
             DbIndex = dbIndex;
         }
 
-        public Persisted.DbIndex DbIndex { get; }
+        public Core.Database.Entities.Persisted.DbIndex DbIndex { get; }
 
         public override string UniqueIdentifier => Guid.NewGuid().ToString();
 

@@ -2,12 +2,9 @@
 
 namespace SsmsLite.Core.Utils.TextProcessor.Actions
 {
-    public abstract class BaseLeftCusorAction : BaseCursorAction
+    public abstract class BaseLeftCursorAction
     {
-        public BaseLeftCusorAction(PackageProvider addIn) : base(addIn)
-        {
-        }
-
+        private PackageProvider AddIn;
         protected void CursorLeft(bool applySelection)
         {
             var textDocument = AddIn.TextDocument;
@@ -25,23 +22,35 @@ namespace SsmsLite.Core.Utils.TextProcessor.Actions
             var position = leftOfCursor.Length - 1;
             while (position > 0)
             {
-                if (IsSpace(leftOfCursor, position) && position != leftOfCursor.Length - 1)
+                if (
+                    (IsSpace(leftOfCursor, position) && position != leftOfCursor.Length - 1) || 
+                    (IsCapital(leftOfCursor, position) && !IsCapital(leftOfCursor, position - 1))
+                    )
                 {
                     textDocument.Selection.CharLeft(applySelection, leftOfCursor.Length - position);
                     return;
                 }
-
-                if (IsCapital(leftOfCursor, position) && !IsCapital(leftOfCursor, position - 1))
-                {
-                    textDocument.Selection.CharLeft(applySelection, leftOfCursor.Length - position);
-
-                    return;
-                }
-
                 position--;
             }
 
             textDocument.Selection.CharLeft(applySelection, leftOfCursor.Length);
         }
+
+        protected static bool IsCapital(string line, int position)
+        {
+            if (position < 0)
+                return true;
+
+            return line[position] >= 'A' && line[position] <= 'Z';
+        }
+
+        protected static bool IsSpace(string rightOfCursor, int position)
+        {
+            if (position > rightOfCursor.Length)
+                return false;
+
+            return rightOfCursor[position] == ' ';
+        }
+
     }
 }

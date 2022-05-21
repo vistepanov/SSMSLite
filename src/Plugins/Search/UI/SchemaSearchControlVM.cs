@@ -10,8 +10,8 @@ using SsmsLite.Core.Ui;
 using SsmsLite.Core.Ui.Commands;
 using SsmsLite.Core.Ui.Controls.ComboCheckBox;
 using SsmsLite.Core.Utils;
-using SsmsLite.Search.Entities.Search;
 using SsmsLite.Search.Repositories;
+using SsmsLite.Search.Repositories.Search;
 using SsmsLite.Search.Services;
 using SsmsLite.Search.Services.Filtering;
 

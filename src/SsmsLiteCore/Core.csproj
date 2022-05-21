@@ -70,9 +70,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\Filtering\FilterContext.cs" />
     <Compile Include="App\IVersionProvider.cs" />
     <Compile Include="App\IWorkingDirProvider.cs" />
     <Compile Include="Database\Db.cs" />
+    <Compile Include="Database\dbObjectExt.cs" />
     <Compile Include="Database\Entities\AppVersion.cs" />
     <Compile Include="Database\Entities\DbObjectType.cs" />
     <Compile Include="Database\Entities\DbSimplifiedType.cs" />
@@ -82,19 +84,13 @@
     <Compile Include="Database\Entities\Persisted\DbIndex.cs" />
     <Compile Include="Database\Entities\Persisted\DbIndexColumn.cs" />
     <Compile Include="Database\Entities\Persisted\DbObject.cs" />
-    <Compile Include="Database\Entities\Search\ColumnSearchTarget.cs" />
-    <Compile Include="Database\Entities\Search\ConstraintSearchTarget.cs" />
-    <Compile Include="Database\Entities\Search\IndexSearchTarget.cs" />
-    <Compile Include="Database\Entities\Search\ISearchTarget.cs" />
-    <Compile Include="Database\Entities\Search\ObjectSearchTarget.cs" />
-    <Compile Include="Database\Entities\Search\OtherSearchTarget.cs" />
-    <Compile Include="Database\Entities\Search\SearchTargetBase.cs" />
-    <Compile Include="Database\Entities\Search\TableSearchTarget.cs" />
+    <Compile Include="Database\Entities\QueryItem.cs" />
     <Compile Include="Database\IDbId.cs" />
     <Compile Include="Di\ConfigurationExtensions.cs" />
     <Compile Include="Di\ServiceLocator.cs" />
     <Compile Include="Integration\Connection\DbConnectionProvider.cs" />
     <Compile Include="Integration\Connection\DbConnectionString.cs" />
+    <Compile Include="Database\Entities\DbToken.cs" />
     <Compile Include="Integration\IServiceCacheIntegration.cs" />
     <Compile Include="Integration\MenuHelper.cs" />
     <Compile Include="Integration\ObjectExplorer\IObjectExplorerInteraction.cs" />
@@ -103,6 +99,7 @@
     <Compile Include="Integration\ObjectExplorer\ObjectExplorerServer.cs" />
     <Compile Include="Integration\PackageProvider.cs" />
     <Compile Include="Integration\ServiceCacheIntegration.cs" />
+    <Compile Include="Integration\TextDocumentEx\Tokenizer.cs" />
     <Compile Include="Messaging\ReportMessage.cs" />
     <Compile Include="Messaging\ReportMessageLevel.cs" />
     <Compile Include="ServiceCollectionExtension.cs" />
@@ -160,8 +157,7 @@
     <Compile Include="Utils\Logging\LoggerProvider.cs" />
     <Compile Include="Utils\SafeTask.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
-    <Compile Include="Utils\TextProcessor\Actions\BaseCursorAction.cs" />
-    <Compile Include="Utils\TextProcessor\Actions\BaseLeftCusorAction.cs" />
+    <Compile Include="Utils\TextProcessor\Actions\BaseLeftCursorAction.cs" />
     <Compile Include="Utils\TextProcessor\Cursor.cs" />
     <Compile Include="Utils\TextProcessor\TextDocumentHelper.cs" />
     <Compile Include="Utils\Validation\IValidatable.cs" />

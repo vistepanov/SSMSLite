@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using SsmsLite.Core.Database.Entities;
-using SsmsLite.Core.Database.Entities.Persisted;
 using SsmsLite.Core.Ui.Search;
 using SsmsLite.Core.Utils;
 
-namespace SsmsLite.Search.Entities.Search
+namespace SsmsLite.Search.Repositories.Search
 {
-    public class ConstraintSearchTarget : SearchTargetBase
+    public class OtherSearchTarget : SearchTargetBase
     {
-        public ConstraintSearchTarget(DbObject dbObject)
+        public OtherSearchTarget(Core.Database.Entities.Persisted.DbObject dbObject)
         {
             DbObject = dbObject;
         }
 
-        public DbObject DbObject { get; }
+        public Core.Database.Entities.Persisted.DbObject DbObject { get; }
 
         public override string UniqueIdentifier => Guid.NewGuid().ToString();
 
         public override string Type => DbObject.Type;
+
+        public override string DisplayType => TypeCategory.Name + " (" + DbObject.Type + ")";
 
         public override string SchemaName => DbObject.SchemaName;
 
@@ -35,7 +36,9 @@ namespace SsmsLite.Search.Entities.Search
             get
             {
                 var smallDef = DbObject.Definition?.Trim().Truncate(300).RemoveLineReturns();
-                return new TextFragments(TextFragment.Primary(smallDef));
+                var frags = new TextFragments();
+                frags.AddPrimary(smallDef);
+                return frags;
             }
         }
 
@@ -43,16 +46,24 @@ namespace SsmsLite.Search.Entities.Search
         {
             get
             {
-                return new TextFragments(TextFragment.Primary(DbObject.Definition));
+                var frags = new TextFragments();
+                frags.AddPrimary(DbObject.Definition);
+                return frags;
             }
         }
-
         public override IReadOnlyCollection<string> DbRealtivePath()
         {
-            var isCheckOrDefault = this.SqlObjectType == DbObjectType.CHECK_CONSTRAINT || this.SqlObjectType == DbObjectType.DEFAULT_CONSTRAINT;
-            var folder = isCheckOrDefault ? "Constraints" : "Keys";
-            var parent = DbObject.Parent;
-            return new List<string>() { "UserTables", $"{parent.SchemaName}.{parent.Name}", folder, Name };
+            if (SqlObjectType == DbObjectType.SYNONYM)
+            {
+                return SynonymPath();
+            }
+
+            return base.DbRealtivePath();
+        }
+
+        public IReadOnlyCollection<string> SynonymPath()
+        {
+            return new List<string>() { "Synonyms", $"{SchemaName}.{Name}" };
         }
     }
 }

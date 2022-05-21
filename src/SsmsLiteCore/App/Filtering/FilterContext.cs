@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SsmsLite.History.Services.Filtering
+namespace SsmsLite.Core.App.Filtering
 {
     public class FilterContext
     {

@@ -4,7 +4,7 @@ namespace SsmsLite.MsSqlDb
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddDbServices(this IServiceCollection services)
+        public static IServiceCollection AddSqlDbServices(this IServiceCollection services)
         {
             services.AddSingleton<SqlDbInfo>();
 

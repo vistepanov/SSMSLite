@@ -12,6 +12,7 @@ namespace SsmsLite.MsSqlDb
         public async Task<DbObject[]> GetAllObjectsAsync(DbConnectionString dbConnectionString)
         {
             #region SQL
+
             const string dbObjectsQuery = @"
 WITH DefinitionInfo (object_id, definition)  
 AS
@@ -33,7 +34,6 @@ LEFT JOIN DefinitionInfo ON DefinitionInfo.object_id = o.object_id
 LEFT JOIN sys.objects AS Parent ON Parent.object_id = o.parent_object_id and Parent.is_ms_shipped = 0
 WHERE o.is_ms_shipped = 0 AND NOT (o.parent_object_id > 0 AND Parent.object_id IS NULL)";
            
-
             #endregion
             using (var connection = new SqlConnection(dbConnectionString.ConnectionString))
             {
@@ -53,7 +53,6 @@ FROM sys.syscolumns AS c
 WHERE o.type = 'U' and o.is_ms_shipped = 0
 ORDER BY c.id, c.colid";
 
-
             #endregion
             using (var connection = new SqlConnection(dbConnectionString.ConnectionString))
             {
@@ -70,7 +69,6 @@ FROM sys.indexes i
   INNER JOIN sys.objects t ON t.object_id = i.object_id
 WHERE t.is_ms_shipped = 0 AND index_id > 0
 ORDER BY t.object_id, i.index_id";
-
 
             #endregion
             using (var connection = new SqlConnection(dbConnectionString.ConnectionString))
@@ -98,7 +96,6 @@ WHERE
 	t.is_ms_shipped = 0 
 ORDER BY 
     ind.object_id, ind.index_id, ic.index_column_id;";
-
 
             #endregion
             using (var connection = new SqlConnection(dbConnectionString.ConnectionString))
@@ -135,8 +132,6 @@ FROM sys.objects AS o
 WHERE o.is_ms_shipped = 0
   AND NOT (o.parent_object_id > 0 AND Parent.object_id IS NULL)
   AND o.name=@Name";
-
-            
 
             #endregion
             using (var connection = new SqlConnection(dbConnectionString.ConnectionString))

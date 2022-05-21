@@ -118,6 +118,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MsSqlDb\MsSqlDb.csproj">
+      <Project>{1A30814B-5F08-4094-A398-5FB4A455BD59}</Project>
+      <Name>MsSqlDb</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Plugins\CsvPaste\CsvPaste.csproj">
       <Project>{6FF8B4D2-A87C-42A4-B066-88221163AD04}</Project>
       <Name>CsvPaste</Name>

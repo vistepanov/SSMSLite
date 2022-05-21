@@ -6,8 +6,8 @@ using EnvDTE;
 using Microsoft.Extensions.Logging;
 using Microsoft.SqlServer.Management.UI.VSIntegration;
 using Microsoft.VisualStudio.Shell;
+using SsmsLite.Core.Database.Entities;
 using SsmsLite.Core.Integration;
-using SsmsLite.History.Entities;
 using SsmsLite.History.Repositories;
 using Task = System.Threading.Tasks.Task;
 

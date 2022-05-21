@@ -1,6 +1,6 @@
-﻿using SsmsLite.Core.Ui.Search;
+﻿using SsmsLite.Core.App.Filtering;
+using SsmsLite.Core.Ui.Search;
 using SsmsLite.History.Entities.Search;
-using SsmsLite.History.Services.Filtering;
 
 namespace SsmsLite.History.UI
 {

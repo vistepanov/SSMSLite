@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SsmsLite.Core.App;
+using SsmsLite.Core.App.Filtering;
 using SsmsLite.Core.Integration;
 using SsmsLite.Core.Ui;
 using SsmsLite.Core.Ui.Commands;
 using SsmsLite.Core.Utils;
 using SsmsLite.History.Entities.Search;
 using SsmsLite.History.Repositories;
-using SsmsLite.History.Services.Filtering;
+
 
 namespace SsmsLite.History.UI
 {

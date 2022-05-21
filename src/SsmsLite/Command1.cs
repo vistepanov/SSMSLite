@@ -20,6 +20,7 @@ using SsmsLite.Db;
 using SsmsLite.Db.DbUpdate;
 using SsmsLite.Document;
 using SsmsLite.History;
+using SsmsLite.MsSqlDb;
 using SsmsLite.Preferences;
 using SsmsLite.Search;
 using SsmsLite.Services;
@@ -133,7 +134,8 @@ namespace SsmsLite
             services.AddSingleton<IVersionProvider, VersionProvider>();
 
             services.AddCsvServices();
-            services.AddDbServices(); // Db initialize & update
+            services.AddDbServices(); // Internal Db initialize & update
+            services.AddSqlDbServices(); // MS SQL Queries
             services.AddCoreServices(); // CORE services
             services.AddHistoryServices(); // History
             services.AddSearchServices(); // Search

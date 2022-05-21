@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SsmsLite.Search.Entities.Search;
+using SsmsLite.Search.Repositories.Search;
 
 namespace SsmsLite.Search.Services.Filtering
 {
     public class FilterResultService
     {
-        private static Dictionary<MatchOn, Func<ISearchTarget, string, bool>> matchPredicates 
+        private static Dictionary<MatchOn, Func<ISearchTarget, string, bool>> matchPredicates
             = new Dictionary<MatchOn, Func<ISearchTarget, string, bool>>();
 
         static FilterResultService()
@@ -37,6 +37,7 @@ namespace SsmsLite.Search.Services.Filtering
         private static Func<ISearchTarget, string, bool> BuildMatchOnPredicate(HashSet<MatchOn> matchOns)
         {
             var predicates = matchOns.Select(p => matchPredicates[p]).ToArray();
+
             bool predicate(ISearchTarget r, string str)
             {
                 bool orResult = false;
@@ -44,8 +45,10 @@ namespace SsmsLite.Search.Services.Filtering
                 {
                     orResult = predic(r, str) || orResult;
                 }
+
                 return orResult;
             }
+
             return predicate;
         }
     }

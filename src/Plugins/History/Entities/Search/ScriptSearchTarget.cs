@@ -1,4 +1,5 @@
 ﻿using System;
+using SsmsLite.Core.Database.Entities;
 using SsmsLite.Core.Ui.Search;
 using SsmsLite.Core.Utils;
 

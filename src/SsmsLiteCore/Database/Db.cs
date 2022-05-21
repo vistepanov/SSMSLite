@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using LiteDB;
 using Microsoft.Extensions.Logging;
 using SsmsLite.Core.App;
+using SsmsLite.Core.App.Filtering;
+using SsmsLite.Core.Database.Entities;
 
 namespace SsmsLite.Core.Database
 {
@@ -57,12 +60,50 @@ namespace SsmsLite.Core.Database
 
         public void Execute(string sql)
         {
-            return;
+            _database.Execute(sql);
         }
 
         public void Dispose()
         {
             _database?.Dispose();
         }
+
+        public void DropDb(int dbid)
+        {
+            Command((db) =>
+            {
+                _database.Execute($"DELETE DbIndexColumn WHERE $.DbId={dbid};");
+                _database.Execute($"DELETE DbIndex WHERE $.DbId={dbid};");
+                _database.Execute($"DELETE DbColumn WHERE $.DbId={dbid};");
+                _database.Execute($"DELETE DbObject WHERE $.DbId={dbid};");
+                _database.Execute($"DELETE DbDefinition WHERE $.DbId={dbid};");
+                return 0;
+            });
+        }
+
+        public int InsertBulk<T>(IEnumerable<T> val)
+        {
+            return _database.GetCollection<T>().InsertBulk(val);
+        }
+
+        public QueryItem[] FindItems(FilterContext filterContext)
+        {
+            var query = _database.GetCollection<QueryItem>()
+                .Query().Where(t => t.ExecutionDateUtc >= filterContext.FromUtc && t.ExecutionDateUtc <= filterContext.ToUtc);
+
+            if (!string.IsNullOrEmpty(filterContext.QuerySearch))
+                query = query.Where(t => t.Query.Contains(filterContext.QuerySearch));
+
+            if (!string.IsNullOrEmpty(filterContext.DbSearch))
+                query = query.Where(t => t.Database.Contains(filterContext.DbSearch));
+
+            if (!string.IsNullOrEmpty(filterContext.ServerSearch))
+                query = query.Where(t => t.Server.Contains(filterContext.ServerSearch));
+
+            return query.OrderByDescending(t => t.Id)
+                .Limit(1000)
+                .ToArray();
+        }
+
     }
 }

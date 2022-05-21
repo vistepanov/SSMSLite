@@ -3,7 +3,7 @@ using System.IO;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
-using SsmsLite.Core.Utils.TextProcessor;
+using SsmsLite.Core.Database.Entities;
 
 namespace SsmsLite.Core.Integration
 {
@@ -21,17 +21,22 @@ namespace SsmsLite.Core.Integration
         }
 
         public string DocumentFullName => Dte2.ActiveDocument?.FullName ?? "";
-        public TextDocument TextDocument => (TextDocument)Dte2.ActiveDocument.Object("TextDocument");
+        public TextDocument TextDocument => GetTextDocument();
 
-        private Document GetActiveDocument()
+        public bool CanExecute()
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            return Dte2.ActiveDocument;
+            return IsCurrentDocumentExtension("sql")
+                   && AllText.Length > 0;
+        }
+        public void SetStatus(string message, params object[] args)
+        {
+            Dte2.StatusBar.Text = string.Format(message, args);
         }
 
         public TextDocument GetTextDocument(bool writeMode = false)
         {
-            var document = GetActiveDocument();
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var document = Dte2.ActiveDocument;
             if (document == null || (document.ReadOnly && writeMode)) return null;
             return (TextDocument)document.Object("TextDocument");
         }
@@ -57,10 +62,6 @@ namespace SsmsLite.Core.Integration
             return GetTextDocument().CreateEditPoint();
         }
 
-        public void SetStatus(string message, params object[] args)
-        {
-            Dte2.StatusBar.Text = string.Format(message, args);
-        }
 
         public bool IsCurrentDocumentExtension(string extension)
         {
@@ -76,22 +77,6 @@ namespace SsmsLite.Core.Integration
                 var point = TextDocument.StartPoint.CreateEditPoint();
                 point.StartOfDocument();
                 return point.GetText(TextDocument.EndPoint);
-            }
-        }
-
-        public Cursor Cursor
-        {
-            get
-            {
-                var point = TextDocument.Selection.TopPoint;
-                return new Cursor(point.DisplayColumn, point.Line);
-            }
-            set
-            {
-                var point = TextDocument.Selection.TopPoint.CreateEditPoint();
-                point.LineDown(value.Row);
-                point.CharRight(value.Column);
-                TextDocument.Selection.MoveToPoint(point, false);
             }
         }
 
@@ -118,9 +103,40 @@ namespace SsmsLite.Core.Integration
                 rPoint.WordRight(1);
                 point.WordLeft(1);
                 var txt = point.GetText(rPoint).Trim();
+                //do
+                //{
+                point.CharLeft(1);
+                var t2 = point.GetText(rPoint);
+                //    _lim.Contains(t2[0]);
+                //} while()
+
                 return txt.Contains(" ") ? point.GetText(cursor).Trim() : txt;
             }
         }
 
+        public DbToken FindCurrentObj()
+        {
+            string text;
+            string server = "";
+            string database = "";
+            string schema = "dbo";
+            string obj;
+            var cursor = TextDocument.Selection.ActivePoint;
+            var point = cursor.CreateEditPoint();
+            point.WordLeft(1);
+            text = point.GetText(cursor).Trim();
+
+            var rPoint = cursor.CreateEditPoint();
+            rPoint.WordRight(1);
+            var txt = point.GetText(rPoint).Trim(); // тут мы почти всегда получим имя 
+
+            point.CharLeft(1);
+            var t2 = point.GetText(rPoint);
+            //    _lim.Contains(t2[0]);
+            //} while()
+
+            obj = txt.Contains(" ") ? point.GetText(cursor).Trim() : txt;
+            return new DbToken(obj, schema);
+        }
     }
 }

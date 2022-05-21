@@ -1,5 +1,5 @@
 ﻿using SsmsLite.Core.Ui.Search;
-using SsmsLite.Search.Entities.Search;
+using SsmsLite.Search.Repositories.Search;
 using SsmsLite.Search.Services.Filtering;
 
 namespace SsmsLite.Search.UI

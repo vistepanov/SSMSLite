@@ -79,7 +79,7 @@ namespace SsmsLite.Core.Integration
                 return point.GetText(TextDocument.EndPoint);
             }
         }
-
+/*
         public string CurrentLine
         {
             get
@@ -92,7 +92,7 @@ namespace SsmsLite.Core.Integration
                 return startPoint.GetText(endPoint);
             }
         }
-
+*/
         public string CurrentWord
         {
             get
@@ -113,7 +113,7 @@ namespace SsmsLite.Core.Integration
                 return txt.Contains(" ") ? point.GetText(cursor).Trim() : txt;
             }
         }
-
+/*
         public DbToken FindCurrentObj()
         {
             string text;
@@ -138,5 +138,6 @@ namespace SsmsLite.Core.Integration
             obj = txt.Contains(" ") ? point.GetText(cursor).Trim() : txt;
             return new DbToken(obj, schema);
         }
+*/
     }
 }

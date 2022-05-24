@@ -6,7 +6,7 @@ namespace SsmsLite.Core.Ui.Controls.DropMenu
     /// <summary>
     /// Interaction logic for DropMenuHeader.xaml
     /// </summary>
-    public partial class DropMenuHeader : UserControl
+    public partial class DropMenuHeader
     {
         public static readonly DependencyProperty ItemNameProperty =
              DependencyProperty.Register(

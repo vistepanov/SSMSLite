@@ -24,7 +24,7 @@ namespace SsmsLite.History.UI
         public IAsyncCommand ViewLoadedCommand { get; private set; }
         public Command<SearchFilterResultVM> OpenScriptCmd { get; }
 
-        private bool _loadedOnce = false;
+        private bool _loadedOnce;
 
         public HistoryControlVm(QueryItemRepository itemsRepository, IVersionProvider versionProvider,
             IServiceCacheIntegration serviceCacheIntegration)

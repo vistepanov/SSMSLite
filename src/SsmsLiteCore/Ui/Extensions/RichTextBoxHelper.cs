@@ -57,6 +57,7 @@ namespace SsmsLite.Core.Ui.Extensions
             void OnMessage(object sender, Run run)
             {
                 var para = GetOrCreateParagraph(target);
+                if (para == null) return;
                 para.Inlines.Add(XamlHelper.XamlClone(run));
                 target.ScrollToEnd();
             }
@@ -76,12 +77,10 @@ namespace SsmsLite.Core.Ui.Extensions
 
         private static Paragraph GetOrCreateParagraph(RichTextBox target)
         {
-            var para = target?.Document?.Blocks?.FirstBlock as Paragraph;
-            if (para == null)
-            {
-                para = new Paragraph();
-                target.Document = new FlowDocument(para);
-            }
+            if (target==null) return null;
+            if (target.Document?.Blocks.FirstBlock is Paragraph para) return para;
+            para = new Paragraph();
+            target.Document = new FlowDocument(para);
             return para;
         }
 

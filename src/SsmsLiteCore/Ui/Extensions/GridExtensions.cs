@@ -17,39 +17,38 @@ namespace SsmsLite.Core.Ui.Extensions
         }
 
         public static readonly DependencyProperty StructureProperty =
-            DependencyProperty.RegisterAttached("Structure", typeof(string), typeof(GridExtensions), new PropertyMetadata("*|*", OnStructureChanged));
+            DependencyProperty.RegisterAttached("Structure", typeof(string), typeof(GridExtensions),
+                new PropertyMetadata("*|*", OnStructureChanged));
 
         private static void OnStructureChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is Grid grid)
+            if (!(d is Grid grid)) return;
+            var converter = new GridLengthConverter();
+            grid.RowDefinitions.Clear();
+            grid.ColumnDefinitions.Clear();
+
+            if (!(e.NewValue is string structureString)) return;
+            var rowsAndColumns = structureString.Split('|');
+            if (rowsAndColumns.Length != 2) return;
+            var rows = rowsAndColumns[0].Split(',');
+
+            foreach (var row in rows)
             {
-                var converter = new GridLengthConverter();
-                grid.RowDefinitions.Clear();
-                grid.ColumnDefinitions.Clear();
+                if (converter.ConvertFromString(row) is GridLength gl)
+                    grid.RowDefinitions.Add(new RowDefinition { Height = gl });
+            }
 
-                if (e.NewValue is string structureString)
-                {
-                    var rowsAndColumns = structureString.Split('|');
-                    if (rowsAndColumns.Length == 2)
-                    {
-                        var rows = rowsAndColumns[0].Split(',');
-                        foreach (var row in rows)
-                        {
-                            grid.RowDefinitions.Add(new RowDefinition { Height = (GridLength)converter.ConvertFromString(row) });
-                        }
-
-                        var columns = rowsAndColumns[1].Split(',');
-                        foreach (var column in columns)
-                        {
-                            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = (GridLength)converter.ConvertFromString(column) });
-                        }
-                    }
-                }
+            var columns = rowsAndColumns[1].Split(',');
+            foreach (var column in columns)
+            {
+                if (converter.ConvertFromString(column) is GridLength gl)
+                    grid.ColumnDefinitions.Add(new ColumnDefinition { Width = gl });
             }
         }
 
-        public static DependencyProperty DoubleClickCommandProperty =
-           DependencyProperty.RegisterAttached("DoubleClickCommand", typeof(ICommand), typeof(GridExtensions), new PropertyMetadata(DoubleClick_PropertyChanged));
+        public static readonly DependencyProperty DoubleClickCommandProperty =
+            DependencyProperty.RegisterAttached("DoubleClickCommand", typeof(ICommand), typeof(GridExtensions),
+                new PropertyMetadata(DoubleClick_PropertyChanged));
 
         public static void SetDoubleClickCommand(UIElement element, ICommand value)
         {
@@ -68,11 +67,11 @@ namespace SsmsLite.Core.Ui.Extensions
 
             if (e.NewValue != null)
             {
-                row.AddHandler(DataGridRow.MouseDoubleClickEvent, new RoutedEventHandler(DataGrid_MouseDoubleClick));
+                row.AddHandler(Control.MouseDoubleClickEvent, new RoutedEventHandler(DataGrid_MouseDoubleClick));
             }
             else
             {
-                row.RemoveHandler(DataGridRow.MouseDoubleClickEvent, new RoutedEventHandler(DataGrid_MouseDoubleClick));
+                row.RemoveHandler(Control.MouseDoubleClickEvent, new RoutedEventHandler(DataGrid_MouseDoubleClick));
             }
         }
 

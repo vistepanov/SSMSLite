@@ -17,7 +17,9 @@ namespace SsmsLite.Search.Repositories.Search
 
         public override string UniqueIdentifier => Guid.NewGuid().ToString();
 
-        public override string Type => DbIndex.Type == "CLUSTERED" ? DbObjectType.INDEX_CLUSTERED.Name : DbObjectType.INDEX_NONCLUSTERED.Name;
+        public override string Type => DbIndex.Type == "CLUSTERED"
+            ? DbObjectType.INDEX_CLUSTERED.Name
+            : DbObjectType.INDEX_NONCLUSTERED.Name;
 
         public override string SchemaName => DbIndex.Parent.SchemaName;
 
@@ -31,19 +33,12 @@ namespace SsmsLite.Search.Repositories.Search
 
         public override TextFragments RichSmallDefinition
         {
-            get
-            {
-
-                return FormatIndex(" ");
-            }
+            get { return FormatIndex(" "); }
         }
 
         public override TextFragments RichFullDefinition
         {
-            get
-            {
-                return FormatIndex("\n");
-            }
+            get { return FormatIndex("\n"); }
         }
 
         private TextFragments FormatIndex(string lineBreak)
@@ -58,7 +53,6 @@ namespace SsmsLite.Search.Repositories.Search
             frags.AddPrimary("[" + DbIndex.Parent.SchemaName + "].[" + DbIndex.Parent.Name + "]");
             frags.Add(FormatColumns(lineBreak));
             return frags;
-
         }
 
         private TextFragments FormatColumns(string lb)
@@ -73,34 +67,38 @@ namespace SsmsLite.Search.Repositories.Search
                 {
                     frags.AddSecondary("," + lb);
                 }
+
                 isFirst = false;
 
                 frags.AddSecondary("\t");
                 frags.AddPrimary("[" + column.ColumnName + "]");
                 frags.AddSecondary(column.IsDesc ? " DESC" : " ASC");
             }
+
             frags.AddSecondary(lb + ")" + lb);
 
 
-            var includedCols = DbIndex.Columns.Where(p => p.Included).OrderBy(p => p.IndexColumnId);
-            if (includedCols.Count() > 0)
+            var includedCols = DbIndex.Columns.Where(p => p.Included).OrderBy(p => p.IndexColumnId).ToArray();
+            if (includedCols.Length > 0)
             {
                 frags.AddSecondary("INCLUDE (" + lb);
                 isFirst = true;
                 foreach (var column in includedCols)
                 {
-
                     if (!isFirst)
                     {
                         frags.AddSecondary("," + lb);
                     }
+
                     isFirst = false;
 
                     frags.AddSecondary("\t");
                     frags.AddPrimary("[" + column.ColumnName + "]");
                 }
+
                 frags.AddSecondary(lb + ")" + lb);
             }
+
             return frags;
         }
 

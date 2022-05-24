@@ -52,10 +52,10 @@ namespace SsmsLite.Search.Repositories
 
         public ISearchTarget[] GetObjectsByDb(int dbid)
         {
-            var dbObjects = _db.FindByDbId<DbObject>(dbid);
-            var dbColumns = _db.FindByDbId<DbColumn>(dbid);
-            var dbIndices = _db.FindByDbId<DbIndex>(dbid);
-            var dbIndicesColumns = _db.FindByDbId<DbIndexColumn>(dbid);
+            var dbObjects = _db.Command(db => db.FindByDbId<DbObject>(dbid));
+            var dbColumns = _db.Command(db => db.FindByDbId<DbColumn>(dbid));
+            var dbIndices = _db.Command(db => db.FindByDbId<DbIndex>(dbid));
+            var dbIndicesColumns = _db.Command(db => db.FindByDbId<DbIndexColumn>(dbid));
 
             var dbObjectById = dbObjects.ToDictionary(p => p.ObjectId);
             MapDbObjectParents(dbObjectById);

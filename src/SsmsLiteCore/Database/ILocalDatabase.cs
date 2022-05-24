@@ -20,5 +20,6 @@ namespace SsmsLite.Core.Database
         void Insert<T>(T val);
         T[] FindByDbId<T>(int dbId) where T : IDbId;
         void CreateIndex<T, TK>(Expression<Func<T, TK>> keySelector);
+        void Execute(string sql);
     }
 }

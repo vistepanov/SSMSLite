@@ -11,7 +11,7 @@ namespace SsmsLite.Search.UI
         public SchemaSearchControl SchemaSearchControl { get { return this.Content as SchemaSearchControl; } }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ToolWindow1"/> class.
+        /// Initializes a new instance of the <see cref="ToolWindowPane"/> class.
         /// </summary>
         public SearchToolWindow() : base(null)
         {

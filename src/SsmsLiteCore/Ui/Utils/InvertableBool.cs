@@ -2,8 +2,8 @@
 {
     public class InvertableBool
     {
-        public bool Value { get; } = false;
-        public bool Invert { get { return !Value; } }
+        public bool Value { get; }
+        public bool Invert => !Value;
 
         public InvertableBool(bool b)
         {

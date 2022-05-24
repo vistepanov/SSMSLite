@@ -11,8 +11,8 @@ namespace SsmsLite.Core.Utils.Logging
             TimeStampUtc = DateTime.UtcNow;
         }
         
-        public string UserName { get; private set; }
-        public DateTime TimeStampUtc { get; private set; }
+        //public string UserName { get; private set; }
+        public DateTime TimeStampUtc { get; }
         public string Category { get; set; }
         public LogLevel Level { get; set; }
         public string Text { get; set; }

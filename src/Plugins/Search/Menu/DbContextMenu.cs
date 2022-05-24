@@ -36,18 +36,18 @@ namespace SsmsLite.Search.Menu
         /// Get Menu Items
         /// </summary>
         /// <returns></returns>
-        public System.Windows.Forms.ToolStripItem[] GetMenuItems()
+        public ToolStripItem[] GetMenuItems()
         {
             ToolStripMenuItem item = new ToolStripMenuItem("Script Data as");
             ToolStripMenuItem insertItem = new ToolStripMenuItem("INSERT");
             insertItem.Tag = false;
-            insertItem.Click += new EventHandler(InsertItem_Click);
+            insertItem.Click += InsertItem_Click;
 
             item.DropDownItems.Add(insertItem);
 
 
             ToolStripMenuItem scriptIt = new ToolStripMenuItem("Script Full table Schema");
-            scriptIt.Click += new EventHandler(scriptIt_Click);
+            scriptIt.Click += scriptIt_Click;
 
             return new ToolStripItem[] { item, scriptIt };
         }

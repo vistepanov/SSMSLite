@@ -5,7 +5,7 @@ namespace SsmsLite.Core.Ui.Search
 {
     public class TextFragments
     {
-        private List<TextFragment> _fragments { get; set; }
+        private readonly List<TextFragment> _fragments;
 
         public IReadOnlyList<TextFragment> Fragments => _fragments;
 

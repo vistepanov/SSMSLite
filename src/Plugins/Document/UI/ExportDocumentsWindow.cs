@@ -11,7 +11,7 @@ namespace SsmsLite.Document.UI
         public ExportDocumentsControl Control { get { return this.Content as ExportDocumentsControl; } }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ToolWindow1"/> class.
+        /// Initializes a new instance of the <see cref="ToolWindowPane"/> class.
         /// </summary>
         public ExportDocumentsWindow() : base(null)
         {

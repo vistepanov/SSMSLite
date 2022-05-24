@@ -4,61 +4,44 @@ using Microsoft.Extensions.Logging;
 
 namespace SsmsLite.Core.Utils.Logging
 {
-    public abstract class LoggerProvider : IDisposable, ILoggerProvider
+    public abstract class LoggerProvider : ILoggerProvider
     {
-        ConcurrentDictionary<string, Logger> loggers = new ConcurrentDictionary<string, Logger>();
+        private readonly ConcurrentDictionary<string, Logger> _loggers = new ConcurrentDictionary<string, Logger>();
 
-        protected IDisposable SettingsChangeToken;
+        private IDisposable _settingsChangeToken;
 
-        ILogger ILoggerProvider.CreateLogger(string Category)
+        ILogger ILoggerProvider.CreateLogger(string cat)
         {
-            return loggers.GetOrAdd(Category,
-            (category) => {
-                return new Logger(this, category);
-            });
+            return _loggers.GetOrAdd(cat, category => new Logger(this, category));
         }
 
         void IDisposable.Dispose()
         {
-            if (!this.IsDisposed)
+            if (IsDisposed) return;
+            try
             {
-                try
-                {
-                    Dispose(true);
-                }
-                catch
-                {
-                }
-
-                this.IsDisposed = true;
-                GC.SuppressFinalize(this);  // instructs GC not bother to call the destructor   
+                Dispose(true);
             }
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (SettingsChangeToken != null)
+            catch
             {
-                SettingsChangeToken.Dispose();
-                SettingsChangeToken = null;
+                // ignored
             }
+
+            IsDisposed = true;
+            GC.SuppressFinalize(this);  // instructs GC not bother to call the destructor   
         }
 
-        public LoggerProvider()
+        protected void Dispose(bool disposing)
         {
+            if (_settingsChangeToken == null) return;
+            _settingsChangeToken.Dispose();
+            _settingsChangeToken = null;
         }
 
-        ~LoggerProvider()
-        {
-            if (!this.IsDisposed)
-            {
-                Dispose(false);
-            }
-        }
 
         public abstract bool IsEnabled(LogLevel logLevel);
 
-        public abstract void WriteLog(LogEntry Info);
+        public abstract void WriteLog(LogEntry info);
 
         public bool IsDisposed { get; protected set; }
     }

@@ -59,7 +59,7 @@ namespace SsmsLite.Core.Ui.Controls.ComboCheckBox
         private void Init()
         {
             IsAllChecked = ComputeIsAllChecked();
-            Items.ListChanged += new ListChangedEventHandler(Items_ListChanged);
+            Items.ListChanged += Items_ListChanged;
             Text = ComputeText();
         }
 

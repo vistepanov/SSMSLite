@@ -6,10 +6,13 @@ namespace SsmsLite.Core.Utils.Logging
 {
     internal class Logger : ILogger
     {
-        public Logger(LoggerProvider Provider, string Category)
+        private readonly LoggerProvider _provider;
+        private readonly string _category;
+
+        public Logger(LoggerProvider provider, string category)
         {
-            this.Provider = Provider;
-            this.Category = Category;
+            _provider = provider;
+            _category = category;
         }
 
         IDisposable ILogger.BeginScope<TState>(TState state)
@@ -19,7 +22,7 @@ namespace SsmsLite.Core.Utils.Logging
 
         bool ILogger.IsEnabled(LogLevel logLevel)
         {
-            return Provider.IsEnabled(logLevel);
+            return _provider.IsEnabled(logLevel);
         }
 
         void ILogger.Log<TState>(LogLevel logLevel, EventId eventId,
@@ -28,38 +31,37 @@ namespace SsmsLite.Core.Utils.Logging
             if (!(this as ILogger).IsEnabled(logLevel))
                 return;
 
-            LogEntry Info = new LogEntry();
-            Info.Category = this.Category;
-            Info.Level = logLevel;
-            Info.Text = formatter(state, exception) + (exception != null ? "\n" + exception.ToString() : "");
-            Info.Exception = exception;
-            Info.EventId = eventId;
-            Info.State = state;
-
-
-            if (state is IEnumerable<KeyValuePair<string, object>> Properties)
+            var info = new LogEntry
             {
-                Info.StateProperties = new Dictionary<string, object>();
+                Category = _category,
+                Level = logLevel,
+                Text = formatter(state, exception) + (exception != null ? "\n" + exception : ""),
+                Exception = exception,
+                EventId = eventId,
+                State = state
+            };
 
-                foreach (KeyValuePair<string, object> item in Properties)
+
+            if (state is IEnumerable<KeyValuePair<string, object>> properties)
+            {
+                info.StateProperties = new Dictionary<string, object>();
+
+                foreach (KeyValuePair<string, object> item in properties)
                 {
                     if (item.Key == "{OriginalFormat}")
                         continue;
 
-                    Info.StateProperties[item.Key] = item.Value;
+                    info.StateProperties[item.Key] = item.Value;
                 }
             }
 
-            Provider.WriteLog(Info);
+            _provider.WriteLog(info);
         }
-
-        public LoggerProvider Provider { get; private set; }
-        public string Category { get; private set; }
     }
 
     public class NoopDisposable : IDisposable
     {
-        public static NoopDisposable Instance = new NoopDisposable();
+        public static readonly NoopDisposable Instance = new NoopDisposable();
 
         public void Dispose()
         {

@@ -12,11 +12,13 @@ namespace SsmsLite.Core.Ui.Converters
         {
             var highlight = value as TextFragments;
             var tb = new TextBlock();
+            if (highlight == null) return tb;
             foreach (var fragment in highlight.Fragments)
             {
                 var run = RunFragment.Create(fragment);
                 tb.Inlines.Add(run);
             }
+
             return tb;
         }
 
@@ -25,5 +27,4 @@ namespace SsmsLite.Core.Ui.Converters
             throw new NotSupportedException();
         }
     }
-
 }

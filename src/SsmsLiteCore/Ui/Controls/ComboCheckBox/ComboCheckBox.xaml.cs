@@ -7,7 +7,7 @@ namespace SsmsLite.Core.Ui.Controls.ComboCheckBox
     /// <summary>
     /// Interaction logic for ComboCheckBox.xaml
     /// </summary>
-    public partial class ComboCheckBox : UserControl
+    public partial class ComboCheckBox
     {
         public static readonly DependencyProperty ViewModelProperty =
          DependencyProperty.Register(

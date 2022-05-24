@@ -157,7 +157,6 @@
     <Compile Include="Utils\Logging\LoggerProvider.cs" />
     <Compile Include="Utils\SafeTask.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
-    <Compile Include="Utils\TextProcessor\Actions\BaseLeftCursorAction.cs" />
     <Compile Include="Utils\TextProcessor\Cursor.cs" />
     <Compile Include="Utils\TextProcessor\TextDocumentHelper.cs" />
     <Compile Include="Utils\Validation\IValidatable.cs" />
@@ -226,6 +225,8 @@
   <ItemGroup>
     <Content Include="Integration\ref.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Utils\TextProcessor\Actions\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

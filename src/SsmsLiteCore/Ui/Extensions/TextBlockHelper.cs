@@ -22,18 +22,18 @@ namespace SsmsLite.Core.Ui.Extensions
 
         private static void OnBindableInlinesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(d is TextBlock Target))
+            if (!(d is TextBlock target))
                 return;
 
-            FlowDocument doc = e.NewValue as FlowDocument;
-            var para = doc?.Blocks?.FirstBlock as Paragraph;
+            var doc = e.NewValue as FlowDocument;
+            var para = doc?.Blocks.FirstBlock as Paragraph;
             if (para == null)
                 return;
 
-            Target.Inlines.Clear();
+            target.Inlines.Clear();
             foreach (var item in para.Inlines)
             {
-                Target.Inlines.Add(XamlHelper.XamlClone(item));
+                target.Inlines.Add(XamlHelper.XamlClone(item));
             }
         }
     }

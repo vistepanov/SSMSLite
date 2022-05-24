@@ -66,9 +66,9 @@ namespace SsmsLite.Core.Database
         }
 
         private static IReadOnlyCollection<string> ObjPath(this DbObject dbObject, string objectType,
-            string objectSubType, string SubSubType)
+            string objectSubType, string subSubType)
         {
-            return new List<string>() { objectType, objectSubType, SubSubType, ObjId(dbObject) };
+            return new List<string>() { objectType, objectSubType, subSubType, ObjId(dbObject) };
         }
 
         private static IReadOnlyCollection<string> TableParentPath(this DbObject dbObject, string objectType)

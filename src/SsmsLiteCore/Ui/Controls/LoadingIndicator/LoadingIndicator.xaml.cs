@@ -6,7 +6,7 @@ namespace SsmsLite.Core.Ui.Controls.LoadingIndicator
     /// <summary>
     /// Interaction logic for LoadingIndicator.xaml
     /// </summary>
-    public partial class LoadingIndicator : UserControl
+    public partial class LoadingIndicator
     {
         public static readonly DependencyProperty TitleProperty =
      DependencyProperty.Register(

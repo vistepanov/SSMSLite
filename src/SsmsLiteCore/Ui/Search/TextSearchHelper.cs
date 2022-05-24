@@ -20,7 +20,7 @@ namespace SsmsLite.Core.Ui.Search
                 return fragments;
             }
 
-            var index = -1;
+            int index;
             var startIndex = 0;
             do
             {
@@ -67,7 +67,7 @@ namespace SsmsLite.Core.Ui.Search
 
         public static bool PrimaryContainsText(this TextFragments textFragments, string search)
         {
-            return textFragments.Fragments.Where(p => p.FragmentType == TextFragmentType.Primary).Any(p => p.Value.ContainsText(search) == true);
+            return textFragments.Fragments.Where(p => p.FragmentType == TextFragmentType.Primary).Any(p => p.Value.ContainsText(search));
         }
     }
 }

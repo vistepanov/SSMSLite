@@ -7,7 +7,7 @@ namespace SsmsLite.History.UI
     public class HistoryToolWindow : ToolWindowPane
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ToolWindow1"/> class.
+        /// Initializes a new instance of the <see cref="ToolWindowPane"/> class.
         /// </summary>
         public HistoryToolWindow() : base(null)
         {

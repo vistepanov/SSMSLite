@@ -82,8 +82,6 @@ namespace SsmsLite.Core.Ui.Extensions
 
             // Border is the first child of first child of a ScrollDocumentViewer
             var firstChild = VisualTreeHelper.GetChild(flowDocumentScrollViewer, 0);
-            if (firstChild == null)
-                return null;
 
             var border = VisualTreeHelper.GetChild(firstChild, 0) as Decorator;
             if (border == null)

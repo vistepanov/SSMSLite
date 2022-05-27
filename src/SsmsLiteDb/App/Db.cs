@@ -86,9 +86,10 @@ namespace SsmsLite.Db.App
 
         public int InsertBulk<T>(IEnumerable<T> val)
         {
-            if (database == null) throw new ArgumentNullException(nameof(database));
-
-            return database.GetCollection<T>().InsertBulk(val);
+            using (database = new LiteDatabase(_connectionString))
+            {
+                return database.GetCollection<T>().InsertBulk(val);
+            }
         }
 
         public QueryItem[] FindItems(FilterContext filterContext)

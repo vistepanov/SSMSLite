@@ -5,6 +5,6 @@ namespace SsmsLite.Core.Integration.ObjectExplorer
 {
     public interface IObjectExplorerInteraction
     {
-        Task SelectNodeAsync(string server, string dbName, IReadOnlyCollection<string> itemPath);
+        Task SelectNodeAsync(string server, string database, IReadOnlyCollection<string> itemPath);
     }
 }

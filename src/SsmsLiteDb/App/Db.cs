@@ -16,7 +16,7 @@ namespace SsmsLite.Db.App
     public class Db : ILocalDatabase
     {
         private readonly string _connectionString;
-        private LiteDatabase database;
+        private LiteDatabase _database;
         private readonly ILogger<Db> _logger;
 
         public Db(ILogger<Db> logger, IWorkingDirProvider workingDirProvider)
@@ -24,7 +24,7 @@ namespace SsmsLite.Db.App
             _logger = logger;
             var fileName = Path.Combine(workingDirProvider.GetWorkingDir(), "SSMS.lite");
             _connectionString = $"Filename={fileName};Upgrade=true;";
-            database = null;
+            _database = null;
         }
 
         public T Command<T>(Func<ILocalDatabase, T> command, int timeout = 120) =>
@@ -33,20 +33,20 @@ namespace SsmsLite.Db.App
         public T Command<T>(Func<ILocalDatabase, T> command, Func<T> onOk, Func<Exception, T> onErr,
             int timeout = 120)
         {
-            using (database = new LiteDatabase(_connectionString))
+            using (_database = new LiteDatabase(_connectionString))
             {
-                database.Timeout = TimeSpan.FromSeconds(timeout);
-                database.BeginTrans();
+                _database.Timeout = TimeSpan.FromSeconds(timeout);
+                _database.BeginTrans();
 
                 try
                 {
                     var result = command(this);
-                    database.Commit();
+                    _database.Commit();
                     return onOk != null ? onOk() : result;
                 }
                 catch (Exception ex)
                 {
-                    database.Rollback();
+                    _database.Rollback();
                     if (onErr != null)
                     {
                         return onErr(ex);
@@ -57,22 +57,21 @@ namespace SsmsLite.Db.App
             }
         }
 
-        public ILiteCollection<T> GetCollection<T>(string cName = null)
-        {
-            if (database == null) throw new ArgumentNullException(nameof(database));
-
-            return database.GetCollection<T>(cName ?? typeof(T).Name);
-        }
+        // public ILiteCollection<T> GetCollection<T>(string cName = null)
+        // {
+        //     if (_database == null) throw new ArgumentNullException(nameof(_database));
+        //     return _database.GetCollection<T>(cName ?? typeof(T).Name);
+        // }
 
         public void Execute(string sql)
         {
-            if (database == null) throw new ArgumentNullException(nameof(database));
-
-            database.Execute(sql);
+            if (_database == null) throw new ArgumentNullException(nameof(_database));
+            _database.Execute(sql);
         }
 
         public void DropDb(int dbid)
         {
+            _logger.LogDebug($"Drop info for db {dbid}");
             Command((db) =>
             {
                 db.Execute($"DELETE DbIndexColumn WHERE $.DbId={dbid};");
@@ -84,19 +83,19 @@ namespace SsmsLite.Db.App
             });
         }
 
-        public int InsertBulk<T>(IEnumerable<T> val)
+        public void InsertBulk<T>(IEnumerable<T> val)
         {
-            using (database = new LiteDatabase(_connectionString))
+            using (_database = new LiteDatabase(_connectionString))
             {
-                return database.GetCollection<T>().InsertBulk(val);
+                _database.GetCollection<T>().InsertBulk(val);
             }
         }
 
         public QueryItem[] FindItems(FilterContext filterContext)
         {
-            using (database = new LiteDatabase(_connectionString))
+            using (_database = new LiteDatabase(_connectionString))
             {
-                var query = database.GetCollection<QueryItem>()
+                var query = _database.GetCollection<QueryItem>()
                     .Query().Where(t =>
                         t.ExecutionDateUtc >= filterContext.FromUtc && t.ExecutionDateUtc <= filterContext.ToUtc);
 
@@ -117,9 +116,9 @@ namespace SsmsLite.Db.App
 
         public int DbExists(DbConnectionString dbConnectionString)
         {
-            using (database = new LiteDatabase(_connectionString))
+            using (_database = new LiteDatabase(_connectionString))
             {
-                return database.GetCollection<DbDefinition>()
+                return _database.GetCollection<DbDefinition>()
                     .Query()
                     .Where(p => p.DbName.Equals(dbConnectionString.Database)
                                 && p.Server.Equals(dbConnectionString.Server))
@@ -130,30 +129,29 @@ namespace SsmsLite.Db.App
 
         public int GetNextDbId()
         {
-            if (database == null) throw new ArgumentNullException(nameof(database));
+            if (_database == null) throw new ArgumentNullException(nameof(_database));
 
-            var dbDef = database.GetCollection<DbDefinition>();
+            var dbDef = _database.GetCollection<DbDefinition>();
             if (dbDef.Count() == 0) return 1;
             return dbDef.Max(t => t.DbId) + 1;
         }
 
         public void Insert<T>(T val)
         {
-            if (database == null) throw new ArgumentNullException(nameof(database));
-
-            database.GetCollection<T>().Insert(val);
+            if (_database == null) throw new ArgumentNullException(nameof(_database));
+            _database.GetCollection<T>().Insert(val);
         }
 
         public T[] FindByDbId<T>(int dbId) where T : IDbId
         {
-            var collection = database.GetCollection<T>();
+            var collection = _database.GetCollection<T>();
             collection.EnsureIndex(t => t.DbId);
             return collection.Query().Where(t => t.DbId == dbId).ToArray();
         }
 
         public void CreateIndex<T, TK>(Expression<Func<T, TK>> keySelector)
         {
-            database.GetCollection<T>().EnsureIndex(keySelector);
+            _database.GetCollection<T>().EnsureIndex(keySelector);
         }
     }
 }

@@ -21,15 +21,18 @@ namespace SsmsLite.Core.Integration.Connection
         /// Return DbConnectionString to active window
         /// </summary>
         /// <returns>DbConnectionString</returns>
-        public DbConnectionString GetFromActiveConnection(bool showSystemDb=false)
+        public DbConnectionString GetFromActiveConnection(bool showSystemDb=false, Dbo dbo = null)
         {
-            var connInfo = ServiceCache.ScriptFactory.CurrentlyActiveWndConnectionInfo?.UIConnectionInfo;
-            if (connInfo == null || connInfo.AdvancedOptions["DATABASE"] == null )
+            var connectionInfo = ServiceCache.ScriptFactory.CurrentlyActiveWndConnectionInfo?.UIConnectionInfo;
+            
+            var database = dbo?.Database ?? connectionInfo?.AdvancedOptions["DATABASE"];
+
+            if (connectionInfo == null || database == null )
                 return null;
-            if (!showSystemDb && DbHelper.IsSystemDb(connInfo.AdvancedOptions["DATABASE"]))
+            if (!showSystemDb && DbHelper.IsSystemDb(database))
                 return null;
 
-            return new DbConnectionString(GetConnectionString(connInfo), connInfo.AdvancedOptions["DATABASE"]);
+            return new DbConnectionString(GetConnectionString(connectionInfo), database);
         }
 
         /// <summary>

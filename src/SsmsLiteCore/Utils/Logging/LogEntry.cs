@@ -10,7 +10,7 @@ namespace SsmsLite.Core.Utils.Logging
         {
             TimeStampUtc = DateTime.UtcNow;
         }
-        
+
         //public string UserName { get; private set; }
         public DateTime TimeStampUtc { get; }
         public string Category { get; set; }

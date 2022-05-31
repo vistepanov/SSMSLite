@@ -3,15 +3,14 @@ using System.IO;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
-using SsmsLite.Core.Database.Entities;
 
 namespace SsmsLite.Core.Integration
 {
     public class PackageProvider
     {
-        public DTE2 Dte2 { get; private set; }
-        public AsyncPackage AsyncPackage { get; private set; }
-        public OleMenuCommandService CommandService { get; private set; }
+        public DTE2 Dte2 { get; }
+        public AsyncPackage AsyncPackage { get; }
+        public OleMenuCommandService CommandService { get; }
 
         public PackageProvider(DTE2 dte2, AsyncPackage asyncPackage, OleMenuCommandService commandService)
         {
@@ -28,6 +27,7 @@ namespace SsmsLite.Core.Integration
             return IsCurrentDocumentExtension("sql")
                    && AllText.Length > 0;
         }
+
         public void SetStatus(string message, params object[] args)
         {
             Dte2.StatusBar.Text = string.Format(message, args);
@@ -79,20 +79,8 @@ namespace SsmsLite.Core.Integration
                 return point.GetText(TextDocument.EndPoint);
             }
         }
-/*
-        public string CurrentLine
-        {
-            get
-            {
-                var cursor = TextDocument.Selection.ActivePoint;
-                var startPoint = cursor.CreateEditPoint();
-                var endPoint = cursor.CreateEditPoint();
-                startPoint.StartOfLine();
-                endPoint.EndOfLine();
-                return startPoint.GetText(endPoint);
-            }
-        }
-*/
+
+
         public string CurrentWord
         {
             get
@@ -100,44 +88,15 @@ namespace SsmsLite.Core.Integration
                 var cursor = TextDocument.Selection.ActivePoint;
                 var point = cursor.CreateEditPoint();
                 var rPoint = cursor.CreateEditPoint();
-                rPoint.WordRight(1);
-                point.WordLeft(1);
+                rPoint.WordRight();
+                point.WordLeft();
                 var txt = point.GetText(rPoint).Trim();
-                //do
-                //{
-                point.CharLeft(1);
+                point.CharLeft();
                 var t2 = point.GetText(rPoint);
-                //    _lim.Contains(t2[0]);
-                //} while()
 
                 return txt.Contains(" ") ? point.GetText(cursor).Trim() : txt;
             }
         }
-/*
-        public DbToken FindCurrentObj()
-        {
-            string text;
-            string server = "";
-            string database = "";
-            string schema = "dbo";
-            string obj;
-            var cursor = TextDocument.Selection.ActivePoint;
-            var point = cursor.CreateEditPoint();
-            point.WordLeft(1);
-            text = point.GetText(cursor).Trim();
 
-            var rPoint = cursor.CreateEditPoint();
-            rPoint.WordRight(1);
-            var txt = point.GetText(rPoint).Trim(); // тут мы почти всегда получим имя 
-
-            point.CharLeft(1);
-            var t2 = point.GetText(rPoint);
-            //    _lim.Contains(t2[0]);
-            //} while()
-
-            obj = txt.Contains(" ") ? point.GetText(cursor).Trim() : txt;
-            return new DbToken(obj, schema);
-        }
-*/
     }
 }

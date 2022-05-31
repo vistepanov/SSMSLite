@@ -7,7 +7,7 @@ namespace SsmsLite.CsvPaste
 {
     public class CsvPaste
     {
-        public const int MenuCommandId = 0x0202;
+        public const int MenuCommandId = 1301;
         private bool _isRegistered;
         private readonly PackageProvider _packageProvider;
         private readonly ILogger<CsvPaste> _logger;

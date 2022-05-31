@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,6 +17,8 @@ namespace SsmsLite.Core.Ui.Extensions
             base.OnSorting(eventArgs);
             SaveSorting();
         }
+
+        [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
         protected override void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
         {
             base.OnItemsSourceChanged(oldValue, newValue);

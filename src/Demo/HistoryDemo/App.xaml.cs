@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using SsmsLite.Core.Di;
 using SsmsLite.Db.DbUpdate;
@@ -46,8 +45,7 @@ namespace Demo
 
         private static void ConfigureServices(IServiceCollection services)
         {
-            var path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "log");
-
+            // var path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "log");
 
             services.ConfigureSection<DemoDbSettings>(_configuration.GetSection("DemoDb"));
 

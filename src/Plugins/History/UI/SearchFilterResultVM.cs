@@ -12,40 +12,15 @@ namespace SsmsLite.History.UI
             FilterContext = filterContext;
         }
 
-        public ScriptSearchTarget SearchResult { get; private set; }
-        public FilterContext FilterContext { get; private set; }
+        public ScriptSearchTarget SearchResult { get; }
+        public FilterContext FilterContext { get; }
 
-        public TextFragments ServerHighlight
-        {
-            get
-            {
-                return SearchResult.ServerHighlight(FilterContext.ServerSearch);
-            }
-        }
+        public TextFragments ServerHighlight => SearchResult.ServerHighlight(FilterContext.ServerSearch);
 
-        public TextFragments DatabaseHighlight
-        {
-            get
-            {
-                return SearchResult.DatabaseHighlight(FilterContext.DbSearch);
-            }
-        }
+        public TextFragments DatabaseHighlight => SearchResult.DatabaseHighlight(FilterContext.DbSearch);
 
-        public TextFragments QueryHighlight
-        {
-            get
-            {
-                return SearchResult.QueryHighlight(FilterContext.QuerySearch);
-            }
-        }
+        public TextFragments QueryHighlight => SearchResult.QueryHighlight(FilterContext.QuerySearch);
 
-        public TextFragments SmallQueryHighlight
-        {
-            get
-            {
-                return SearchResult.SmallQueryHighlight(FilterContext.QuerySearch);
-            }
-        }
-
+        public TextFragments SmallQueryHighlight => SearchResult.SmallQueryHighlight(FilterContext.QuerySearch);
     }
 }

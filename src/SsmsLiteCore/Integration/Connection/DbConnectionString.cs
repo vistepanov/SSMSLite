@@ -11,6 +11,19 @@ namespace SsmsLite.Core.Integration.Connection
 
         public string DisplayName => Database + " @ " + Server;
 
+        public DbConnectionString(DbConnectionString dbConnection, string database = null)
+        {
+            var builder = new SqlConnectionStringBuilder(dbConnection.ConnectionString);
+            if (database != null)
+            {
+                builder.InitialCatalog = database;
+            }
+
+            ConnectionString = builder.ToString();
+            Database = builder.InitialCatalog;
+            Server = builder.DataSource;
+        }
+
         public DbConnectionString(string connectionString, string database = null)
         {
             var builder = new SqlConnectionStringBuilder(connectionString);

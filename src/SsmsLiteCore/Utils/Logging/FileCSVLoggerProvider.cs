@@ -131,6 +131,6 @@ namespace SsmsLite.Core.Utils.Logging
             }
         }
 
-        internal FileLoggerOptions Settings { get; private set; }
+        internal FileLoggerOptions Settings { get; }
     }
 }

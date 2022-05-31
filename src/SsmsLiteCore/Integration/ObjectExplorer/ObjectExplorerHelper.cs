@@ -44,11 +44,6 @@ namespace SsmsLite.Core.Integration.ObjectExplorer
             return FindParentNode(node, DB_URNPATH);
         }
 
-        public static INodeInformation FindParentServerNode(INodeInformation node)
-        {
-            return FindParentNode(node, SERVER_URNPATH);
-        }
-
         private static INodeInformation FindParentNode(INodeInformation node, string searchUrnPath)
         {
             do

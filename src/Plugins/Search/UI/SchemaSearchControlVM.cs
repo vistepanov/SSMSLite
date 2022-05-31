@@ -28,15 +28,15 @@ namespace SsmsLite.Search.UI
         private ISearchTarget[] _allDdResults;
 
 
-        public IAsyncCommand ReIndexDbCmd { get; private set; }
-        public IAsyncCommand ExecuteSearchCmd { get; private set; }
-        public IAsyncCommand<SearchFilterResultVM> LocateItemCmd { get; private set; }
-        public Command<SearchFilterResultVM> CopyItemNameCmd { get; private set; }
-        public Command<SearchFilterResultVM> CopyItemDefinitionCmd { get; private set; }
+        public IAsyncCommand ReIndexDbCmd { get; }
+        public IAsyncCommand ExecuteSearchCmd { get; }
+        public IAsyncCommand<SearchFilterResultVM> LocateItemCmd { get; }
+        public Command<SearchFilterResultVM> CopyItemNameCmd { get; }
+        public Command<SearchFilterResultVM> CopyItemDefinitionCmd { get; }
 
         public ComboCheckBoxViewModel<MatchOn> ComboMatchVM { get; private set; }
         public ComboCheckBoxViewModel<DbSimplifiedType> ComboObjectsVM { get; private set; }
-        public ComboCheckBoxViewModel<string> SchemaObjectsVM { get; private set; }
+        public ComboCheckBoxViewModel<string> SchemaObjectsVM { get; }
 
         public SchemaSearchControlVm(IDbIndexer dbIndexer, SchemaSearchRepository schemaSearchRepository,
             IObjectExplorerInteraction objectExploreInteraction)
@@ -67,7 +67,8 @@ namespace SsmsLite.Search.UI
                 return;
             }
 
-            await _objectExploreInteraction.SelectNodeAsync(_dbConnectionString.Server, _dbConnectionString.Database, itemPath);
+            await _objectExploreInteraction.SelectNodeAsync(_dbConnectionString.Server, _dbConnectionString.Database,
+                itemPath);
         }
 
         private void OnCopyItemName(SearchFilterResultVM item)
@@ -96,8 +97,10 @@ namespace SsmsLite.Search.UI
 
         private void CreateMatchOnCombo()
         {
-            ComboMatchVM = new ComboCheckBoxViewModel<MatchOn>();
-            ComboMatchVM.IsAllVisible = false;
+            ComboMatchVM = new ComboCheckBoxViewModel<MatchOn>
+            {
+                IsAllVisible = false
+            };
             ComboMatchVM.Items.Add(new ComboCheckBoxItem<MatchOn>()
                 { Text = "Name", IsChecked = true, Value = MatchOn.Name });
             ComboMatchVM.Items.Add(new ComboCheckBoxItem<MatchOn>()
@@ -123,7 +126,7 @@ namespace SsmsLite.Search.UI
         {
             _dbConnectionString = cnxStr;
             DbDisplayName = _dbConnectionString.DisplayName;
-            await SafeTask.RunSafeAsync(() => InitializeDbAsync(), HandleError);
+            await SafeTask.RunSafeAsync(InitializeDbAsync, HandleError);
         }
 
         private async Task InitializeDbAsync()
@@ -257,10 +260,7 @@ namespace SsmsLite.Search.UI
             }
         }
 
-        public bool ControlsEnabled
-        {
-            get => !IsIndexing;
-        }
+        public bool ControlsEnabled => !IsIndexing;
 
         private SearchFilterResultVM _selectedItem;
 

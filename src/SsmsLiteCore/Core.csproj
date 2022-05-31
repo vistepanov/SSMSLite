@@ -77,7 +77,6 @@
     <Compile Include="Database\Entities\AppVersion.cs" />
     <Compile Include="Database\Entities\DbObjectType.cs" />
     <Compile Include="Database\Entities\DbSimplifiedType.cs" />
-    <Compile Include="Database\Entities\OriginType.cs" />
     <Compile Include="Database\Entities\Persisted\DbColumn.cs" />
     <Compile Include="Database\Entities\Persisted\DbDefinition.cs" />
     <Compile Include="Database\Entities\Persisted\DbIndex.cs" />
@@ -90,7 +89,6 @@
     <Compile Include="Di\ServiceLocator.cs" />
     <Compile Include="Integration\Connection\DbConnectionProvider.cs" />
     <Compile Include="Integration\Connection\DbConnectionString.cs" />
-    <Compile Include="Database\Entities\DbToken.cs" />
     <Compile Include="Integration\IServiceCacheIntegration.cs" />
     <Compile Include="Integration\MenuHelper.cs" />
     <Compile Include="Integration\ObjectExplorer\IObjectExplorerInteraction.cs" />
@@ -99,13 +97,13 @@
     <Compile Include="Integration\ObjectExplorer\ObjectExplorerServer.cs" />
     <Compile Include="Integration\PackageProvider.cs" />
     <Compile Include="Integration\ServiceCacheIntegration.cs" />
-    <Compile Include="Integration\TextDocumentEx\Tokenizer.cs" />
     <Compile Include="Messaging\ReportMessage.cs" />
     <Compile Include="Messaging\ReportMessageLevel.cs" />
     <Compile Include="ServiceCollectionExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\DistributionSettings.cs" />
     <Compile Include="SqlServer\DbHelper.cs" />
+    <Compile Include="SqlServer\Dbo.cs" />
     <Compile Include="Ui\Commands\AsyncCommand.cs" />
     <Compile Include="Ui\Commands\Command.cs" />
     <Compile Include="Ui\Controls\LoadingIndicator\LoadingIndicator.xaml.cs">
@@ -123,7 +121,6 @@
     <Compile Include="Ui\Controls\DropMenu\DropMenuHeader.xaml.cs">
       <DependentUpon>DropMenuHeader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Converters\HighlightToFlowDocumentConverter.cs" />
     <Compile Include="Ui\Converters\HighlightToTextBlockConverter.cs" />
     <Compile Include="Ui\EmptyAutomationPeer.cs" />
     <Compile Include="Ui\Extensions\FlowDocumentScrollViewerDocumentBehavior.cs" />
@@ -138,7 +135,6 @@
     <Compile Include="Ui\Search\TextFragmentType.cs" />
     <Compile Include="Ui\Search\TextSearchHelper.cs" />
     <Compile Include="Ui\Utils\IErrorHandler.cs" />
-    <Compile Include="Ui\Utils\InvertableBool.cs" />
     <Compile Include="Ui\Utils\TaskExtensions.cs" />
     <Compile Include="Ui\Utils\XamlHelper.cs" />
     <Compile Include="Ui\ViewModelBase.cs" />
@@ -157,8 +153,6 @@
     <Compile Include="Utils\Logging\LoggerProvider.cs" />
     <Compile Include="Utils\SafeTask.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
-    <Compile Include="Utils\TextProcessor\Cursor.cs" />
-    <Compile Include="Utils\TextProcessor\TextDocumentHelper.cs" />
     <Compile Include="Utils\Validation\IValidatable.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -225,8 +219,6 @@
   <ItemGroup>
     <Content Include="Integration\ref.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utils\TextProcessor\Actions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

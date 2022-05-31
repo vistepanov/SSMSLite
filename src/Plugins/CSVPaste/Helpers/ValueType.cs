@@ -65,20 +65,16 @@ namespace SsmsLite.CsvPaste.Helpers
         /// <returns>The determined <see cref="ValueTypes"/> for the value.</returns>
         private static ValueTypes GetValueType(string value)
         {
-            decimal decimalValue;
-            if (decimal.TryParse(value, out decimalValue))
+            if (decimal.TryParse(value, out _))
                 return ValueTypes.Numeric;
 
-            double doubleValue;
-            if (double.TryParse(value, out doubleValue))
+            if (double.TryParse(value, out _))
                 return ValueTypes.Numeric;
 
-            Guid guidValue;
-            if (Guid.TryParse(value, out guidValue))
+            if (Guid.TryParse(value, out _))
                 return ValueTypes.Uniqueidentifier;
 
-            DateTime dateTimeValue;
-            if (DateTime.TryParse(value, out dateTimeValue))
+            if (DateTime.TryParse(value, out _))
                 return ValueTypes.DateTime;
 
             return ValueTypes.Text;
@@ -95,20 +91,17 @@ namespace SsmsLite.CsvPaste.Helpers
             switch (valueTypes)
             {
                 case ValueTypes.Numeric:
-                    decimal decimalValue;
-                    var isDecimal = decimal.TryParse(value, out decimalValue);
+                    var isDecimal = decimal.TryParse(value, out _);
                     if (isDecimal)
                         return true;
 
-                    double doubleValue;
-                    return double.TryParse(value, out doubleValue);
+                    return double.TryParse(value, out _);
+
                 case ValueTypes.Uniqueidentifier:
-                    Guid guidValue;
-                    return Guid.TryParse(value, out guidValue);
+                    return Guid.TryParse(value, out _);
 
                 case ValueTypes.DateTime:
-                    DateTime dateTimeValue;
-                    return DateTime.TryParse(value, out dateTimeValue);
+                    return DateTime.TryParse(value, out _);
             }
 
             return true;
@@ -160,6 +153,5 @@ namespace SsmsLite.CsvPaste.Helpers
 
             return builder.ToString();
         }
-
     }
 }

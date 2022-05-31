@@ -25,7 +25,8 @@ namespace SsmsLite.Search.Repositories.Search
 
         public override DateTime? ModificationDate => DbObject.ModificationDate;
 
-        public override string ModificationDateStr => DbObject.ModificationDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
+        public override string ModificationDateStr =>
+            DbObject.ModificationDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
 
         public override TextFragments RichName => new TextFragments(TextFragment.Primary(DbObject.Name));
 
@@ -38,17 +39,13 @@ namespace SsmsLite.Search.Repositories.Search
             }
         }
 
-        public override TextFragments RichFullDefinition
-        {
-            get
-            {
-                return new TextFragments(TextFragment.Primary(DbObject.Definition));
-            }
-        }
+        public override TextFragments RichFullDefinition =>
+            new TextFragments(TextFragment.Primary(DbObject.Definition));
 
         public override IReadOnlyCollection<string> DbRealtivePath()
         {
-            var isCheckOrDefault = this.SqlObjectType == DbObjectType.CHECK_CONSTRAINT || this.SqlObjectType == DbObjectType.DEFAULT_CONSTRAINT;
+            var isCheckOrDefault = SqlObjectType == DbObjectType.CHECK_CONSTRAINT ||
+                                   SqlObjectType == DbObjectType.DEFAULT_CONSTRAINT;
             var folder = isCheckOrDefault ? "Constraints" : "Keys";
             var parent = DbObject.Parent;
             return new List<string>() { "UserTables", $"{parent.SchemaName}.{parent.Name}", folder, Name };

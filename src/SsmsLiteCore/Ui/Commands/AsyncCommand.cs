@@ -12,7 +12,7 @@ namespace SsmsLite.Core.Ui.Commands
         bool CanExecute();
     }
 
-    public interface IAsyncCommand<T> : ICommand
+    public interface IAsyncCommand<in T> : ICommand
     {
         Task ExecuteAsync(T parameter);
         bool CanExecute(T parameter);
@@ -21,7 +21,7 @@ namespace SsmsLite.Core.Ui.Commands
     public class AsyncCommand : IAsyncCommand
     {
         public event EventHandler CanExecuteChanged;
-        private AsyncLock _asyncLock = new AsyncLock();
+        private readonly AsyncLock _asyncLock = new AsyncLock();
         private readonly Func<Task> _execute;
         private readonly Func<bool> _canExecute;
         private readonly ErrorHandler _errorHandler;
@@ -64,6 +64,7 @@ namespace SsmsLite.Core.Ui.Commands
         }
 
         #region Explicit implementations
+
         bool ICommand.CanExecute(object parameter)
         {
             return true;
@@ -73,6 +74,7 @@ namespace SsmsLite.Core.Ui.Commands
         {
             ExecuteAsync().FireAndForgetSafeAsync();
         }
+
         #endregion
     }
 
@@ -119,6 +121,7 @@ namespace SsmsLite.Core.Ui.Commands
         }
 
         #region Explicit implementations
+
         bool ICommand.CanExecute(object parameter)
         {
             return true;
@@ -128,6 +131,7 @@ namespace SsmsLite.Core.Ui.Commands
         {
             ExecuteAsync((T)parameter).FireAndForgetSafeAsync();
         }
+
         #endregion
     }
 }

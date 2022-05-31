@@ -4,11 +4,11 @@ namespace SsmsLite.Core.App.Filtering
 {
     public class FilterContext
     {
-        public string QuerySearch { get; set; }
-        public string ServerSearch { get; set; }
-        public string DbSearch { get; set; }
-        public DateTime FromUtc { get; set; }
-        public DateTime ToUtc { get; set; }
+        public string QuerySearch { get; }
+        public string ServerSearch { get; }
+        public string DbSearch { get; }
+        public DateTime FromUtc { get; }
+        public DateTime ToUtc { get; }
 
         public FilterContext(string querySearch, string serverSearch, string dbSearch, DateTime fromUtc, DateTime toUtc)
         {

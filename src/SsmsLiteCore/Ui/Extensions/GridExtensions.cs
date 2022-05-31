@@ -77,9 +77,7 @@ namespace SsmsLite.Core.Ui.Extensions
 
         private static void DataGrid_MouseDoubleClick(object sender, RoutedEventArgs e)
         {
-            var row = sender as DataGridRow;
-
-            if (row != null)
+            if (sender is DataGridRow row)
             {
                 var cmd = GetDoubleClickCommand(row);
                 if (cmd.CanExecute(row.Item))

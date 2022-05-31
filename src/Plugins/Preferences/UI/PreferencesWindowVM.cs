@@ -9,14 +9,15 @@ namespace SsmsLite.Preferences.UI
 {
     public class PreferencesWindowVM : ViewModelBase
     {
-        private IVersionProvider _versionProvider;
-        private IWorkingDirProvider _workingDirProvider;
-        public DistributionSettings DistributionSettings { get; private set; }
+        private readonly IVersionProvider _versionProvider;
+        private readonly IWorkingDirProvider _workingDirProvider;
+        public DistributionSettings DistributionSettings { get; }
 
-        public Command OpenWorkingDirCmd { get; private set; }
-        public Command OpenContributeCmd { get; private set; }
+        public Command OpenWorkingDirCmd { get; }
+        public Command OpenContributeCmd { get; }
 
-        public PreferencesWindowVM(IVersionProvider versionProvider, IWorkingDirProvider workingDirProvider, DistributionSettings distributionSettings)
+        public PreferencesWindowVM(IVersionProvider versionProvider, IWorkingDirProvider workingDirProvider,
+            DistributionSettings distributionSettings)
         {
             _versionProvider = versionProvider;
             _workingDirProvider = workingDirProvider;

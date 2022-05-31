@@ -6,17 +6,18 @@ namespace SsmsLite.Core.Database.Entities
 {
     public class DbSimplifiedType
     {
-        public static DbSimplifiedType Table = new DbSimplifiedType("Table");
-        public static DbSimplifiedType Column = new DbSimplifiedType("Column");
-        public static DbSimplifiedType View = new DbSimplifiedType("View");
-        public static DbSimplifiedType Procedure = new DbSimplifiedType("Procedure");
-        public static DbSimplifiedType Function = new DbSimplifiedType("Function");
-        public static DbSimplifiedType Trigger = new DbSimplifiedType("Trigger");
-        public static DbSimplifiedType Constraint = new DbSimplifiedType("Constraint");
-        public static DbSimplifiedType Index = new DbSimplifiedType("Index");
-        public static DbSimplifiedType Other = new DbSimplifiedType("Other");
+        public static readonly DbSimplifiedType Table = new DbSimplifiedType("Table");
+        public static readonly DbSimplifiedType Column = new DbSimplifiedType("Column");
+        public static readonly DbSimplifiedType View = new DbSimplifiedType("View");
+        public static readonly DbSimplifiedType Procedure = new DbSimplifiedType("Procedure");
+        public static readonly DbSimplifiedType Function = new DbSimplifiedType("Function");
+        public static readonly DbSimplifiedType Trigger = new DbSimplifiedType("Trigger");
+        public static readonly DbSimplifiedType Constraint = new DbSimplifiedType("Constraint");
+        public static readonly DbSimplifiedType Index = new DbSimplifiedType("Index");
+        public static readonly DbSimplifiedType Other = new DbSimplifiedType("Other");
 
-        public string Name { get; private set; }
+        public string Name { get; }
+
         private DbSimplifiedType(string name)
         {
             Name = name;
@@ -30,8 +31,8 @@ namespace SsmsLite.Core.Database.Entities
         public static IEnumerable<DbSimplifiedType> GetAll()
         {
             var fields = typeof(DbSimplifiedType).GetFields(BindingFlags.Public |
-                                             BindingFlags.Static |
-                                             BindingFlags.DeclaredOnly);
+                                                            BindingFlags.Static |
+                                                            BindingFlags.DeclaredOnly);
 
             return fields.Select(f => f.GetValue(null)).Cast<DbSimplifiedType>();
         }

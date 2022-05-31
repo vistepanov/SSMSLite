@@ -7,8 +7,10 @@ namespace SsmsLite.Core.Ui.Extensions
     {
         public static Run CreateColored(string text, Brush foreground)
         {
-            var run = new Run(text);
-            run.Foreground = foreground;
+            var run = new Run(text)
+            {
+                Foreground = foreground
+            };
             return run;
         }
 

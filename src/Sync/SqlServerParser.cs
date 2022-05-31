@@ -19,20 +19,19 @@ namespace SsmsLite.Sync
             _location = LocationsHelper.CurrentLocation(_packageProvider.TextDocument);
         }
 
-        public string FindCurrentObject()
+        public string[] FindCurrentObject()
         {
-            var r = Parser.Parse(_packageProvider.AllText);
-            if (r == null) return "";
+            var parseResult = Parser.Parse(_packageProvider.AllText);
+            if (parseResult == null) return null;
 
-            var b = GetCurrentBatch(r.Script);
-            if (b == null) return "";
-            var s = GetCurrentStatement(b);
-            if (s == null) return "";
+            var sqlBatch = GetCurrentBatch(parseResult.Script);
+            if (sqlBatch == null) return null;
+            var sqlStatement = GetCurrentStatement(sqlBatch);
+            if (sqlStatement == null) return null;
 
-            var tokens = GetCurrentToken(s);
+            var tokens = GetCurrentToken(sqlStatement);
 
-            //  MessageBox.Show(s.Sql);
-            return string.Join(".", tokens.Reverse());
+            return tokens;
         }
 
         private SqlBatch GetCurrentBatch(SqlScript sql)
@@ -43,12 +42,11 @@ namespace SsmsLite.Sync
 
         private SqlStatement GetCurrentStatement(SqlBatch batch)
         {
-            return batch.Statements.FirstOrDefault(s =>
-                LocationsHelper.Contain(_location, s.StartLocation, s.EndLocation)
-            );
+            return batch.Statements
+                .FirstOrDefault(s => LocationsHelper.Contain(_location, s.StartLocation, s.EndLocation));
         }
 
-        private IReadOnlyList<Token> GetCurrentToken(SqlStatement statement)
+        private string[] GetCurrentToken(SqlStatement statement)
         {
             _tokens = statement.Tokens.Where(tk => tk.IsSignificant).ToArray(); //&& tk.Type == "TOKEN_ID"
 
@@ -56,37 +54,45 @@ namespace SsmsLite.Sync
             {
                 if (LocationsHelper.Contain(_location, _tokens[i].StartLocation, _tokens[i].EndLocation))
                 {
-                    if (_tokens[i].Type != "TOKEN_ID") return new List<Token>();
+                    if (_tokens[i].Type != "TOKEN_ID") return null;
                     var lastIndex = GoLast(i);
                     return ProcessTokensDown(lastIndex);
                 }
             }
 
-            return new List<Token>();
+            return null;
         }
 
         private int GoLast(int i)
         {
-            while (true)
+            while (_tokens.Length > i)
             {
-                if (_tokens.Length >= i) return _tokens.Length - 1;
-                if (_tokens[i].Type != "TOKEN_ID") return i;
+                if (_tokens[i].Type != "TOKEN_ID" &&
+                    _tokens[i].Type != "."
+                   ) return i;
                 i++;
             }
+
+            return _tokens.Length;
         }
 
-        private IReadOnlyList<Token> ProcessTokensDown(int i)
+        private string[] ProcessTokensDown(int i)
         {
-            var list = new List<Token>();
+            i--;
+            var isToken = true;
+            var list = new List<string>();
             while (i >= 0)
             {
-                if (_tokens[i].Type != "TOKEN_ID" && _tokens[i].Type != ".") return list;
+                if (_tokens[i].Type != "TOKEN_ID" && _tokens[i].Type != ".") break;
+                if (_tokens[i].Type == "TOKEN_ID" && !isToken) break;
+                if (_tokens[i].Type == "." && isToken) break;
+                isToken = !isToken;
                 if (_tokens[i].Type == "TOKEN_ID")
-                    list.Add(_tokens[i]);
+                    list.Add(_tokens[i].Text);
                 i--;
             }
 
-            return list;
+            return list.ToArray();
         }
     }
 }

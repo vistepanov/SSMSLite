@@ -11,11 +11,13 @@ namespace SsmsLite.Db.DbUpdate.Entities
 
         public static BuildVersionScript CreateNow(int buildNumber, string scriptName, string scriptContent)
         {
-            var instance = new BuildVersionScript();
-            instance.BuildNumber = buildNumber;
-            instance.ScriptName = scriptName;
-            instance.ScriptContent = scriptContent;
-            instance.InstallDateUtc = DateTime.UtcNow;
+            var instance = new BuildVersionScript
+            {
+                BuildNumber = buildNumber,
+                ScriptName = scriptName,
+                ScriptContent = scriptContent,
+                InstallDateUtc = DateTime.UtcNow
+            };
             return instance;
         }
     }

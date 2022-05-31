@@ -19,7 +19,7 @@ namespace Demo
         {
             InitializeComponent();
 
-            DemoDbSettings settings = ServiceLocator.GetRequiredService<DemoDbSettings>();
+            var settings = ServiceLocator.GetRequiredService<DemoDbSettings>();
             var dbConnectionStr = new DbConnectionString(settings.ConnectionString, settings.DbName);
 
             var tested = 0;

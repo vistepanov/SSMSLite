@@ -1,20 +1,19 @@
-﻿
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
-using EnvDTE;
 using Microsoft.Extensions.Logging;
 using SsmsLite.Core.Integration;
 using SsmsLite.Core.Integration.Connection;
 using SsmsLite.Core.Integration.ObjectExplorer;
 using SsmsLite.MsSqlDb;
 using SsmsLite.Core.Database;
+using SsmsLite.Core.SqlServer;
 
 namespace SsmsLite.Sync
 {
     public class Sync
     {
-        public const int MenuCommandId = 0x0203;
+        public const int MenuCommandId = 1401;
         private bool _isRegistered;
         private readonly PackageProvider _packageProvider;
         private readonly IObjectExplorerInteraction _objectExploreInteraction;
@@ -57,13 +56,12 @@ namespace SsmsLite.Sync
         {
             try
             {
-                string world;
                 var parser = new SqlServerParser(_packageProvider);
-                world = parser.FindCurrentObject();
-                if (string.IsNullOrWhiteSpace(world))
-                    world = _packageProvider.CurrentWord;
+                var dbo = new Dbo(parser.FindCurrentObject());
+                if (string.IsNullOrWhiteSpace(dbo.Name))
+                    dbo.Name = _packageProvider.CurrentWord;
 
-                await FindText(world);
+                await SelectDbo(dbo);
             }
             catch (Exception ex)
             {
@@ -71,40 +69,25 @@ namespace SsmsLite.Sync
             }
         }
 
-        private async Task<bool> FindText(string world)
+        private async Task SelectDbo(Dbo dbo)
         {
-            var document = _packageProvider.GetTextDocument();
-            //  if (document == null) return true;
-
             try
             {
-                var dbConnectionString = _dbConnectionProvider.GetFromActiveConnection();
-                if (dbConnectionString == null) return true;
-                var dbObject = await _dbInfo.GetObjectByName(dbConnectionString, world);
+                var dbConnectionString = _dbConnectionProvider.GetFromActiveConnection(
+                    !string.IsNullOrEmpty(dbo.Database), dbo
+                );
+                if (dbConnectionString == null) return;
+                var dbObject = await _dbInfo.GetObjectByName(dbConnectionString, dbo);
+
                 var path = dbObject?.DbRelativePath();
-                if (path == null) return true;
-                await _objectExploreInteraction.SelectNodeAsync(dbConnectionString.Server, dbConnectionString.Database,
-                    path);
+                if (path == null) return;
+                await _objectExploreInteraction
+                    .SelectNodeAsync(dbConnectionString.Server, dbConnectionString.Database, path);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Cannot find {world}, {ex.Message}");
+                MessageBox.Show($"Cannot find {dbo}, {ex.Message}");
             }
-
-            document?.Selection.Cancel();
-            return false;
-        }
-
-        private string LookupObject(TextSelection point)
-        {
-            if (point.IsEmpty)
-            {
-                point.WordLeft();
-                point.WordRight(true);
-            }
-
-
-            return point.Text;
         }
     }
 }

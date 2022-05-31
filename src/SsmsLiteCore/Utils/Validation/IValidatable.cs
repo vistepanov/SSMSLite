@@ -1,6 +1,6 @@
 ﻿namespace SsmsLite.Core.Utils.Validation
 {
-    public interface IValidatable<T>
+    public interface IValidatable<out T>
     {
         T Validate();
     }

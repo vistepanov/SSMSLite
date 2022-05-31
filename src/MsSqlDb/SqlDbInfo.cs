@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Dapper;
 using SsmsLite.Core.Database.Entities.Persisted;
 using SsmsLite.Core.Integration.Connection;
+using SsmsLite.Core.SqlServer;
 
 namespace SsmsLite.MsSqlDb
 {
@@ -33,13 +34,15 @@ FROM sys.objects AS o
 LEFT JOIN DefinitionInfo ON DefinitionInfo.object_id = o.object_id
 LEFT JOIN sys.objects AS Parent ON Parent.object_id = o.parent_object_id and Parent.is_ms_shipped = 0
 WHERE o.is_ms_shipped = 0 AND NOT (o.parent_object_id > 0 AND Parent.object_id IS NULL)";
-           
+
             #endregion
+
             using (var connection = new SqlConnection(dbConnectionString.ConnectionString))
             {
                 return (await connection.QueryAsync<DbObject>(dbObjectsQuery)).ToArray();
             }
         }
+
         public async Task<DbColumn[]> GetAllColumnsAsync(DbConnectionString dbConnectionString)
         {
             #region SQL
@@ -54,11 +57,13 @@ WHERE o.type = 'U' and o.is_ms_shipped = 0
 ORDER BY c.id, c.colid";
 
             #endregion
+
             using (var connection = new SqlConnection(dbConnectionString.ConnectionString))
             {
                 return (await connection.QueryAsync<DbColumn>(columnsQuery)).ToArray();
             }
         }
+
         public async Task<DbIndex[]> GetAllIndexesAsync(DbConnectionString dbConnectionString)
         {
             #region SQL
@@ -71,11 +76,13 @@ WHERE t.is_ms_shipped = 0 AND index_id > 0
 ORDER BY t.object_id, i.index_id";
 
             #endregion
+
             using (var connection = new SqlConnection(dbConnectionString.ConnectionString))
             {
                 return (await connection.QueryAsync<DbIndex>(indicesQuery)).ToArray();
             }
         }
+
         public async Task<DbIndexColumn[]> GetAllIndexesColumnAsync(DbConnectionString dbConnectionString)
         {
             #region SQL
@@ -98,13 +105,14 @@ ORDER BY
     ind.object_id, ind.index_id, ic.index_column_id;";
 
             #endregion
+
             using (var connection = new SqlConnection(dbConnectionString.ConnectionString))
             {
                 return (await connection.QueryAsync<DbIndexColumn>(indicesColumnsQuery)).ToArray();
             }
         }
 
-        public async Task<DbObject> GetObjectByName(DbConnectionString dbConnectionString, string name)
+        public async Task<DbObject> GetObjectByName(DbConnectionString dbConnectionString, Dbo dbo)
         {
             #region SQL
 
@@ -131,12 +139,22 @@ FROM sys.objects AS o
   LEFT JOIN sys.objects AS Parent ON Parent.object_id = o.parent_object_id and Parent.is_ms_shipped = 0
 WHERE o.is_ms_shipped = 0
   AND NOT (o.parent_object_id > 0 AND Parent.object_id IS NULL)
-  AND o.name=@Name";
+  AND o.name=@name
+  AND (schema_name(o.schema_id)=@schemaName OR ISNULL(@schemaName, '')='')";
 
             #endregion
-            using (var connection = new SqlConnection(dbConnectionString.ConnectionString))
+
+            var dbc = new DbConnectionString(dbConnectionString, dbo.Database);
+            using (var connection = new SqlConnection(dbc.ConnectionString))
             {
-                return (await connection.QueryAsync<DbObject>(dbObjectsQueryFiltered, new { Name= name })).FirstOrDefault();
+                var rv = await connection
+                    .QueryFirstOrDefaultAsync<DbObject>(dbObjectsQueryFiltered
+                        , new
+                        {
+                            name = dbo.Name,
+                            schemaName = dbo.Schema
+                        });
+                return rv;
             }
         }
     }

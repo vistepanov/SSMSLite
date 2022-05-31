@@ -51,7 +51,7 @@ namespace SsmsLite.Search.Repositories.Search
 
         public virtual IReadOnlyCollection<string> DbRealtivePath()
         {
-            return new List<string>() { };
+            return new List<string>();
         }
     }
 }

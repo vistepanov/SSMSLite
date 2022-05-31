@@ -77,7 +77,6 @@ namespace SsmsLite
                 _serviceProvider.GetRequiredService<PreferencesUI>().Register();
                 _serviceProvider.GetRequiredService<CsvPaste.CsvPaste>().Register();
                 _serviceProvider.GetRequiredService<Sync.Sync>().Register();
-
             }
             catch (Exception ex)
             {
@@ -107,7 +106,6 @@ namespace SsmsLite
                         RetainPolicyFileCount = 30
                     });
                 });
-
             }
             catch (Exception ex)
             {
@@ -130,19 +128,18 @@ namespace SsmsLite
 
         private static void AddInternalServices(IServiceCollection services)
         {
-            services.AddSingleton<IWorkingDirProvider, SsmsWorkingDirProvider>();
-            services.AddSingleton<IVersionProvider, VersionProvider>();
-
-            services.AddCsvServices();
-            services.AddDbServices(); // Internal Db initialize & update
-            services.AddSqlDbServices(); // MS SQL Queries
-            services.AddCoreServices(); // CORE services
-            services.AddHistoryServices(); // History
-            services.AddSearchServices(); // Search
-            services.AddDocumentServices(); // Document
-            services.AddPreferencesServices(); //
-            services.AddSyncServices();
-
+            services
+                .AddSingleton<IWorkingDirProvider, SsmsWorkingDirProvider>()
+                .AddSingleton<IVersionProvider, VersionProvider>()
+                .AddCsvServices()
+                .AddDbServices() // Internal Db initialize & update
+                .AddSqlDbServices() // MS SQL Queries
+                .AddCoreServices() // CORE services
+                .AddHistoryServices() // History
+                .AddSearchServices() // Search
+                .AddDocumentServices() // Document
+                .AddPreferencesServices() //
+                .AddSyncServices();
         }
 
         /// <summary>

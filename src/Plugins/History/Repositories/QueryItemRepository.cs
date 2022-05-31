@@ -15,9 +15,9 @@ namespace SsmsLite.History.Repositories
             _db = db ?? throw new ArgumentException(nameof(db));
         }
 
-        public int Insert(IEnumerable<QueryItem> queryItems)
+        public void Insert(IEnumerable<QueryItem> queryItems)
         {
-            return _db.InsertBulk(queryItems);
+            _db.InsertBulk(queryItems);
         }
 
         public QueryItem[] FindItems(FilterContext filterContext)

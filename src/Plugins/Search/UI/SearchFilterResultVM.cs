@@ -6,8 +6,8 @@ namespace SsmsLite.Search.UI
 {
     public class SearchFilterResultVM
     {
-        public ISearchTarget SearchResult { get; private set; }
-        public FilterContext FilterContext { get; private set; }
+        public ISearchTarget SearchResult { get; }
+        public FilterContext FilterContext { get; }
 
         public SearchFilterResultVM(ISearchTarget searchResult, FilterContext filterContext)
         {

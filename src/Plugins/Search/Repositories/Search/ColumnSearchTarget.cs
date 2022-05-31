@@ -46,24 +46,20 @@ namespace SsmsLite.Search.Repositories.Search
                 frags.AddSecondary(DbColumn.Parent.Name);
                 frags.AddSecondary(" | ");
                 frags.AddPrimary(DbColumn.Name);
-                frags.AddPrimary(" " + Formatting.FormatDatatype(DbColumn.Datatype, DbColumn.Precision, DbColumn.Scale));
+                frags.AddPrimary(" " +
+                                 Formatting.FormatDatatype(DbColumn.Datatype, DbColumn.Precision, DbColumn.Scale));
                 if (!string.IsNullOrEmpty(DbColumn.Definition))
                 {
                     frags.AddSecondary(" | ");
                     frags.AddPrimary(DbColumn.Definition);
                 }
+
                 frags.AddPrimary(DbColumn.Definition);
                 return frags;
             }
         }
 
-        public override TextFragments RichFullDefinition
-        {
-            get
-            {
-                return RichSmallDefinition;
-            }
-        }
+        public override TextFragments RichFullDefinition => RichSmallDefinition;
 
         public override IReadOnlyCollection<string> DbRealtivePath()
         {

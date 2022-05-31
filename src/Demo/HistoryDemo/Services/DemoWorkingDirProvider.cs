@@ -12,7 +12,8 @@ namespace Demo.Services
         {
             if (string.IsNullOrEmpty(_cachedWorkingDir))
             {
-                _cachedWorkingDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "SsmsLite");
+                var directoryName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "";
+                _cachedWorkingDir = Path.Combine(directoryName, "SsmsLite");
                 Directory.CreateDirectory(_cachedWorkingDir);
             }
 

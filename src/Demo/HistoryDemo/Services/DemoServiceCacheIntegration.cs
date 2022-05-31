@@ -6,7 +6,6 @@ namespace Demo.Services
     {
         void IServiceCacheIntegration.OpenScriptInNewWindow(string script)
         {
-            return;
         }
     }
 }

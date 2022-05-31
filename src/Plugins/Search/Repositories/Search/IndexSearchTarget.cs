@@ -31,15 +31,9 @@ namespace SsmsLite.Search.Repositories.Search
 
         public override TextFragments RichName => new TextFragments(TextFragment.Primary(DbIndex.Name));
 
-        public override TextFragments RichSmallDefinition
-        {
-            get { return FormatIndex(" "); }
-        }
+        public override TextFragments RichSmallDefinition => FormatIndex(" ");
 
-        public override TextFragments RichFullDefinition
-        {
-            get { return FormatIndex("\n"); }
-        }
+        public override TextFragments RichFullDefinition => FormatIndex("\n");
 
         private TextFragments FormatIndex(string lineBreak)
         {

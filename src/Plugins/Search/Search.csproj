@@ -55,7 +55,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\Formatting.cs" />
     <Compile Include="Menu\DbContextMenu.cs" />
     <Compile Include="Repositories\SchemaSearchRepository.cs" />
     <Compile Include="Repositories\Search\ColumnSearchTarget.cs" />

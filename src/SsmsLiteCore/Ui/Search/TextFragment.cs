@@ -2,9 +2,9 @@
 {
     public class TextFragment
     {
-        public string Value { get; private set; }
+        public string Value { get; }
 
-        public TextFragmentType FragmentType { get; private set; }
+        public TextFragmentType FragmentType { get; }
 
         public TextFragment(string value, TextFragmentType fragmentType)
         {

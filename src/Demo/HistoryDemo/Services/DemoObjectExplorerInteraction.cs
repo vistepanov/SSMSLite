@@ -6,7 +6,7 @@ namespace Demo.Services
 {
     public class DemoObjectExplorerInteraction : IObjectExplorerInteraction
     {
-        Task IObjectExplorerInteraction.SelectNodeAsync(string server, string dbName, IReadOnlyCollection<string> itemPath)
+        Task IObjectExplorerInteraction.SelectNodeAsync(string server, string database, IReadOnlyCollection<string> itemPath)
         {
             return Task.CompletedTask;
         }

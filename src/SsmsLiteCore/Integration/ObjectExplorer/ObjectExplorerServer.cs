@@ -6,8 +6,8 @@ namespace SsmsLite.Core.Integration.ObjectExplorer
     public class ObjectExplorerServer
     {
         public SqlConnectionInfo ConnectionInfo => NodeInformation.Connection as SqlConnectionInfo;
-        public INodeInformation NodeInformation { get; private set; }
-        public IExplorerHierarchy Hierarchy { get; private set; }
+        public INodeInformation NodeInformation { get; }
+        public IExplorerHierarchy Hierarchy { get; }
         public HierarchyTreeNode Root => Hierarchy.Root;
 
         public ObjectExplorerServer(INodeInformation nodeInformation, IExplorerHierarchy hierarchy)

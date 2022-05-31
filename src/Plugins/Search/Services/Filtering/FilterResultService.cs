@@ -7,19 +7,18 @@ namespace SsmsLite.Search.Services.Filtering
 {
     public class FilterResultService
     {
-        private static Dictionary<MatchOn, Func<ISearchTarget, string, bool>> matchPredicates
+        private static readonly Dictionary<MatchOn, Func<ISearchTarget, string, bool>> MatchPredicates
             = new Dictionary<MatchOn, Func<ISearchTarget, string, bool>>();
 
         static FilterResultService()
         {
-            matchPredicates.Add(MatchOn.Name, (p, str) => p.MatchsName(str));
-            matchPredicates.Add(MatchOn.Definition, (p, str) => p.MatchsDefinition(str));
+            MatchPredicates.Add(MatchOn.Name, (p, str) => p.MatchsName(str));
+            MatchPredicates.Add(MatchOn.Definition, (p, str) => p.MatchsDefinition(str));
         }
 
         public static IEnumerable<ISearchTarget> Filter(IEnumerable<ISearchTarget> source, FilterContext filterContext)
         {
             source = source.Where(p => filterContext.Schemas.Contains(p.SchemaName));
-
             source = source.Where(p => filterContext.Categories.Contains(p.TypeCategory));
 
             if (!string.IsNullOrEmpty(filterContext.Search))
@@ -36,20 +35,20 @@ namespace SsmsLite.Search.Services.Filtering
 
         private static Func<ISearchTarget, string, bool> BuildMatchOnPredicate(HashSet<MatchOn> matchOns)
         {
-            var predicates = matchOns.Select(p => matchPredicates[p]).ToArray();
+            var predicates = matchOns.Select(p => MatchPredicates[p]).ToArray();
 
-            bool predicate(ISearchTarget r, string str)
+            bool Predicate(ISearchTarget r, string str)
             {
-                bool orResult = false;
-                foreach (var predic in predicates)
+                var orResult = false;
+                foreach (var predicate in predicates)
                 {
-                    orResult = predic(r, str) || orResult;
+                    orResult = predicate(r, str) || orResult;
                 }
 
                 return orResult;
             }
 
-            return predicate;
+            return Predicate;
         }
     }
 }

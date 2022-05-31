@@ -10,18 +10,16 @@ namespace SsmsLite.Core.Ui.Utils
             if (original == null)
                 return null;
 
-            object clone;
             using (var stream = new MemoryStream())
             {
                 XamlWriter.Save(original, stream);
                 stream.Seek(0, SeekOrigin.Begin);
-                clone = XamlReader.Load(stream);
+                var clone = XamlReader.Load(stream);
+                if (clone is T clone1)
+                    return clone1;
             }
 
-            if (clone is T)
-                return (T)clone;
-            else
-                return null;
+            return null;
         }
     }
 }

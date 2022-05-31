@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using SsmsLite.Core.Database.Entities.Persisted;
 using SsmsLite.Core.Ui.Search;
 using SsmsLite.Core.Utils;
 
@@ -8,15 +10,16 @@ namespace SsmsLite.Search.Repositories.Search
 {
     public class TableSearchTarget : SearchTargetBase
     {
-        public TableSearchTarget(Core.Database.Entities.Persisted.DbObject dbObject, Core.Database.Entities.Persisted.DbColumn[] dbColumns)
+        public TableSearchTarget(DbObject dbObject,
+            DbColumn[] dbColumns)
         {
             DbObject = dbObject;
             DbColumns = dbColumns;
         }
 
-        public Core.Database.Entities.Persisted.DbColumn[] DbColumns { get; }
+        public DbColumn[] DbColumns { get; }
 
-        public Core.Database.Entities.Persisted.DbObject DbObject { get; }
+        public DbObject DbObject { get; }
 
         public override string UniqueIdentifier => Guid.NewGuid().ToString();
 
@@ -28,7 +31,8 @@ namespace SsmsLite.Search.Repositories.Search
 
         public override DateTime? ModificationDate => DbObject.ModificationDate;
 
-        public override string ModificationDateStr => DbObject.ModificationDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
+        public override string ModificationDateStr =>
+            DbObject.ModificationDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
 
         public override TextFragments RichName => new TextFragments(TextFragment.Primary(DbObject.Name));
 
@@ -49,8 +53,8 @@ namespace SsmsLite.Search.Repositories.Search
                 fragments.AddPrimary("[" + SchemaName + "]." + "[" + Name + "]");
                 fragments.AddSecondary("\n\n");
 
-                var struc = CreateTableStruct();
-                fragments.Add(CreateTable(struc, GetTableWidths(struc)));
+                var tableStruct = CreateTableStruct();
+                fragments.Add(CreateTable(tableStruct, GetTableWidths(tableStruct)));
                 return fragments;
             }
         }
@@ -58,15 +62,19 @@ namespace SsmsLite.Search.Repositories.Search
         private List<(TextFragment, TextFragment, TextFragment)> CreateTableStruct()
         {
             // Column | Datatype | Computed value
-            var header = (TextFragment.Secondary("Column"), TextFragment.Secondary("Datatype"), TextFragment.Secondary("Computed value"));
-            var list = new List<(TextFragment, TextFragment, TextFragment)>();
-            list.Add(header);
+            var list = new List<(TextFragment, TextFragment, TextFragment)>
+            {
+                (TextFragment.Secondary("Column"),
+                    TextFragment.Secondary("Datatype"),
+                    TextFragment.Secondary("Computed value"))
+            };
 
             foreach (var dbColumn in DbColumns)
             {
                 var col = TextFragment.Primary(dbColumn.Name);
-                var type = TextFragment.Secondary(Formatting.FormatDatatype(dbColumn.Datatype, dbColumn.Precision, dbColumn.Scale));
-                var def = TextFragment.Secondary(dbColumn.Definition?.RemoveLineReturns());
+                var type = TextFragment.Secondary(
+                    Formatting.FormatDatatype(dbColumn.Datatype, dbColumn.Precision, dbColumn.Scale));
+                var def = TextFragment.Secondary(dbColumn.Definition.RemoveLineReturns());
                 list.Add((col, type, def));
             }
 
@@ -74,6 +82,7 @@ namespace SsmsLite.Search.Repositories.Search
         }
 
 
+        [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
         private (int, int, int) GetTableWidths(IEnumerable<(TextFragment, TextFragment, TextFragment)> tableStruct)
         {
             var maxColumn = tableStruct.Max(p => p.Item1.Value.Length);
@@ -83,14 +92,16 @@ namespace SsmsLite.Search.Repositories.Search
             return (maxColumn, maxDatatype, maxDef);
         }
 
-        private TextFragments CreateTable(List<(TextFragment, TextFragment, TextFragment)> tableStruct, (int, int, int) widths)
+        private TextFragments CreateTable(List<(TextFragment, TextFragment, TextFragment)> tableStruct,
+            (int, int, int) widths)
         {
             var frags = new TextFragments();
             for (int i = 0; i < tableStruct.Count; i++)
             {
                 if (i == 1)
                 {
-                    frags.AddSecondary(new string('-', widths.Item1) + "---" + new string('-', widths.Item2) + "---" + new string('-', widths.Item3) + "\n");
+                    frags.AddSecondary(new string('-', widths.Item1) + "---" + new string('-', widths.Item2) + "---" +
+                                       new string('-', widths.Item3) + "\n");
                 }
 
                 var line = tableStruct[i];
@@ -104,6 +115,7 @@ namespace SsmsLite.Search.Repositories.Search
                 frags.AddSecondary(GetComplement(line.Item3, widths.Item3));
                 frags.AddSecondary("\n");
             }
+
             return frags;
         }
 

@@ -49,6 +49,7 @@ namespace SsmsLite.Core.Ui.Commands
         }
 
         #region Explicit implementations
+
         bool ICommand.CanExecute(object parameter)
         {
             return CanExecute();
@@ -65,6 +66,7 @@ namespace SsmsLite.Core.Ui.Commands
                 _errorHandler?.Invoke(ex);
             }
         }
+
         #endregion
     }
 
@@ -113,6 +115,7 @@ namespace SsmsLite.Core.Ui.Commands
         }
 
         #region Explicit implementations
+
         bool ICommand.CanExecute(object parameter)
         {
             return CanExecute();
@@ -129,6 +132,7 @@ namespace SsmsLite.Core.Ui.Commands
                 _errorHandler?.Invoke(ex);
             }
         }
+
         #endregion
     }
 }

@@ -25,7 +25,8 @@ namespace SsmsLite.Search.Repositories.Search
 
         public override DateTime? ModificationDate => DbObject.ModificationDate;
 
-        public override string ModificationDateStr => DbObject.ModificationDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
+        public override string ModificationDateStr =>
+            DbObject.ModificationDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
 
         public override TextFragments RichName => new TextFragments(TextFragment.Primary(DbObject.Name));
 
@@ -38,13 +39,8 @@ namespace SsmsLite.Search.Repositories.Search
             }
         }
 
-        public override TextFragments RichFullDefinition
-        {
-            get
-            {
-                return new TextFragments(TextFragment.Primary(DbObject.Definition));
-            }
-        }
+        public override TextFragments RichFullDefinition =>
+            new TextFragments(TextFragment.Primary(DbObject.Definition));
 
         public override IReadOnlyCollection<string> DbRealtivePath()
         {
@@ -78,7 +74,7 @@ namespace SsmsLite.Search.Repositories.Search
                 return ViewPath();
             }
 
-            return base.DbRealtivePath(); ;
+            return base.DbRealtivePath();
         }
 
         public IReadOnlyCollection<string> FuncPath(string folder)
@@ -99,7 +95,7 @@ namespace SsmsLite.Search.Repositories.Search
 
         public IReadOnlyCollection<string> ViewPath()
         {
-            var parent = DbObject.Parent;
+            //var parent = DbObject.Parent;
             return new List<string>() { "Views", $"{SchemaName}.{Name}" };
         }
     }

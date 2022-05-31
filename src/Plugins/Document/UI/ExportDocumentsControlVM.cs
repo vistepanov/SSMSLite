@@ -17,12 +17,12 @@ namespace SsmsLite.Document.UI
     {
         private DbConnectionString _dbConnectionString;
 
-        public Command ChooseFolderCmd { get; private set; }
-        public AsyncCommand ExportFilesCmd { get; private set; }
-        public Command CancelExportFilesCmd { get; private set; }
+        public Command ChooseFolderCmd { get; }
+        public AsyncCommand ExportFilesCmd { get; }
+        public Command CancelExportFilesCmd { get; }
 
         public CancellationTokenSource CancelToken { get; private set; }
-        public RunStream ConsoleOutput { get; private set; }
+        public RunStream ConsoleOutput { get; }
 
         public ExportDocumentsControlVm()
         {
@@ -105,16 +105,34 @@ namespace SsmsLite.Document.UI
         }
 
         private string _sqlQuery = "Select top 10 FileName, FileContent FROM Files";
-        public string SqlQuery { get => _sqlQuery; set => SetField(ref _sqlQuery, value); }
+
+        public string SqlQuery
+        {
+            get => _sqlQuery;
+            set => SetField(ref _sqlQuery, value);
+        }
 
         private string _message;
-        public string Message { get => _message; set => SetField(ref _message, value); }
+
+        public string Message
+        {
+            get => _message;
+            set => SetField(ref _message, value);
+        }
 
         private string _folderPath;
-        public string FolderPath { get => _folderPath; set => SetField(ref _folderPath, value); }
+
+        public string FolderPath
+        {
+            get => _folderPath;
+            set => SetField(ref _folderPath, value);
+        }
 
         private bool _isValidFolderPath;
-        public bool IsValidFolderPath { get => _isValidFolderPath;
+
+        public bool IsValidFolderPath
+        {
+            get => _isValidFolderPath;
             set
             {
                 SetField(ref _isValidFolderPath, value);
@@ -123,7 +141,10 @@ namespace SsmsLite.Document.UI
         }
 
         private bool _isExporting;
-        public bool IsExporting { get => _isExporting;
+
+        public bool IsExporting
+        {
+            get => _isExporting;
             set
             {
                 SetField(ref _isExporting, value);
@@ -134,7 +155,12 @@ namespace SsmsLite.Document.UI
         public bool CanExport => !IsExporting && IsValidFolderPath;
 
         private string _dbDisplayName;
-        public string DbDisplayName { get => _dbDisplayName; set => SetField(ref _dbDisplayName, value); }
+
+        public string DbDisplayName
+        {
+            get => _dbDisplayName;
+            set => SetField(ref _dbDisplayName, value);
+        }
 
         public void Free()
         {

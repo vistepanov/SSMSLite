@@ -68,7 +68,7 @@
           If you do not want an image next to your command, remove the Icon node /> -->
             <Button guid="guidCommand1PackageCmdSet" id="ExecutionHistoryCmd" priority="0x0100" type="Button">
                 <Parent guid="guidCommand1PackageCmdSet" id="MyMenuGroup" />
-                <Icon guid="timeback" id="bmpPic1" />
+                <Icon guid="timeBack" id="bmpPic1" />
                 <Strings>
                     <ButtonText>Execution History</ButtonText>
                 </Strings>
@@ -117,7 +117,7 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-            <Bitmap guid="timeback" href="Resources\google\timeback.png" usedList="bmpPic1" />
+            <Bitmap guid="timeBack" href="Resources\google\timeback.png" usedList="bmpPic1" />
             <Bitmap guid="find" href="Resources\google\find.png" usedList="bmpPic1" />
             <Bitmap guid="download" href="Resources\google\download.png" usedList="bmpPic1" />
             <Bitmap guid="guidImages" href="Resources\PasteCommand.png"
@@ -146,8 +146,12 @@
                     mod1="Alt" />
 
         <!--VK_F12	0x7B	F12 key-->
-        <KeyBinding guid="guidCommand1PackageCmdSet" id="FindCommandCmd" editor="guidVSStd97" key1="0x7B"
-                    mod1="Shift" />
+        <KeyBinding guid="guidCommand1PackageCmdSet" id="FindCommandCmd" editor="guidVSStd97" 
+
+                    key1="0x7B" mod1="Alt" />
+        <!--
+                    key1="f" mod1="Control Alt" 
+        -->
 
     </KeyBindings>
 
@@ -168,12 +172,12 @@
             <IDSymbol name="DocumentViewerCmd" value="1201" />
             <IDSymbol name="PreferencesCmd" value="2001" />
 
-            <IDSymbol name="PasteCommandCmd" value="0x0202" />
-            <IDSymbol name="FindCommandCmd" value="0x0203" />
+            <IDSymbol name="PasteCommandCmd" value="1301" />
+            <IDSymbol name="FindCommandCmd" value="1401" />
 
         </GuidSymbol>
 
-        <GuidSymbol name="timeback" value="{0c6e5c94-f934-4bac-acf9-e56653df5110}">
+        <GuidSymbol name="timeBack" value="{0c6e5c94-f934-4bac-acf9-e56653df5110}">
             <IDSymbol name="bmpPic1" value="1" />
         </GuidSymbol>
 

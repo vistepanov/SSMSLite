@@ -16,12 +16,12 @@ namespace SsmsLite.History.UI
 {
     public class HistoryControlVm : ViewModelBase
     {
-        private QueryItemRepository _itemsRepository;
+        private readonly QueryItemRepository _itemsRepository;
         private IVersionProvider _versionProvider;
-        private IServiceCacheIntegration _serviceCacheIntegration;
+        private readonly IServiceCacheIntegration _serviceCacheIntegration;
 
-        public IAsyncCommand RequestItemsCommand { get; private set; }
-        public IAsyncCommand ViewLoadedCommand { get; private set; }
+        public IAsyncCommand RequestItemsCommand { get; }
+        public IAsyncCommand ViewLoadedCommand { get; }
         public Command<SearchFilterResultVM> OpenScriptCmd { get; }
 
         private bool _loadedOnce;
@@ -32,7 +32,8 @@ namespace SsmsLite.History.UI
             _itemsRepository = itemsRepository;
             _versionProvider = versionProvider;
             _serviceCacheIntegration = serviceCacheIntegration;
-            RequestItemsCommand = new AsyncCommand(FuncHelper.Debounce(ExecuteRequestItemsAsync, 100), CanExecuteSubmit, HandleError);
+            RequestItemsCommand = new AsyncCommand(FuncHelper.Debounce(ExecuteRequestItemsAsync, 100), CanExecuteSubmit,
+                HandleError);
             ViewLoadedCommand = new AsyncCommand(OnViewLoadedAsync, CanExecuteSubmit, HandleError);
             OpenScriptCmd = new Command<SearchFilterResultVM>(OpenScript, () => true, HandleError);
             InitDefaults();
@@ -65,7 +66,8 @@ namespace SsmsLite.History.UI
 
                 var sw = System.Diagnostics.Stopwatch.StartNew();
 
-                var filterContext = new FilterContext(QueryFilter, ServerFilter, DbFilter, StartDate.ToUniversalTime(), EndDate.ToUniversalTime());
+                var filterContext = new FilterContext(QueryFilter, ServerFilter, DbFilter, StartDate.ToUniversalTime(),
+                    EndDate.ToUniversalTime());
                 var result = _itemsRepository.FindItems(filterContext);
                 QueryItemsVM = result.Select(q => new ScriptSearchTarget(q))
                     .Select(p => new SearchFilterResultVM(p, filterContext)).ToList();
@@ -179,7 +181,7 @@ namespace SsmsLite.History.UI
         public SearchFilterResultVM SelectedItem
         {
             get => _selectedItem;
-            set { SetField(ref _selectedItem, value); }
+            set => SetField(ref _selectedItem, value);
         }
 
         private void OnSearchChange()

@@ -2,7 +2,6 @@
 {
     public interface IVersionProvider
     {
-        int GetBuild();
         int[] GetBuildAndRevision();
     }
 }

@@ -12,10 +12,10 @@ namespace SsmsLite.Core.Integration.ObjectExplorer
             _packageProvider = packageProvider;
         }
 
-        public async System.Threading.Tasks.Task SelectNodeAsync(string server, string dbName, IReadOnlyCollection<string> itemPath)
+        public async System.Threading.Tasks.Task SelectNodeAsync(string server, string database, IReadOnlyCollection<string> itemPath)
         {
             var objectExplorer = (await _packageProvider.AsyncPackage.GetServiceAsync(typeof(IObjectExplorerService))) as IObjectExplorerService;
-            var objNode = ObjectExplorerHelper.GetObjectHierarchyNode(objectExplorer, server, dbName, itemPath);
+            var objNode = ObjectExplorerHelper.GetObjectHierarchyNode(objectExplorer, server, database, itemPath);
             ObjectExplorerHelper.SelectNode(objectExplorer, objNode);
         }
     }

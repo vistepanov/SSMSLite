@@ -4,9 +4,8 @@ namespace SsmsLite.Search
 {
     public class SearchPlugin
     {
-
-        private bool isRegistred = false;
-        private SearchUi _searchUi;
+        private bool _isRegistered;
+        private readonly SearchUi _searchUi;
 
         public SearchPlugin(SearchUi searchUi)
         {
@@ -15,12 +14,12 @@ namespace SsmsLite.Search
 
         public void Register()
         {
-            if (isRegistred)
+            if (_isRegistered)
             {
-                throw new Exception("SearchPlugin is already registred");
+                throw new Exception("SearchPlugin is already registered");
             }
 
-            isRegistred = true;
+            _isRegistered = true;
             _searchUi.Register();
         }
     }

@@ -12,12 +12,13 @@ namespace SsmsLite.Core.Ui.Controls.ComboCheckBox
     {
         public event EventHandler SelectionChanged;
 
-        public ICommand CheckAllCommand { get; private set; }
-        public ICommand CheckOneCommand { get; private set; }
+        public ICommand CheckAllCommand { get; }
+        public ICommand CheckOneCommand { get; }
 
-        public BindingList<ComboCheckBoxItem<T>> Items { get; private set; }
+        public BindingList<ComboCheckBoxItem<T>> Items { get; }
 
         private string _text;
+
         public string Text
         {
             get => _text;
@@ -25,6 +26,7 @@ namespace SsmsLite.Core.Ui.Controls.ComboCheckBox
         }
 
         private bool _isAllChecked;
+
         public bool IsAllChecked
         {
             get => _isAllChecked;
@@ -32,6 +34,7 @@ namespace SsmsLite.Core.Ui.Controls.ComboCheckBox
         }
 
         private bool _isAllVisible = true;
+
         public bool IsAllVisible
         {
             get => _isAllVisible;
@@ -46,6 +49,7 @@ namespace SsmsLite.Core.Ui.Controls.ComboCheckBox
         {
             return Items.Where(p => p.IsChecked).Select(p => p.Value).ToHashSet();
         }
+
         public ComboCheckBoxViewModel()
         {
             CheckAllCommand = new Command<bool>(OnCheckAllCommand);
@@ -104,8 +108,7 @@ namespace SsmsLite.Core.Ui.Controls.ComboCheckBox
 
         private void RaiseSelectionChanged()
         {
-            SelectionChanged?.Invoke(this, new EventArgs());
+            SelectionChanged?.Invoke(this, EventArgs.Empty);
         }
-
     }
 }

@@ -57,11 +57,11 @@
     <None Include="Key.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MsSqlDb\MsSqlDb.csproj">
+    <ProjectReference Include="..\..\MsSqlDb\MsSqlDb.csproj">
       <Project>{1A30814B-5F08-4094-A398-5FB4A455BD59}</Project>
       <Name>MsSqlDb</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SsmsLiteCore\Core.csproj">
+    <ProjectReference Include="..\..\SsmsLiteCore\Core.csproj">
       <Project>{8a9a6a80-c860-4905-aef9-167ad429b343}</Project>
       <Name>Core</Name>
     </ProjectReference>

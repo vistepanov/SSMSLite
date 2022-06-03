@@ -3,17 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project files", "Project files", "{C543D40E-89E8-48F3-BB05-5D2BE37CAFCD}"
+	ProjectSection(SolutionItems) = preProject
+		..\.editorconfig = ..\.editorconfig
+		..\.gitignore = ..\.gitignore
+		..\LICENSE-2.0.txt = ..\LICENSE-2.0.txt
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SsmsLite", "SsmsLite\SsmsLite.csproj", "{320EB57F-22AD-486A-9C29-144938B0BBC7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{931FC478-FE0D-4412-A5AC-471A6248A318}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\HistoryDemo\Demo.csproj", "{C115E73A-0F22-4688-B073-823EBA8EE7B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db", "SsmsLiteDb\Db.csproj", "{FD9DA179-770E-46BB-8676-A757D4375F8C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{F1731B5D-F585-4413-AB7B-98626DA0499E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "SsmsLiteCore\Core.csproj", "{8A9A6A80-C860-4905-AEF9-167AD429B343}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db", "SsmsLiteDb\Db.csproj", "{FD9DA179-770E-46BB-8676-A757D4375F8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsSqlDb", "MsSqlDb\MsSqlDb.csproj", "{1A30814B-5F08-4094-A398-5FB4A455BD59}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "Plugin", "{C18A9982-11C5-42D2-ACE4-AA7D3BF38003}"
 EndProject
@@ -27,17 +37,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Preferences", "Plugins\Pref
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvPaste", "Plugins\CsvPaste\CsvPaste.csproj", "{6FF8B4D2-A87C-42A4-B066-88221163AD04}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project files", "Project files", "{C543D40E-89E8-48F3-BB05-5D2BE37CAFCD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sync", "Plugins\Sync\Sync.csproj", "{ECCCB9EA-AE80-4D7E-8DDC-E0AD14F46C5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assemblies", "assemblies", "{B706FB6B-E79E-4CFA-9DCA-098348B15A83}"
 	ProjectSection(SolutionItems) = preProject
-		..\.editorconfig = ..\.editorconfig
-		..\.gitignore = ..\.gitignore
-		..\LICENSE-2.0.txt = ..\LICENSE-2.0.txt
-		..\README.md = ..\README.md
+		assemblies\Microsoft.SqlServer.ConnectionInfo.dll = assemblies\Microsoft.SqlServer.ConnectionInfo.dll
+		assemblies\Microsoft.SqlServer.RegSvrEnum.dll = assemblies\Microsoft.SqlServer.RegSvrEnum.dll
+		assemblies\readme.txt = assemblies\readme.txt
+		assemblies\SqlPackageBase.dll = assemblies\SqlPackageBase.dll
+		assemblies\SqlWorkbench.Interfaces.dll = assemblies\SqlWorkbench.Interfaces.dll
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sync", "Sync\Sync.csproj", "{ECCCB9EA-AE80-4D7E-8DDC-E0AD14F46C5C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsSqlDb", "MsSqlDb\MsSqlDb.csproj", "{1A30814B-5F08-4094-A398-5FB4A455BD59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,14 +72,6 @@ Global
 		{C115E73A-0F22-4688-B073-823EBA8EE7B3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C115E73A-0F22-4688-B073-823EBA8EE7B3}.Release|x86.ActiveCfg = Release|Any CPU
 		{C115E73A-0F22-4688-B073-823EBA8EE7B3}.Release|x86.Build.0 = Release|Any CPU
-		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Debug|x86.Build.0 = Debug|Any CPU
-		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Release|x86.ActiveCfg = Release|Any CPU
-		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Release|x86.Build.0 = Release|Any CPU
 		{8A9A6A80-C860-4905-AEF9-167AD429B343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8A9A6A80-C860-4905-AEF9-167AD429B343}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A9A6A80-C860-4905-AEF9-167AD429B343}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -79,6 +80,22 @@ Global
 		{8A9A6A80-C860-4905-AEF9-167AD429B343}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8A9A6A80-C860-4905-AEF9-167AD429B343}.Release|x86.ActiveCfg = Release|Any CPU
 		{8A9A6A80-C860-4905-AEF9-167AD429B343}.Release|x86.Build.0 = Release|Any CPU
+		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Debug|x86.Build.0 = Debug|Any CPU
+		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Release|x86.ActiveCfg = Release|Any CPU
+		{FD9DA179-770E-46BB-8676-A757D4375F8C}.Release|x86.Build.0 = Release|Any CPU
+		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Debug|x86.Build.0 = Debug|Any CPU
+		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Release|x86.ActiveCfg = Release|Any CPU
+		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Release|x86.Build.0 = Release|Any CPU
 		{617D42C9-1407-4528-BEF8-C4E8440A3DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{617D42C9-1407-4528-BEF8-C4E8440A3DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{617D42C9-1407-4528-BEF8-C4E8440A3DDB}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -127,29 +144,22 @@ Global
 		{ECCCB9EA-AE80-4D7E-8DDC-E0AD14F46C5C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ECCCB9EA-AE80-4D7E-8DDC-E0AD14F46C5C}.Release|x86.ActiveCfg = Release|Any CPU
 		{ECCCB9EA-AE80-4D7E-8DDC-E0AD14F46C5C}.Release|x86.Build.0 = Release|Any CPU
-		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Debug|x86.Build.0 = Debug|Any CPU
-		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Release|x86.ActiveCfg = Release|Any CPU
-		{1A30814B-5F08-4094-A398-5FB4A455BD59}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C115E73A-0F22-4688-B073-823EBA8EE7B3} = {931FC478-FE0D-4412-A5AC-471A6248A318}
-		{FD9DA179-770E-46BB-8676-A757D4375F8C} = {F1731B5D-F585-4413-AB7B-98626DA0499E}
 		{8A9A6A80-C860-4905-AEF9-167AD429B343} = {F1731B5D-F585-4413-AB7B-98626DA0499E}
+		{FD9DA179-770E-46BB-8676-A757D4375F8C} = {F1731B5D-F585-4413-AB7B-98626DA0499E}
+		{1A30814B-5F08-4094-A398-5FB4A455BD59} = {F1731B5D-F585-4413-AB7B-98626DA0499E}
 		{617D42C9-1407-4528-BEF8-C4E8440A3DDB} = {C18A9982-11C5-42D2-ACE4-AA7D3BF38003}
 		{306A761C-AD8F-4274-84B0-69C7B357F665} = {C18A9982-11C5-42D2-ACE4-AA7D3BF38003}
 		{6258A92F-0E37-4AA7-802D-27FB1A535C63} = {C18A9982-11C5-42D2-ACE4-AA7D3BF38003}
 		{EB38BBD1-F621-4AE1-9B82-15D52DACF042} = {C18A9982-11C5-42D2-ACE4-AA7D3BF38003}
 		{6FF8B4D2-A87C-42A4-B066-88221163AD04} = {C18A9982-11C5-42D2-ACE4-AA7D3BF38003}
 		{ECCCB9EA-AE80-4D7E-8DDC-E0AD14F46C5C} = {C18A9982-11C5-42D2-ACE4-AA7D3BF38003}
-		{1A30814B-5F08-4094-A398-5FB4A455BD59} = {F1731B5D-F585-4413-AB7B-98626DA0499E}
+		{B706FB6B-E79E-4CFA-9DCA-098348B15A83} = {C543D40E-89E8-48F3-BB05-5D2BE37CAFCD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2B152AD-4AF8-4F40-846C-959E8A335884}

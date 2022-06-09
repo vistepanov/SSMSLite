@@ -13,6 +13,7 @@ namespace SsmsLite.Core.Database
         T Command<T>(Func<ILocalDatabase, T> command, Func<T> onOk, Func<Exception, T> onErr, int timeout = 120);
         void DropDb(int dbid);
         void InsertBulk<T>(IEnumerable<T> val);
+        void InsertBulkInternal<T>(IEnumerable<T> val);
         QueryItem[] FindItems(FilterContext filterContext);
 
         int DbExists(DbConnectionString dbConnectionString);

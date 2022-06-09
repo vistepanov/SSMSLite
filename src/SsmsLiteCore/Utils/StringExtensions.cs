@@ -16,7 +16,8 @@ namespace SsmsLite.Core.Utils
 
         public static string RemoveLineReturns(this string str)
         {
-            return str.Replace("\r\n", " ").Replace("\n", " ").Replace("\r", " ");
+            return str ?? ""
+                .Replace("\r\n", " ").Replace("\n", " ").Replace("\r", " ");
         }
     }
 }

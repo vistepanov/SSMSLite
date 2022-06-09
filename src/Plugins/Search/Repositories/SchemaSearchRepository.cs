@@ -41,10 +41,10 @@ namespace SsmsLite.Search.Repositories
                 indicesColumns.ForEach(p => p.DbId = dbId);
 
                 db.Insert( dbDefinition );
-                db.InsertBulk(dbObjects);
-                db.InsertBulk(columns);
-                db.InsertBulk(indices);
-                db.InsertBulk(indicesColumns);
+                db.InsertBulkInternal(dbObjects);
+                db.InsertBulkInternal(columns);
+                db.InsertBulkInternal(indices);
+                db.InsertBulkInternal(indicesColumns);
 
                 return dbId;
             });

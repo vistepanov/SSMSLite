@@ -47,7 +47,6 @@ namespace SsmsLite.History.Services
             var command = dte2.Commands.Item("Query.Execute");
 
             QueryExecuteEvent = dte2.Events.CommandEvents[command.Guid, command.ID];
-//            QueryExecuteEvent = dte2.Events.get_CommandEvents(command.Guid, command.ID);
             QueryExecuteEvent.BeforeExecute += CommandEvents_BeforeExecute;
         }
 

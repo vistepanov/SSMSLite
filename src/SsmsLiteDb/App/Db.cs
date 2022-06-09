@@ -87,8 +87,13 @@ namespace SsmsLite.Db.App
         {
             using (_database = new LiteDatabase(_connectionString))
             {
-                _database.GetCollection<T>().InsertBulk(val);
+                InsertBulkInternal(val);
             }
+        }
+
+        public void InsertBulkInternal<T>(IEnumerable<T> val)
+        {
+            _database.GetCollection<T>().InsertBulk(val);
         }
 
         public QueryItem[] FindItems(FilterContext filterContext)

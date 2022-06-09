@@ -147,12 +147,7 @@
 
         <!--VK_F12	0x7B	F12 key-->
         <KeyBinding guid="guidCommand1PackageCmdSet" id="FindCommandCmd" editor="guidVSStd97" 
-
                     key1="0x7B" mod1="Alt" />
-        <!--
-                    key1="f" mod1="Control Alt" 
-        -->
-
     </KeyBindings>
 
     <Symbols>

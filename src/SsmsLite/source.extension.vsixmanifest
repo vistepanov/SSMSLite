@@ -4,6 +4,7 @@
         <Identity Id="SsmsLite.03ad0b68-2ea0-4d16-aa28-816208d10e0f" Version="1.0" Language="en-US" Publisher="VIST" />
         <DisplayName>SsmsLite</DisplayName>
         <Description xml:space="preserve">Useful extensions for SSMS</Description>
+        <License>LICENSE-2.0.txt</License>
     </Metadata>
     <Installation>
         <InstallationTarget Id="ssms" Version="[15.0,16.0)" />

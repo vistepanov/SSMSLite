@@ -6,14 +6,14 @@ using SsmsLite.Core.Integration;
 
 namespace SsmsLite.Sync
 {
-    class SqlServerParser
+    class SqlScriptParse
     {
         private readonly PackageProvider _packageProvider;
         private readonly Location _location;
         private Token[] _tokens;
 
 
-        public SqlServerParser(PackageProvider packageProvider)
+        public SqlScriptParse(PackageProvider packageProvider)
         {
             _packageProvider = packageProvider;
             _location = LocationsHelper.CurrentLocation(_packageProvider.TextDocument);
@@ -29,7 +29,7 @@ namespace SsmsLite.Sync
             var sqlStatement = GetCurrentStatement(sqlBatch);
             if (sqlStatement == null) return null;
 
-            var tokens = GetCurrentToken(sqlStatement);
+            var tokens = GetCurrentToken(sqlStatement, parseResult); // доковырять поиск use. 
 
             return tokens;
         }
@@ -46,7 +46,7 @@ namespace SsmsLite.Sync
                 .FirstOrDefault(s => LocationsHelper.Contain(_location, s.StartLocation, s.EndLocation));
         }
 
-        private string[] GetCurrentToken(SqlStatement statement)
+        private string[] GetCurrentToken(SqlStatement statement, ParseResult parseResult)
         {
             _tokens = statement.Tokens.Where(tk => tk.IsSignificant).ToArray(); //&& tk.Type == "TOKEN_ID"
 
@@ -55,8 +55,9 @@ namespace SsmsLite.Sync
                 if (LocationsHelper.Contain(_location, _tokens[i].StartLocation, _tokens[i].EndLocation))
                 {
                     if (_tokens[i].Type != "TOKEN_ID") return null;
+                    var db = LookUse(parseResult, _tokens[i].StartLocation.Offset);
                     var lastIndex = GoLast(i);
-                    return ProcessTokensDown(lastIndex);
+                    return ProcessTokensDown(lastIndex, db);
                 }
             }
 
@@ -65,18 +66,20 @@ namespace SsmsLite.Sync
 
         private int GoLast(int i)
         {
+            var isToken = _tokens[i].Type == "TOKEN_ID";
             while (_tokens.Length > i)
             {
-                if (_tokens[i].Type != "TOKEN_ID" &&
-                    _tokens[i].Type != "."
-                   ) return i;
+                if (_tokens[i].Type != "TOKEN_ID" && _tokens[i].Type != ".") return i;
+                if (_tokens[i].Type == "TOKEN_ID" && !isToken) return i;
+                if (_tokens[i].Type == "." && isToken) return i;
+                isToken = !isToken;
                 i++;
             }
 
             return _tokens.Length;
         }
 
-        private string[] ProcessTokensDown(int i)
+        private string[] ProcessTokensDown(int i, string db)
         {
             i--;
             var isToken = true;
@@ -92,7 +95,27 @@ namespace SsmsLite.Sync
                 i--;
             }
 
+            if (list.Count == 1) 
+                list.Add("dbo");
+            if (list.Count == 2 && !string.IsNullOrEmpty(db))
+                list.Add(db);
+            
             return list.ToArray();
+        }
+
+        private string LookUse(ParseResult parseResult, int offset)
+        {
+            var tokens = parseResult.Script.Tokens.Where(t => t.StartLocation.Offset < offset && t.Type != "LEX_WHITE" ).ToArray();
+            var i = tokens.Length-1;
+            while (i>=0 && tokens[i].Type != "TOKEN_USEDB")
+            {
+                i--;
+            }
+            if (i<0) return null;
+            i++;
+            return tokens[i].Text;
+
+            return null;
         }
     }
 }

@@ -56,7 +56,7 @@ namespace SsmsLite.Sync
         {
             try
             {
-                var parser = new SqlServerParser(_packageProvider);
+                var parser = new SqlScriptParse(_packageProvider);
                 var dbo = new Dbo(parser.FindCurrentObject());
                 if (string.IsNullOrWhiteSpace(dbo.Name))
                     dbo.Name = _packageProvider.CurrentWord;

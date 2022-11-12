@@ -48,6 +48,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assemblies", "assemblies", 
 		assemblies\SqlWorkbench.Interfaces.dll = assemblies\SqlWorkbench.Interfaces.dll
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SsmsLite.Result", "Plugins\SsmsLite.Result\SsmsLite.Result.csproj", "{DEE2B83C-BBE6-4029-BF5E-6938BC1DD752}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -144,6 +146,14 @@ Global
 		{ECCCB9EA-AE80-4D7E-8DDC-E0AD14F46C5C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ECCCB9EA-AE80-4D7E-8DDC-E0AD14F46C5C}.Release|x86.ActiveCfg = Release|Any CPU
 		{ECCCB9EA-AE80-4D7E-8DDC-E0AD14F46C5C}.Release|x86.Build.0 = Release|Any CPU
+		{DEE2B83C-BBE6-4029-BF5E-6938BC1DD752}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEE2B83C-BBE6-4029-BF5E-6938BC1DD752}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEE2B83C-BBE6-4029-BF5E-6938BC1DD752}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DEE2B83C-BBE6-4029-BF5E-6938BC1DD752}.Debug|x86.Build.0 = Debug|Any CPU
+		{DEE2B83C-BBE6-4029-BF5E-6938BC1DD752}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEE2B83C-BBE6-4029-BF5E-6938BC1DD752}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEE2B83C-BBE6-4029-BF5E-6938BC1DD752}.Release|x86.ActiveCfg = Release|Any CPU
+		{DEE2B83C-BBE6-4029-BF5E-6938BC1DD752}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,6 +170,7 @@ Global
 		{6FF8B4D2-A87C-42A4-B066-88221163AD04} = {C18A9982-11C5-42D2-ACE4-AA7D3BF38003}
 		{ECCCB9EA-AE80-4D7E-8DDC-E0AD14F46C5C} = {C18A9982-11C5-42D2-ACE4-AA7D3BF38003}
 		{B706FB6B-E79E-4CFA-9DCA-098348B15A83} = {C543D40E-89E8-48F3-BB05-5D2BE37CAFCD}
+		{DEE2B83C-BBE6-4029-BF5E-6938BC1DD752} = {C18A9982-11C5-42D2-ACE4-AA7D3BF38003}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2B152AD-4AF8-4F40-846C-959E8A335884}
